@@ -257,6 +257,50 @@
       color: var(--text-muted);
     }
 
+    /* Phoneme Reference Guide Styles (A-Z Sorted & Styled) */
+    .reference-card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .reference-card h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .phoneme-section-title {
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-top: 8px;
+      margin-bottom: 4px;
+      letter-spacing: 0.5px;
+    }
+
+    .phoneme-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    .phoneme-table th, .phoneme-table td {
+      border: 1px solid var(--border);
+      padding: 8px 12px;
+      text-align: left;
+    }
+
+    .phoneme-table th {
+      background-color: #f1f3f4;
+      font-weight: 600;
+    }
+
     .switch {
       position: relative;
       display: inline-block;
@@ -371,6 +415,12 @@
       </div>
     </div>
   </div>
+
+  <!-- Phoneme Reference Guide (Restored & Sorted A-Z) -->
+  <div class="reference-card">
+    <h3 id="refTitle">Phoneme Reference Guide</h3>
+    <div id="refContent"></div>
+  </div>
 </div>
 
 <script>
@@ -382,6 +432,203 @@
 
   let currentRegion = 'US';
   let currentTokens = [];
+
+  const phonemeReferences = {
+    US: `
+      <div class="phoneme-section-title">Vowels (Lexical Sets)</div>
+      <table class="phoneme-table">
+        <tr><th>IPA / Lexical Set</th><th>Respelling</th><th>Notes & Description</th><th>English Approximation</th></tr>
+        <tr><td>ɑː</td><td>aa</td><td>bath/palm set</td><td>as in <em>father</em></td></tr>
+        <tr><td>aɪ</td><td>igh</td><td>price set</td><td>as in <em>high</em></td></tr>
+        <tr><td>aɪə</td><td>igh-uh</td><td>fire set</td><td>as in <em>fire</em></td></tr>
+        <tr><td>aʊ</td><td>ow</td><td>mouth set</td><td>as in <em>now</em></td></tr>
+        <tr><td>aʊə</td><td>ow-uh</td><td>power set</td><td>as in <em>power</em></td></tr>
+        <tr><td>æ</td><td>a</td><td>trap set</td><td>as in <em>cat</em></td></tr>
+        <tr><td>ə / ɐ</td><td>uh</td><td>comma/letter set</td><td>as in <em>cup</em></td></tr>
+        <tr><td>əʊ</td><td>oh</td><td>goat set</td><td>as in <em>go</em></td></tr>
+        <tr><td>eə</td><td>air</td><td>square set</td><td>as in <em>air</em></td></tr>
+        <tr><td>eɪ</td><td>ay</td><td>face set</td><td>as in <em>day</em></td></tr>
+        <tr><td>ɛ</td><td>e</td><td>dress set (standardised; not plain e)</td><td>as in <em>bed</em></td></tr>
+        <tr><td>ɜː</td><td>ur</td><td>nurse set (ɜːɹ → ur-r)</td><td>as in <em>nurse</em></td></tr>
+        <tr><td>i</td><td>ee</td><td>happy set</td><td>as in <em>happy</em></td></tr>
+        <tr><td>iː</td><td>ee</td><td>fleece set</td><td>as in <em>feet</em></td></tr>
+        <tr><td>ɪ</td><td>i</td><td>kit set</td><td>as in <em>bit</em></td></tr>
+        <tr><td>ɪə / iə</td><td>eer</td><td>near set</td><td>as in <em>peer</em></td></tr>
+        <tr><td>ɔː</td><td>aw</td><td>thought set</td><td>as in <em>law</em></td></tr>
+        <tr><td>ɔɪ</td><td>oy</td><td>choice set</td><td>as in <em>boy</em></td></tr>
+        <tr><td>ɒ</td><td>o</td><td>lot set (UK/global)</td><td>as in <em>lot</em></td></tr>
+        <tr><td>ʊ</td><td>uu</td><td>foot set</td><td>as in <em>book</em></td></tr>
+        <tr><td>uː / u</td><td>oo</td><td>goose set</td><td>as in <em>too</em></td></tr>
+        <tr><td>ʌ</td><td>uh</td><td>strut set</td><td>as in <em>cup</em></td></tr>
+      </table>
+
+      <div class="phoneme-section-title">Consonants (Core)</div>
+      <table class="phoneme-table">
+        <tr><th>IPA</th><th>Respelling</th><th>Example</th></tr>
+        <tr><td>b</td><td>b</td><td>bad</td></tr>
+        <tr><td>d</td><td>d</td><td>dog</td></tr>
+        <tr><td>dʒ</td><td>j</td><td>joy</td></tr>
+        <tr><td>ð</td><td>dh</td><td>this</td></tr>
+        <tr><td>f</td><td>f</td><td>fox</td></tr>
+        <tr><td>ɡ / g</td><td>g</td><td>go</td></tr>
+        <tr><td>h</td><td>h</td><td>hat</td></tr>
+        <tr><td>k</td><td>k</td><td>kit</td></tr>
+        <tr><td>l</td><td>l</td><td>lip</td></tr>
+        <tr><td>m</td><td>m</td><td>man</td></tr>
+        <tr><td>n</td><td>n</td><td>net</td></tr>
+        <tr><td>ŋ</td><td>ng</td><td>sing</td></tr>
+        <tr><td>p</td><td>p</td><td>pen</td></tr>
+        <tr><td>ɹ / r</td><td>r</td><td>run</td></tr>
+        <tr><td>s</td><td>s</td><td>sun</td></tr>
+        <tr><td>ʃ</td><td>sh</td><td>ship</td></tr>
+        <tr><td>t</td><td>t</td><td>top</td></tr>
+        <tr><td>tʃ</td><td>ch</td><td>chat</td></tr>
+        <tr><td>θ</td><td>th</td><td>think</td></tr>
+        <tr><td>v</td><td>v</td><td>van</td></tr>
+        <tr><td>w</td><td>w</td><td>win</td></tr>
+        <tr><td>w</td><td>w</td><td>win</td></tr>
+        <tr><td>j</td><td>y</td><td>yes</td></tr>
+        <tr><td>z</td><td>z</td><td>zoo</td></tr>
+        <tr><td>ʒ</td><td>zh</td><td>vision</td></tr>
+        <tr><td>ʔ</td><td>'</td><td>glottal stop</td></tr>
+      </table>
+
+      <div class="phoneme-section-title">Loanword / Marginal</div>
+      <table class="phoneme-table">
+        <tr><th>IPA</th><th>Respelling</th><th>Description / Example</th></tr>
+        <tr><td>ɑ̃</td><td>aa(n)</td><td>nasal open back unrounded (croissant)</td></tr>
+        <tr><td>æ̃</td><td>a(n)</td><td>nasal trap (gratin)</td></tr>
+        <tr><td>ʲ</td><td>(y)</td><td>palatalized</td></tr>
+        <tr><td>ɬ</td><td>hl</td><td>Welsh ll</td></tr>
+        <tr><td>x</td><td>kh</td><td>loch</td></tr>
+      </table>
+    `,
+    UK: `
+      <div class="phoneme-section-title">Vowels (Lexical Sets - UK)</div>
+      <table class="phoneme-table">
+        <tr><th>IPA / Lexical Set</th><th>Respelling</th><th>Notes & Description</th><th>English Approximation</th></tr>
+        <tr><td>ɑː</td><td>aa</td><td>bath/palm set</td><td>as in RP <em>father</em></td></tr>
+        <tr><td>aɪ</td><td>igh</td><td>price set</td><td>as in <em>high</em></td></tr>
+        <tr><td>aɪə</td><td>igh-uh</td><td>fire set</td><td>as in <em>fire</em></td></tr>
+        <tr><td>aʊ</td><td>ow</td><td>mouth set</td><td>as in <em>now</em></td></tr>
+        <tr><td>aʊə</td><td>ow-uh</td><td>power set</td><td>as in <em>power</em></td></tr>
+        <tr><td>æ</td><td>a</td><td>trap set</td><td>as in <em>cat</em></td></tr>
+        <tr><td>ə / ɐ</td><td>uh</td><td>comma/letter set</td><td>as in <em>cup</em></td></tr>
+        <tr><td>əʊ</td><td>oh</td><td>goat set</td><td>as in <em>go</em></td></tr>
+        <tr><td>eə</td><td>air</td><td>square set</td><td>as in <em>air</em></td></tr>
+        <tr><td>eɪ</td><td>ay</td><td>face set</td><td>as in <em>day</em></td></tr>
+        <tr><td>ɛ</td><td>e</td><td>dress set</td><td>as in <em>bed</em></td></tr>
+        <tr><td>ɜː</td><td>ur</td><td>nurse set</td><td>as in <em>nurse</em></td></tr>
+        <tr><td>i</td><td>ee</td><td>happy set</td><td>as in <em>happy</em></td></tr>
+        <tr><td>iː</td><td>ee</td><td>fleece set</td><td>as in <em>feet</em></td></tr>
+        <tr><td>ɪ</td><td>i</td><td>kit set</td><td>as in <em>bit</em></td></tr>
+        <tr><td>ɪə / iə</td><td>eer</td><td>near set</td><td>as in <em>peer</em></td></tr>
+        <tr><td>ɔː</td><td>aw</td><td>thought set</td><td>as in <em>thought</em></td></tr>
+        <tr><td>ɔɪ</td><td>oy</td><td>choice set</td><td>as in <em>boy</em></td></tr>
+        <tr><td>ɒ</td><td>o</td><td>lot set</td><td>as in <em>lot</em></td></tr>
+        <tr><td>ʊ</td><td>uu</td><td>foot set</td><td>as in <em>book</em></td></tr>
+        <tr><td>uː / u</td><td>oo</td><td>goose set</td><td>as in <em>too</em></td></tr>
+        <tr><td>ʌ</td><td>uh</td><td>strut set</td><td>as in <em>cup</em></td></tr>
+      </table>
+
+      <div class="phoneme-section-title">Consonants (Core)</div>
+      <table class="phoneme-table">
+        <tr><th>IPA</th><th>Respelling</th><th>Example</th></tr>
+        <tr><td>b</td><td>b</td><td>bad</td></tr>
+        <tr><td>d</td><td>d</td><td>dog</td></tr>
+        <tr><td>dʒ</td><td>j</td><td>joy</td></tr>
+        <tr><td>ð</td><td>dh</td><td>this</td></tr>
+        <tr><td>f</td><td>f</td><td>fox</td></tr>
+        <tr><td>ɡ / g</td><td>g</td><td>go</td></tr>
+        <tr><td>h</td><td>h</td><td>hat</td></tr>
+        <tr><td>k</td><td>k</td><td>kit</td></tr>
+        <tr><td>l</td><td>l</td><td>lip</td></tr>
+        <tr><td>m</td><td>m</td><td>man</td></tr>
+        <tr><td>n</td><td>n</td><td>net</td></tr>
+        <tr><td>ŋ</td><td>ng</td><td>sing</td></tr>
+        <tr><td>p</td><td>p</td><td>pen</td></tr>
+        <tr><td>ɹ / r</td><td>r</td><td>run</td></tr>
+        <tr><td>s</td><td>s</td><td>sun</td></tr>
+        <tr><td>ʃ</td><td>sh</td><td>ship</td></tr>
+        <tr><td>t</td><td>t</td><td>top</td></tr>
+        <tr><td>tʃ</td><td>ch</td><td>chat</td></tr>
+        <tr><td>θ</td><td>th</td><td>think</td></tr>
+        <tr><td>v</td><td>v</td><td>van</td></tr>
+        <tr><td>w</td><td>w</td><td>win</td></tr>
+        <tr><td>j</td><td>y</td><td>yes</td></tr>
+        <tr><td>z</td><td>z</td><td>zoo</td></tr>
+        <tr><td>ʒ</td><td>zh</td><td>vision</td></tr>
+        <tr><td>ʔ</td><td>'</td><td>glottal stop</td></tr>
+      </table>
+    `,
+    French: `
+      <div class="phoneme-section-title">French Vowels & Nasals (A-Z Sorted)</div>
+      <table class="phoneme-table">
+        <tr><th>IPA</th><th>Respelling</th><th>Description / Example</th></tr>
+        <tr><td>a</td><td>a</td><td>patte</td></tr>
+        <tr><td>aː</td><td>aa</td><td>long a (pâte)</td></tr>
+        <tr><td>ɑ</td><td>aa</td><td>back a</td></tr>
+        <tr><td>ɑ̃ / ã</td><td>aaᴺ</td><td>nasal open back (an, dans)</td></tr>
+        <tr><td>e</td><td>e</td><td>close-mid front unrounded (été)</td></tr>
+        <tr><td>ɛ</td><td>eh</td><td>open-mid front unrounded (lait)</td></tr>
+        <tr><td>ɛː</td><td>e͟h</td><td>long open-mid front</td></tr>
+        <tr><td>ɛ̃ / ẽ</td><td>ehᴺ</td><td>nasal open-front unrounded (in, pain)</td></tr>
+        <tr><td>ə</td><td>ə</td><td>schwa (le)</td></tr>
+        <tr><td>i</td><td>i</td><td>close front unrounded (fini, lit)</td></tr>
+        <tr><td>o</td><td>o</td><td>close-mid back rounded (côte)</td></tr>
+        <tr><td>oː</td><td>o</td><td>long close-mid back</td></tr>
+        <tr><td>ɔ</td><td>aw</td><td>open-mid back rounded (cotte)</td></tr>
+        <tr><td>ɔ̃ / õ</td><td>awᴺ</td><td>nasal open-mid back (bon)</td></tr>
+        <tr><td>œ</td><td>œ</td><td>open-mid front rounded (fleur)</td></tr>
+        <tr><td>œ̃</td><td>œᴺ</td><td>nasal open-mid front rounded (un, brun)</td></tr>
+        <tr><td>ø</td><td>ø</td><td>close-mid front rounded (peu)</td></tr>
+        <tr><td>u</td><td>u</td><td>close back rounded (ou)</td></tr>
+        <tr><td>y</td><td>ü</td><td>close front rounded (tu)</td></tr>
+      </table>
+
+      <div class="phoneme-section-title">French Consonants & Semivowels (A-Z Sorted)</div>
+      <table class="phoneme-table">
+        <tr><th>IPA</th><th>Respelling</th><th>Description / Example</th></tr>
+        <tr><td>b</td><td>b</td><td>bain</td></tr>
+        <tr><td>d</td><td>d</td><td>dans</td></tr>
+        <tr><td>f</td><td>f</td><td>feu</td></tr>
+        <tr><td>ɡ / g</td><td>g</td><td>gare</td></tr>
+        <tr><td>ɥ</td><td>ʏ</td><td>semivowel (huit, nuit)</td></tr>
+        <tr><td>j</td><td>y</td><td>semivowel (yeux)</td></tr>
+        <tr><td>k</td><td>k</td><td>coq</td></tr>
+        <tr><td>l</td><td>l</td><td>lac</td></tr>
+        <tr><td>m</td><td>m</td><td>mille</td></tr>
+        <tr><td>n</td><td>n</td><td>nous</td></tr>
+        <tr><td>ɲ</td><td>ñ</td><td>gn (gagne)</td></tr>
+        <tr><td>ŋ</td><td>NG</td><td>nasal velar</td></tr>
+        <tr><td>p</td><td>p</td><td>pas</td></tr>
+        <tr><td>ʁ / ʀ</td><td>ʀ</td><td>voiced uvular fricative / trill (roue)</td></tr>
+        <tr><td>s</td><td>s</td><td>sel</td></tr>
+        <tr><td>ʃ</td><td>SH</td><td>chat</td></tr>
+        <tr><td>t</td><td>t</td><td>tas</td></tr>
+        <tr><td>v</td><td>v</td><td>vin</td></tr>
+        <tr><td>w</td><td>w</td><td>oui</td></tr>
+        <tr><td>z</td><td>z</td><td>zéro</td></tr>
+        <tr><td>ʒ</td><td>ZH</td><td>jour</td></tr>
+        <tr><td>‿</td><td>‿</td><td>Liaison (continuous word linking)</td></tr>
+      </table>
+    `
+  };
+
+  function updateReferenceGuide() {
+    const title = document.getElementById('refTitle');
+    const content = document.getElementById('refContent');
+    if (currentRegion === 'US') {
+      title.textContent = 'Phoneme Reference Guide: US English';
+      content.innerHTML = phonemeReferences.US;
+    } else if (currentRegion === 'UK') {
+      title.textContent = 'Phoneme Reference Guide: UK English';
+      content.innerHTML = phonemeReferences.UK;
+    } else {
+      title.textContent = 'Phoneme Reference Guide: French';
+      content.innerHTML = phonemeReferences.French;
+    }
+  }
 
   function updateVoicesList() {
     const voiceSelect = document.getElementById('voiceSelect');
@@ -441,6 +688,7 @@
     }
 
     updateVoicesList();
+    updateReferenceGuide();
     onSearchInput();
   }
 
