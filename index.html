@@ -41,12 +41,13 @@
 
     .container {
       width: 100%;
-      max-width: 850px;
+      max-width: 900px;
       display: flex;
       flex-direction: column;
       gap: 20px;
     }
 
+    /* Region Selection & Status Bar */
     .status-bar {
       background: var(--card-bg);
       border: 1px solid var(--border);
@@ -81,6 +82,7 @@
       border-color: var(--primary);
     }
 
+    /* Settings Row */
     .settings-row {
       display: flex;
       gap: 12px;
@@ -115,6 +117,7 @@
       cursor: pointer;
     }
 
+    /* Search Card */
     .search-card {
       background: var(--card-bg);
       border-radius: 28px;
@@ -141,6 +144,7 @@
       padding: 8px 0;
     }
 
+    /* Pronunciation Card */
     .pronunciation-card {
       background: var(--card-bg);
       border-radius: var(--radius);
@@ -183,6 +187,7 @@
       line-height: 1.4;
     }
 
+    /* Vowel highlight pill styling - Used ONLY for French */
     .vowel-pill {
       background-color: var(--vowel-bg);
       color: var(--vowel-text);
@@ -214,6 +219,21 @@
       color: var(--primary);
       font-weight: 700;
       padding: 0 1px;
+    }
+
+    .alternatives-box {
+      font-size: 14px;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border);
+      padding-top: 12px;
+      margin-top: 8px;
+    }
+
+    .capitalization-note {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-style: italic;
+      margin-top: 4px;
     }
 
     .play-btn {
@@ -248,6 +268,41 @@
       margin-top: 16px;
       font-size: 14px;
       color: var(--text-muted);
+    }
+
+    /* Phoneme Reference Section */
+    .reference-card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .reference-card h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .phoneme-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      margin-top: 8px;
+    }
+
+    .phoneme-table th, .phoneme-table td {
+      border: 1px solid var(--border);
+      padding: 8px 12px;
+      text-align: left;
+    }
+
+    .phoneme-table th {
+      background-color: #f1f3f4;
+      font-weight: 600;
     }
 
     .switch {
@@ -304,6 +359,7 @@
 <body>
 
 <div class="container">
+  <!-- Region Switcher & Status Bar -->
   <div class="status-bar">
     <div class="region-btn-group">
       <button id="btnUS" class="btn-region active" onclick="switchRegion('US')">US English</button>
@@ -319,16 +375,7 @@
     <div id="progressBar" class="progress-bar"></div>
   </div>
 
-  <div class="settings-row" id="frenchSettingsRow" style="display:none;">
-    <div class="setting-group">
-      <label for="accentSelect">French Dialect Setting</label>
-      <select id="accentSelect" class="select-control" onchange="onAccentChange()">
-        <option value="fr-FR">Parisian French (oeᴺ -> ehᴺ, œ̃ -> ɛ̃, ɑ -> a)</option>
-        <option value="fr-CA">Canadian French (Keeps oeᴺ, œ̃, ɑ)</option>
-      </select>
-    </div>
-  </div>
-
+  <!-- Search Card -->
   <div class="search-card">
     <svg style="width:20px; height:20px; fill:var(--text-muted)" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
     <input type="text" id="searchInput" class="search-input" placeholder="Search word..." disabled oninput="onSearchInput()">
@@ -337,6 +384,7 @@
 
   <div id="didYouMean" style="font-size:14px; color:var(--text-muted); display:none;"></div>
 
+  <!-- Pronunciation Card -->
   <div class="pronunciation-card">
     <div class="card-header">
       <div id="displayWord" class="word-title">---</div>
@@ -354,6 +402,14 @@
         </button>
       </div>
 
+      <!-- Capitalization Note -->
+      <div id="capitalizationNote" class="capitalization-note" style="display:none;">
+        * Capitalized syllables indicate primary stress.
+      </div>
+
+      <!-- Alternative Variants Box -->
+      <div id="alternativesBox" class="alternatives-box" style="display:none;"></div>
+
       <div class="toggle-row">
         <label class="switch">
           <input type="checkbox" id="slowToggle">
@@ -362,6 +418,12 @@
         <span>Slow speed</span>
       </div>
     </div>
+  </div>
+
+  <!-- Phoneme Reference Guide -->
+  <div class="reference-card">
+    <h3 id="refTitle">Phoneme Reference Guide: US English</h3>
+    <div id="refContent"></div>
   </div>
 </div>
 
@@ -374,6 +436,61 @@
 
   let currentRegion = 'US';
   let currentTokens = [];
+
+  const phonemeReferences = {
+    US: `
+      <table class="phoneme-table">
+        <tr><th>Phoneme / Respelling</th><th>Use / Context</th><th>Notes</th><th>English Approximation</th></tr>
+        <tr><td><strong>ah</strong></td><td>father, cot</td><td>Open back unrounded vowel</td><td>as in <em>father</em></td></tr>
+        <tr><td><strong>eh</strong></td><td>bed, met</td><td>Mid front unrounded vowel</td><td>as in <em>bed</em></td></tr>
+        <tr><td><strong>ee</strong></td><td>beat, feet</td><td>Close front unrounded vowel</td><td>as in <em>feet</em></td></tr>
+        <tr><td><strong>ih</strong></td><td>bit, sit</td><td>Near-close near-front unrounded</td><td>as in <em>sit</em></td></tr>
+        <tr><td><strong>oh</strong></td><td>boat, go</td><td>Mid back rounded vowel</td><td>as in <em>go</em></td></tr>
+        <tr><td><strong>oo</strong></td><td>boot, too</td><td>Close back rounded vowel</td><td>as in <em>too</em></td></tr>
+        <tr><td><strong>uh</strong></td><td>but, cut</td><td>Mid-central unrounded vowel (schwa)</td><td>as in <em>cup</em></td></tr>
+        <tr><td><strong>Capitalization (e.g., OH)</strong></td><td>Primary stress</td><td>Indicates the stressed syllable in multi-syllable words</td><td>Stressed loudness/pitch</td></tr>
+      </table>
+    `,
+    UK: `
+      <table class="phoneme-table">
+        <tr><th>Phoneme / Respelling</th><th>Use / Context</th><th>Notes</th><th>English Approximation</th></tr>
+        <tr><td><strong>ah</strong></td><td>father, bath</td><td>Broad open back vowel</td><td>as in RP <em>father</em></td></tr>
+        <tr><td><strong>eh</strong></td><td>bed, met</td><td>Mid front unrounded vowel</td><td>as in <em>bed</em></td></tr>
+        <tr><td><strong>ee</strong></td><td>beat, feet</td><td>Close front unrounded vowel</td><td>as in <em>feet</em></td></tr>
+        <tr><td><strong>oh</strong></td><td>thought, core</td><td>Open-mid back rounded vowel</td><td>as in <em>thought</em></td></tr>
+        <tr><td><strong>uh</strong></td><td>cup, strut</td><td>Open-mid central unrounded vowel</td><td>as in <em>cup</em></td></tr>
+        <tr><td><strong>Capitalization (e.g., AH)</strong></td><td>Primary stress</td><td>Indicates the stressed syllable</td><td>Stressed loudness/pitch</td></tr>
+      </table>
+    `,
+    French: `
+      <table class="phoneme-table">
+        <tr><th>Phoneme / Respelling</th><th>Use / Context</th><th>Notes</th><th>English Approximation / Description</th></tr>
+        <tr><td><strong>[a] / [aa] / [ɑ]</strong></td><td>patte, pâte</td><td>Front [a] vs Back [ɑ] open vowels</td><td>closer to 'a' in <em>father</em> (ɑ) or <em>cat</em> (a)</td></tr>
+        <tr><td><strong>[e] / [eh]</strong></td><td>été, blé / lait, faire</td><td>Close-mid [e] vs Open-mid [ɛ/eh]</td><td>like 'ay' in <em>day</em> ([e]) or 'e' in <em>bed</em> ([eh])</td></tr>
+        <tr><td><strong>[i]</strong></td><td>fini, lit</td><td>Close front unrounded vowel</td><td>like 'ee' in <em>feet</em></td></tr>
+        <tr><td><strong>[o] / [ɔ]</strong></td><td>côte / cotte</td><td>Close-mid vs Open-mid back rounded</td><td>like 'o' in <em>tone</em> or <em>cot</em></td></tr>
+        <tr><td><strong>[œ̃] / [oeᴺ]</strong></td><td>un, brun</td><td>Open-mid front rounded nasal vowel</td><td>French nasal vowel (unmerged & preserved)</td></tr>
+        <tr><td><strong>[ɛ̃] / [ehᴺ]</strong></td><td>in, pain</td><td>Open-front unrounded nasal vowel</td><td>like 'an' in <em>sang</em> (nasalized)</td></tr>
+        <tr><td><strong>[awᴺ]</strong></td><td>an, dans</td><td>Open-mid back rounded nasal vowel</td><td>nasalized 'aw'</td></tr>
+        <tr><td><strong>‿ (Liaison)</strong></td><td>les‿amis</td><td>Links adjacent words in pronunciation</td><td>No direct pause; continuous consonant flow</td></tr>
+      </table>
+    `
+  };
+
+  function updateReferenceGuide() {
+    const title = document.getElementById('refTitle');
+    const content = document.getElementById('refContent');
+    if (currentRegion === 'US') {
+      title.textContent = 'Phoneme Reference Guide: US English';
+      content.innerHTML = phonemeReferences.US;
+    } else if (currentRegion === 'UK') {
+      title.textContent = 'Phoneme Reference Guide: UK English';
+      content.innerHTML = phonemeReferences.UK;
+    } else {
+      title.textContent = 'Phoneme Reference Guide: French (Unmerged & Native)';
+      content.innerHTML = phonemeReferences.French;
+    }
+  }
 
   function updateVoicesList() {
     const voiceSelect = document.getElementById('voiceSelect');
@@ -388,8 +505,7 @@
       targetLang = 'en-GB';
       preferredKeyword = 'eddy';
     } else if (currentRegion === 'French') {
-      const accentSelect = document.getElementById('accentSelect');
-      targetLang = accentSelect ? accentSelect.value : 'fr-FR';
+      targetLang = 'fr-FR';
       preferredKeyword = 'amelie';
     }
 
@@ -423,29 +539,22 @@
     document.getElementById('btnUK').classList.toggle('active', regionKey === 'UK');
     document.getElementById('btnFR').classList.toggle('active', regionKey === 'French');
 
-    const frenchSettings = document.getElementById('frenchSettingsRow');
     const searchInput = document.getElementById('searchInput');
 
     if (regionKey === 'French') {
-      frenchSettings.style.display = 'flex';
       document.getElementById('accentDisplayLabel').textContent = 'French Pronunciation';
       searchInput.value = 'bonjour';
     } else {
-      frenchSettings.style.display = 'none';
       document.getElementById('accentDisplayLabel').textContent = regionKey === 'US' ? 'US English Pronunciation' : 'UK English Pronunciation';
       searchInput.value = 'hello';
     }
 
     updateVoicesList();
+    updateReferenceGuide();
     onSearchInput();
   }
 
-  function onAccentChange() {
-    updateVoicesList();
-    onSearchInput();
-  }
-
-  function parseLine(line, isFrench) {
+  function parseLine(line) {
     const trimmed = line.trim();
     if (!trimmed || trimmed.startsWith('#') || trimmed.startsWith('-')) return null;
 
@@ -465,9 +574,6 @@
     }
 
     if (wordPart && respellingPart) {
-      if (isFrench && respellingPart.includes('|')) {
-        respellingPart = respellingPart.split('|')[0].trim();
-      }
       return { word: wordPart, respelling: respellingPart };
     }
     return null;
@@ -484,7 +590,7 @@
       if (usRes.ok) {
         const text = await usRes.text();
         text.split('\n').forEach(line => {
-          const p = parseLine(line, false);
+          const p = parseLine(line);
           if (p) dictionaries.US.set(p.word, p.respelling);
         });
       }
@@ -494,7 +600,7 @@
       if (ukRes.ok) {
         const text = await ukRes.text();
         text.split('\n').forEach(line => {
-          const p = parseLine(line, false);
+          const p = parseLine(line);
           if (p) dictionaries.UK.set(p.word, p.respelling);
         });
       }
@@ -507,7 +613,7 @@
           if (frRes.ok) {
             const text = await frRes.text();
             text.split('\n').forEach(line => {
-              const p = parseLine(line, true);
+              const p = parseLine(line);
               if (p) dictionaries.French.set(p.word, p.respelling);
             });
           }
@@ -575,37 +681,27 @@
     return null;
   }
 
-  // Robust Parisian dialect replacement (handles ASCII & Unicode variations)
-  function formatRespelling(respellingStr) {
-    if (currentRegion !== 'French') return respellingStr;
-    const accentSelect = document.getElementById('accentSelect');
-    const accent = accentSelect ? accentSelect.value : 'fr-FR';
-    const normalized = respellingStr.normalize('NFC');
-    
-    if (accent === 'fr-FR') {
-      return normalized
-        .replace(/oeᴺ/g, 'ehᴺ')
-        .replace(/oeN/g, 'ehN')
-        .replace(/œ̃/g, 'ɛ̃')
-        .replace(/ɑ/g, 'a')
-        .replace(/aa/g, 'a');
-    }
-    return normalized;
-  }
-
   function renderRespelling(rawRespellingStr) {
     const container = document.getElementById('respellingContainer');
+    const alternativesBox = document.getElementById('alternativesBox');
+    const capitalizationNote = document.getElementById('capitalizationNote');
+    
     container.innerHTML = '';
+    alternativesBox.innerHTML = '';
+    alternativesBox.style.display = 'none';
+    capitalizationNote.style.display = 'none';
     currentTokens = [];
 
-    const formattedStr = formatRespelling(rawRespellingStr);
+    const variants = rawRespellingStr.split('|').map(v => v.trim()).filter(Boolean);
+    const primaryRaw = variants[0].normalize('NFC');
+    const alternativeVariants = variants.slice(1);
 
     if (currentRegion === 'French') {
       const regex = /(\[[^\]]+\])|(‿)|([^\[‿]+)/g;
       let match;
       let tokenIndex = 0;
 
-      while ((match = regex.exec(formattedStr)) !== null) {
+      while ((match = regex.exec(primaryRaw)) !== null) {
         const fullText = match[0];
         const isVowel = fullText.startsWith('[') && fullText.endsWith(']');
         const isLiaison = fullText === '‿';
@@ -628,11 +724,11 @@
         container.appendChild(span);
       }
     } else {
-      const rawSyllables = formattedStr.split('-');
+      const rawSyllables = primaryRaw.split('-');
       currentTokens = rawSyllables.map((syl, index) => ({
         id: `token-${index}`,
         isVowel: true,
-        content: syl.toLowerCase()
+        content: syl
       }));
 
       currentTokens.forEach((item, index) => {
@@ -648,6 +744,15 @@
         span.textContent = item.content;
         container.appendChild(span);
       });
+
+      if (/[A-Z]/.test(primaryRaw)) {
+        capitalizationNote.style.display = 'block';
+      }
+    }
+
+    if (alternativeVariants.length > 0) {
+      alternativesBox.style.display = 'block';
+      alternativesBox.innerHTML = `<strong>Alternative pronunciations:</strong> ${alternativeVariants.join(' &nbsp;|&nbsp; ')}`;
     }
   }
 
@@ -671,6 +776,8 @@
     } else {
       document.getElementById('displayWord').textContent = query || '---';
       document.getElementById('respellingContainer').innerHTML = `<span style="font-size:18px; color:var(--text-muted)">Word not found</span>`;
+      document.getElementById('alternativesBox').style.display = 'none';
+      document.getElementById('capitalizationNote').style.display = 'none';
       playBtn.style.display = 'none';
       didYouMean.style.display = 'none';
     }
@@ -684,8 +791,7 @@
     const utterance = new SpeechSynthesisUtterance(text);
     
     if (currentRegion === 'French') {
-      const accentSelect = document.getElementById('accentSelect');
-      utterance.lang = accentSelect ? accentSelect.value : 'fr-FR';
+      utterance.lang = 'fr-FR';
     } else if (currentRegion === 'UK') {
       utterance.lang = 'en-GB';
     } else {
