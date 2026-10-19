@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"> 
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Multilingual TTS Phonetic Dictionary</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -161,7 +161,7 @@
       display: flex;
       align-items: center;
       flex-wrap: wrap;
-      gap: 4px;
+      gap: 0px;
       line-height: 1.5;
     }
 
@@ -199,8 +199,9 @@
       color: #ffffff;
     }
 
-    /* Consonants - Fully Visible and Prominent */
+    /* Unbracketed Consonants & non-vowels (White/Transparent Background) */
     .consonant-text {
+      background: transparent;
       color: var(--text);
       padding: 0 2px;
       font-weight: 600;
@@ -219,7 +220,7 @@
       padding: 0 1px;
     }
 
-    /* Alternative Variants Section - Separate Second Line */
+    /* Alternative Variants Section */
     .alternatives-box {
       font-size: 16px;
       color: var(--text-muted);
@@ -744,7 +745,7 @@
         <tr><th>Mark / Bracket</th><th>Meaning</th><th>Display Styling</th></tr>
         <tr><td><strong>[...]</strong></td><td>General Vowel</td><td>Light Blue Pill</td></tr>
         <tr><td><strong>{...}</strong></td><td>Stressed Vowel</td><td>Dark Blue Pill</td></tr>
-        <tr><td><strong>ˈ</strong></td><td>Stress Mark</td><td>Omitted in rendering; stress detected via bracket type</td></tr>
+        <tr><td><strong>Unbracketed Text</strong></td><td>Consonants / Non-Vowels</td><td>Plain Text on White Background</td></tr>
       </table>
     `
   };
@@ -997,7 +998,11 @@
     const alternativeVariants = variants.slice(1);
 
     if (currentRegion === 'French' || currentRegion === 'German') {
+      // Omit explicit stress mark ˈ
       const cleanPrimary = primaryRaw.replace(/ˈ/g, '');
+      
+      // Parse bracketed vowels vs unbracketed consonants/text
+      // Match [...] or {...} or ‿ or plain text outside brackets
       const regex = /(\[[^\]]+\])|(\{[^\}]+\})|(‿)|([^[\{\}]‿]+)/g;
       let match;
       let tokenIndex = 0;
@@ -1008,29 +1013,37 @@
         const isStressedVowel = fullText.startsWith('{') && fullText.endsWith('}');
         const isLiaison = fullText === '‿';
 
-        const span = document.createElement('span');
         if (isGeneralVowel) {
           const cleanContent = fullText.slice(1, -1);
+          const span = document.createElement('span');
           span.className = 'vowel-pill';
           span.id = `token-${tokenIndex}`;
           span.textContent = cleanContent;
+          container.appendChild(span);
           currentTokens.push({ id: `token-${tokenIndex}`, isVowel: true, content: cleanContent });
           tokenIndex++;
         } else if (isStressedVowel) {
           const cleanContent = fullText.slice(1, -1);
+          const span = document.createElement('span');
           span.className = 'vowel-pill-stressed';
           span.id = `token-${tokenIndex}`;
           span.textContent = cleanContent;
+          container.appendChild(span);
           currentTokens.push({ id: `token-${tokenIndex}`, isVowel: true, content: cleanContent });
           tokenIndex++;
         } else if (isLiaison) {
+          const span = document.createElement('span');
           span.className = 'liaison-symbol';
           span.textContent = '‿';
+          container.appendChild(span);
         } else {
+          // Unbracketed consonants or other non-vowel text
+          // Render on white/transparent background as plain text
+          const span = document.createElement('span');
           span.className = 'consonant-text';
           span.textContent = fullText;
+          container.appendChild(span);
         }
-        container.appendChild(span);
       }
     } else {
       const rawSyllables = primaryRaw.split('-');
