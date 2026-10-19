@@ -510,7 +510,7 @@
       progressBar.style.width = '35%';
       for (let i = 1; i <= 5; i++) {
         try {
-          const frRes = await fetch('./all_fr_respellings_brack_00' + i + '.txt');
+          const frRes = await fetch('./all_fr_respellings_bracket_00' + i + '.txt');
           if (frRes.ok) {
             (await frRes.text()).split('\n').forEach(line => {
               const p = parseLine(line);
@@ -523,7 +523,7 @@
       for (let i = 1; i <= 16; i++) {
         const padded = String(i).padStart(3, '0');
         try {
-          const deRes = await fetch('./all_de_respellings_brack_' + padded + '.txt');
+          const deRes = await fetch('./all_de_respellings_bracket_' + padded + '.txt');
           if (deRes.ok) {
             (await deRes.text()).split('\n').forEach(line => {
               const p = parseLine(line);
