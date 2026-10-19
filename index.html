@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Multilingual TTS Phonetic Dictionary</title>
-  <link rel="preconnect" href="https://googleapis.com">
-<link rel="preconnect" href="https://gstatic.com" crossorigin>
-<link href="https://googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
   
   <style>
     :root {
@@ -82,41 +82,6 @@
       border-color: var(--primary);
     }
 
-    /* Settings Row */
-    .settings-row {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .setting-group {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 12px 16px;
-      flex: 1;
-      min-width: 250px;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .setting-group label {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--text-muted);
-    }
-
-    .select-control {
-      border: 1px solid var(--border);
-      background: #f8f9fa;
-      border-radius: 8px;
-      padding: 6px 10px;
-      font-size: 14px;
-      outline: none;
-      cursor: pointer;
-    }
-
     /* Search Card */
     .search-card {
       background: var(--card-bg);
@@ -142,6 +107,16 @@
       background: transparent;
       color: var(--text);
       padding: 8px 0;
+    }
+
+    .select-control {
+      border: 1px solid var(--border);
+      background: #f8f9fa;
+      border-radius: 8px;
+      padding: 6px 10px;
+      font-size: 14px;
+      outline: none;
+      cursor: pointer;
     }
 
     /* Pronunciation Card */
@@ -187,7 +162,7 @@
       line-height: 1.4;
     }
 
-    /* Vowel highlight pill styling - Used ONLY for French */
+    /* Blue background vowel pills for French */
     .vowel-pill {
       background-color: var(--vowel-bg);
       color: var(--vowel-text);
@@ -221,12 +196,24 @@
       padding: 0 1px;
     }
 
+    /* Alternative Variants Section - Separate Second Line */
     .alternatives-box {
-      font-size: 14px;
+      font-size: 16px;
       color: var(--text-muted);
       border-top: 1px solid var(--border);
       padding-top: 12px;
       margin-top: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .alt-title {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
     }
 
     .capitalization-note {
@@ -268,41 +255,6 @@
       margin-top: 16px;
       font-size: 14px;
       color: var(--text-muted);
-    }
-
-    /* Phoneme Reference Section */
-    .reference-card {
-      background: var(--card-bg);
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-      padding: 24px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .reference-card h3 {
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--primary);
-    }
-
-    .phoneme-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 13px;
-      margin-top: 8px;
-    }
-
-    .phoneme-table th, .phoneme-table td {
-      border: 1px solid var(--border);
-      padding: 8px 12px;
-      text-align: left;
-    }
-
-    .phoneme-table th {
-      background-color: #f1f3f4;
-      font-weight: 600;
     }
 
     .switch {
@@ -407,7 +359,7 @@
         * Capitalized syllables indicate primary stress.
       </div>
 
-      <!-- Alternative Variants Box -->
+      <!-- Alternative Variants Box (Second Line) -->
       <div id="alternativesBox" class="alternatives-box" style="display:none;"></div>
 
       <div class="toggle-row">
@@ -418,12 +370,6 @@
         <span>Slow speed</span>
       </div>
     </div>
-  </div>
-
-  <!-- Phoneme Reference Guide -->
-  <div class="reference-card">
-    <h3 id="refTitle">Phoneme Reference Guide: US English</h3>
-    <div id="refContent"></div>
   </div>
 </div>
 
@@ -436,61 +382,6 @@
 
   let currentRegion = 'US';
   let currentTokens = [];
-
-  const phonemeReferences = {
-    US: `
-      <table class="phoneme-table">
-        <tr><th>Phoneme / Respelling</th><th>Use / Context</th><th>Notes</th><th>English Approximation</th></tr>
-        <tr><td><strong>ah</strong></td><td>father, cot</td><td>Open back unrounded vowel</td><td>as in <em>father</em></td></tr>
-        <tr><td><strong>eh</strong></td><td>bed, met</td><td>Mid front unrounded vowel</td><td>as in <em>bed</em></td></tr>
-        <tr><td><strong>ee</strong></td><td>beat, feet</td><td>Close front unrounded vowel</td><td>as in <em>feet</em></td></tr>
-        <tr><td><strong>ih</strong></td><td>bit, sit</td><td>Near-close near-front unrounded</td><td>as in <em>sit</em></td></tr>
-        <tr><td><strong>oh</strong></td><td>boat, go</td><td>Mid back rounded vowel</td><td>as in <em>go</em></td></tr>
-        <tr><td><strong>oo</strong></td><td>boot, too</td><td>Close back rounded vowel</td><td>as in <em>too</em></td></tr>
-        <tr><td><strong>uh</strong></td><td>but, cut</td><td>Mid-central unrounded vowel (schwa)</td><td>as in <em>cup</em></td></tr>
-        <tr><td><strong>Capitalization (e.g., OH)</strong></td><td>Primary stress</td><td>Indicates the stressed syllable in multi-syllable words</td><td>Stressed loudness/pitch</td></tr>
-      </table>
-    `,
-    UK: `
-      <table class="phoneme-table">
-        <tr><th>Phoneme / Respelling</th><th>Use / Context</th><th>Notes</th><th>English Approximation</th></tr>
-        <tr><td><strong>ah</strong></td><td>father, bath</td><td>Broad open back vowel</td><td>as in RP <em>father</em></td></tr>
-        <tr><td><strong>eh</strong></td><td>bed, met</td><td>Mid front unrounded vowel</td><td>as in <em>bed</em></td></tr>
-        <tr><td><strong>ee</strong></td><td>beat, feet</td><td>Close front unrounded vowel</td><td>as in <em>feet</em></td></tr>
-        <tr><td><strong>oh</strong></td><td>thought, core</td><td>Open-mid back rounded vowel</td><td>as in <em>thought</em></td></tr>
-        <tr><td><strong>uh</strong></td><td>cup, strut</td><td>Open-mid central unrounded vowel</td><td>as in <em>cup</em></td></tr>
-        <tr><td><strong>Capitalization (e.g., AH)</strong></td><td>Primary stress</td><td>Indicates the stressed syllable</td><td>Stressed loudness/pitch</td></tr>
-      </table>
-    `,
-    French: `
-      <table class="phoneme-table">
-        <tr><th>Phoneme / Respelling</th><th>Use / Context</th><th>Notes</th><th>English Approximation / Description</th></tr>
-        <tr><td><strong>[a] / [aa] / [ɑ]</strong></td><td>patte, pâte</td><td>Front [a] vs Back [ɑ] open vowels</td><td>closer to 'a' in <em>father</em> (ɑ) or <em>cat</em> (a)</td></tr>
-        <tr><td><strong>[e] / [eh]</strong></td><td>été, blé / lait, faire</td><td>Close-mid [e] vs Open-mid [ɛ/eh]</td><td>like 'ay' in <em>day</em> ([e]) or 'e' in <em>bed</em> ([eh])</td></tr>
-        <tr><td><strong>[i]</strong></td><td>fini, lit</td><td>Close front unrounded vowel</td><td>like 'ee' in <em>feet</em></td></tr>
-        <tr><td><strong>[o] / [ɔ]</strong></td><td>côte / cotte</td><td>Close-mid vs Open-mid back rounded</td><td>like 'o' in <em>tone</em> or <em>cot</em></td></tr>
-        <tr><td><strong>[œ̃] / [oeᴺ]</strong></td><td>un, brun</td><td>Open-mid front rounded nasal vowel</td><td>French nasal vowel (unmerged & preserved)</td></tr>
-        <tr><td><strong>[ɛ̃] / [ehᴺ]</strong></td><td>in, pain</td><td>Open-front unrounded nasal vowel</td><td>like 'an' in <em>sang</em> (nasalized)</td></tr>
-        <tr><td><strong>[awᴺ]</strong></td><td>an, dans</td><td>Open-mid back rounded nasal vowel</td><td>nasalized 'aw'</td></tr>
-        <tr><td><strong>‿ (Liaison)</strong></td><td>les‿amis</td><td>Links adjacent words in pronunciation</td><td>No direct pause; continuous consonant flow</td></tr>
-      </table>
-    `
-  };
-
-  function updateReferenceGuide() {
-    const title = document.getElementById('refTitle');
-    const content = document.getElementById('refContent');
-    if (currentRegion === 'US') {
-      title.textContent = 'Phoneme Reference Guide: US English';
-      content.innerHTML = phonemeReferences.US;
-    } else if (currentRegion === 'UK') {
-      title.textContent = 'Phoneme Reference Guide: UK English';
-      content.innerHTML = phonemeReferences.UK;
-    } else {
-      title.textContent = 'Phoneme Reference Guide: French (Unmerged & Native)';
-      content.innerHTML = phonemeReferences.French;
-    }
-  }
 
   function updateVoicesList() {
     const voiceSelect = document.getElementById('voiceSelect');
@@ -550,7 +441,6 @@
     }
 
     updateVoicesList();
-    updateReferenceGuide();
     onSearchInput();
   }
 
@@ -735,7 +625,7 @@
         if (index > 0) {
           const dot = document.createElement('span');
           dot.className = 'consonant-text';
-          dot.textContent = '·';
+          dot.textContent = ' · ';
           container.appendChild(dot);
         }
         const span = document.createElement('span');
@@ -751,8 +641,11 @@
     }
 
     if (alternativeVariants.length > 0) {
-      alternativesBox.style.display = 'block';
-      alternativesBox.innerHTML = `<strong>Alternative pronunciations:</strong> ${alternativeVariants.join(' &nbsp;|&nbsp; ')}`;
+      alternativesBox.style.display = 'flex';
+      alternativesBox.innerHTML = `
+        <div class="alt-title">Alternative Pronunciations</div>
+        <div>${alternativeVariants.join(' &nbsp;|&nbsp; ')}</div>
+      `;
     }
   }
 
