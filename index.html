@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TTS Respelling Dictionary</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --primary: #1a73e8;
+      --primary-hover: #1557b0;
+      --highlight-bg: #c2e7ff;
+      --highlight-text: #001d35;
+      --bg: #f8f9fa;
+      --card-bg: #ffffff;
+      --text: #1f1f1f;
+      --text-muted: #5f6368;
+      --border: #dadce0;
+      --radius: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Noto Sans', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px 16px;
+      min-height: 100vh;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 850px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* Upload Box */
+    .upload-card {
+      background: var(--card-bg);
+      border: 2px dashed var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .upload-card:hover, .upload-card.dragover {
+      border-color: var(--primary);
+      background-color: #f1f8fe;
+    }
+
+    .upload-icon {
+      width: 40px;
+      height: 40px;
+      fill: var(--primary);
+      margin-bottom: 8px;
+    }
+
+    .btn-upload {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 8px 20px;
+      background: var(--primary);
+      color: #fff;
+      border-radius: 20px;
+      font-weight: 500;
+      font-size: 14px;
+    }
+
+    /* Search Controls */
+    .search-card {
+      background: var(--card-bg);
+      border-radius: 28px;
+      padding: 6px 16px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border: 1px solid var(--border);
+    }
+
+    .search-card:focus-within {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px rgba(26,115,232,0.2);
+    }
+
+    .search-input {
+      border: none;
+      outline: none;
+      font-size: 18px;
+      width: 100%;
+      background: transparent;
+      color: var(--text);
+      padding: 8px 0;
+    }
+
+    .voice-select {
+      border: 1px solid var(--border);
+      background: #f8f9fa;
+      border-radius: 12px;
+      padding: 6px 12px;
+      font-size: 14px;
+      outline: none;
+      cursor: pointer;
+    }
+
+    /* Pronunciation Card */
+    .pronunciation-card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      position: relative;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .word-title {
+      font-size: 32px;
+      font-weight: 700;
+    }
+
+    .accent-label {
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    .sounds-like-label {
+      color: var(--text-muted);
+      font-size: 13px;
+      margin-bottom: 6px;
+    }
+
+    .syllable-display {
+      font-size: 34px;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+
+    .syllable {
+      padding: 2px 6px;
+      border-radius: 8px;
+      transition: background-color 0.15s ease, color 0.15s ease;
+    }
+
+    .syllable.stressed {
+      font-weight: 700;
+    }
+
+    .syllable.active {
+      background-color: var(--highlight-bg);
+      color: var(--highlight-text);
+    }
+
+    .dot-sep {
+      color: var(--text-muted);
+      font-weight: 300;
+      margin: 0 2px;
+    }
+
+    .play-btn {
+      background: #f1f3f4;
+      border: none;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: 12px;
+      transition: background 0.2s;
+    }
+
+    .play-btn:hover {
+      background: #e8eaed;
+    }
+
+    .play-btn svg {
+      width: 22px;
+      height: 22px;
+      fill: var(--text);
+    }
+
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 14px;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 40px;
+      height: 22px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: #ccc;
+      transition: .3s;
+      border-radius: 22px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 16px;
+      width: 16px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: .3s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider {
+      background-color: var(--primary);
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(18px);
+    }
+
+    details {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px 18px;
+    }
+
+    summary {
+      font-weight: 600;
+      cursor: pointer;
+      color: var(--primary);
+    }
+
+    .key-table {
+      width: 100%;
+      margin-top: 12px;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    .key-table th, .key-table td {
+      border-bottom: 1px solid var(--border);
+      padding: 6px 8px;
+      text-align: left;
+    }
+
+    .key-table th {
+      background-color: #f8f9fa;
+      font-weight: 600;
+    }
+
+    .progress-bar {
+      height: 4px;
+      background: var(--primary);
+      width: 0%;
+      transition: width 0.1s;
+      border-radius: 2px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <!-- Upload Zone -->
+  <div id="uploadCard" class="upload-card" onclick="document.getElementById('fileInput').click()">
+    <svg class="upload-icon" viewBox="0 0 24 24"><path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z"/></svg>
+    <div><strong>Drag & Drop Dictionary Text File</strong> or click to browse</div>
+    <div style="font-size:12px; color:var(--text-muted); margin-top:4px;">Supports large dictionary files</div>
+    <div class="btn-upload">Browse File</div>
+    <input type="file" id="fileInput" accept=".txt,.dict" style="display:none;" onchange="handleFileSelect(event)">
+  </div>
+  
+  <div id="progressContainer" style="display:none; background:#e0e0e0; height:4px; border-radius:2px;">
+    <div id="progressBar" class="progress-bar"></div>
+  </div>
+
+  <!-- Search Card -->
+  <div class="search-card">
+    <svg style="width:20px; height:20px; fill:var(--text-muted)" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+    <input type="text" id="searchInput" class="search-input" placeholder="Search word..." value="abacus" oninput="onSearchInput()">
+    <select id="voiceSelect" class="voice-select"></select>
+  </div>
+
+  <div id="didYouMean" style="font-size:14px; color:var(--text-muted); display:none;"></div>
+
+  <!-- Pronunciation Display Card -->
+  <div class="pronunciation-card">
+    <div class="card-header">
+      <div id="displayWord" class="word-title">Abacus</div>
+      <div class="accent-label">Standard Pronunciation</div>
+    </div>
+
+    <div>
+      <div class="sounds-like-label">Sounds like</div>
+      <div style="display:flex; align-items:center;">
+        <div id="syllableContainer" class="syllable-display"></div>
+        <button class="play-btn" onclick="speakCurrentWord()">
+          <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+        </button>
+      </div>
+
+      <div class="toggle-row">
+        <label class="switch">
+          <input type="checkbox" id="slowToggle">
+          <span class="slider"></span>
+        </label>
+        <span>Slow speed</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Respelling Key Guide -->
+  <details open>
+    <summary>Respelling Guide</summary>
+    <table class="key-table">
+      <thead>
+        <tr>
+          <th>NLTK / Arpabet Phonemes</th>
+          <th>Respelling Symbol</th>
+          <th>IPA Equivalent</th>
+          <th>Example</th>
+        </tr>
+      </thead>
+      <tbody id="respellKeyTableBody">
+      </tbody>
+    </table>
+  </details>
+</div>
+
+<script>
+  // Phoneme Mappings Configuration with exact updated respelling rules
+  const phonemeMappings = [
+    { code: 'AH', respell: 'uh', ipa: 'ə / ʌ', example: 'abacus / cup' },
+    { code: 'ER', respell: 'er', ipa: 'ər / ɜːr', example: 'aaker / nurse' },
+    { code: 'IY', respell: 'ee', ipa: 'iː', example: 'see' },
+    { code: 'IH', respell: 'i', ipa: 'ɪ', example: 'bit' },
+    { code: 'EH', respell: 'e', ipa: 'ɛ', example: 'bed' },
+    { code: 'AE', respell: 'a', ipa: 'æ', example: 'cat' },
+    { code: 'AA', respell: 'aa', ipa: 'ɑː', example: 'father' },
+    { code: 'AO', respell: 'aw', ipa: 'ɔː', example: 'law' },
+    { code: 'UH', respell: 'uu', ipa: 'ʊ', example: 'book' },
+    { code: 'UW', respell: 'oo', ipa: 'uː', example: 'too' },
+    { code: 'EY', respell: 'ay', ipa: 'eɪ', example: 'day' },
+    { code: 'AY', respell: 'igh', ipa: 'aɪ', example: 'high' },
+    { code: 'OY', respell: 'oy', ipa: 'ɔɪ', example: 'boy' },
+    { code: 'AW', respell: 'ow', ipa: 'aʊ', example: 'now' },
+    { code: 'OW', respell: 'oh', ipa: 'oʊ', example: 'go' },
+    { code: 'EH R', respell: 'ehr', ipa: 'ɛər', example: 'pair, air' },
+    { code: 'EH ER', respell: 'eh-er', ipa: 'ɛər / ɛ.ər', example: 'prayer, bearer' },
+    { code: 'IH R', respell: 'eer', ipa: 'ɪər', example: 'peer' },
+    { code: 'UH R', respell: 'oor', ipa: 'ʊər', example: 'poor' },
+    { code: 'AW R', respell: 'our', ipa: 'aʊər', example: 'sour' },
+    { code: 'AY R', respell: 'ire', ipa: 'aɪər', example: 'fire' },
+    { code: 'AO R', respell: 'or', ipa: 'ɔːr', example: 'door' },
+    { code: 'AA R', respell: 'ar', ipa: 'ɑːr', example: 'start, palm+r' },
+    { code: 'AE R', respell: 'arr', ipa: 'ær', example: 'marry, trap+r' },
+    { code: '–', respell: 'o', ipa: 'ɒ', example: 'lot (uk)' },
+    { code: '–', respell: 'kh', ipa: 'x', example: 'loch' },
+    { code: '–', respell: 'aa(n)', ipa: 'ɑ̃', example: 'croissant' },
+    { code: '–', respell: 'a(n)', ipa: 'æ̃', example: 'gratin' },
+    { code: 'B', respell: 'b', ipa: 'b', example: 'bad' },
+    { code: 'CH', respell: 'ch', ipa: 'tʃ', example: 'chat' },
+    { code: 'D', respell: 'd', ipa: 'd', example: 'dog' },
+    { code: 'DH', respell: 'dh', ipa: 'ð', example: 'this' },
+    { code: 'F', respell: 'f', ipa: 'f', example: 'fox' },
+    { code: 'G', respell: 'g', ipa: 'ɡ', example: 'go' },
+    { code: 'HH', respell: 'h', ipa: 'h', example: 'hat' },
+    { code: 'JH', respell: 'j', ipa: 'dʒ', example: 'joy' },
+    { code: 'K', respell: 'k', ipa: 'k', example: 'kit' },
+    { code: 'L', respell: 'l', ipa: 'l', example: 'lip' },
+    { code: 'M', respell: 'm', ipa: 'm', example: 'man' },
+    { code: 'N', respell: 'n', ipa: 'n', example: 'net' },
+    { code: 'NG', respell: 'ng', ipa: 'ŋ', example: 'sing' },
+    { code: 'P', respell: 'p', ipa: 'p', example: 'pen' },
+    { code: 'R', respell: 'r', ipa: 'ɹ', example: 'run' },
+    { code: 'S', respell: 's', ipa: 's', example: 'sun' },
+    { code: 'SH', respell: 'sh', ipa: 'ʃ', example: 'ship' },
+    { code: 'T', respell: 't', ipa: 't', example: 'top' },
+    { code: 'TH', respell: 'th', ipa: 'θ', example: 'think' },
+    { code: 'V', respell: 'v', ipa: 'v', example: 'van' },
+    { code: 'W', respell: 'w', ipa: 'w', example: 'win' },
+    { code: 'Y', respell: 'y', ipa: 'j', example: 'yes' },
+    { code: 'Z', respell: 'z', ipa: 'z', example: 'zoo' },
+    { code: 'ZH', respell: 'zh', ipa: 'ʒ', example: 'vision' }
+  ];
+
+  const dict = new Map([
+    ["abacus", "AB-uh-kuhs"],
+    ["aaker", "AA-ker"],
+    ["aachener", "AA-kuh-ner"],
+    ["aardvark", "ARD-vark"],
+    ["hello", "heh-LOW"],
+    ["what", "WUHT"],
+    ["start", "START"],
+    ["marry", "MARR-ee"],
+    ["pair", "PEHR"],
+    ["prayer", "PRAY-er"],
+    ["bearer", "BEHR-er"],
+    ["loch", "LOKH"],
+    ["croissant", "krwaa(n)-SAAN"],
+    ["gratin", "gra(n)-TAN"]
+  ]);
+
+  let currentSyllables = [];
+
+  function buildRespellingKeyTable() {
+    const tbody = document.getElementById('respellKeyTableBody');
+    tbody.innerHTML = '';
+    phonemeMappings.forEach(row => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td><strong>${row.code}</strong></td>
+        <td><code>${row.respell}</code></td>
+        <td>/${row.ipa}/</td>
+        <td>${row.example}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+
+  function populateVoices() {
+    const voiceSelect = document.getElementById('voiceSelect');
+    if (!('speechSynthesis' in window)) return;
+    const voices = window.speechSynthesis.getVoices();
+    voiceSelect.innerHTML = '';
+    
+    voices.forEach((voice, index) => {
+      const option = document.createElement('option');
+      option.value = index;
+      option.textContent = `${voice.name} (${voice.lang})`;
+      if (voice.default) option.selected = true;
+      voiceSelect.appendChild(option);
+    });
+  }
+
+  if ('speechSynthesis' in window) {
+    window.speechSynthesis.onvoiceschanged = populateVoices;
+    populateVoices();
+  }
+
+  const uploadCard = document.getElementById('uploadCard');
+  uploadCard.addEventListener('dragover', (e) => { e.preventDefault(); uploadCard.classList.add('dragover'); });
+  uploadCard.addEventListener('dragleave', () => uploadCard.classList.remove('dragover'));
+  uploadCard.addEventListener('drop', (e) => {
+    e.preventDefault();
+    uploadCard.classList.remove('dragover');
+    if (e.dataTransfer.files.length) processFile(e.dataTransfer.files[0]);
+  });
+
+  function handleFileSelect(e) {
+    if (e.target.files.length) processFile(e.target.files[0]);
+  }
+
+  function processFile(file) {
+    const progressContainer = document.getElementById('progressContainer');
+    const progressBar = document.getElementById('progressBar');
+    progressContainer.style.display = 'block';
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const lines = e.target.result.split('\n');
+      dict.clear();
+      
+      lines.forEach((line) => {
+        const trimmed = line.trim();
+        if (!trimmed || trimmed.startsWith('#')) return;
+        const parts = trimmed.split(/\s+/);
+        if (parts.length >= 2) {
+          const word = parts[0].toLowerCase();
+          const respelling = parts.slice(1).join(' ');
+          dict.set(word, respelling);
+        }
+      });
+
+      progressBar.style.width = '100%';
+      setTimeout(() => {
+        progressContainer.style.display = 'none';
+        uploadCard.style.display = 'none';
+        onSearchInput();
+      }, 300);
+    };
+
+    reader.readAsText(file);
+  }
+
+  function levenshtein(a, b) {
+    const matrix = Array.from({ length: a.length + 1 }, (_, i) => [i]);
+    for (let j = 1; j <= b.length; j++) matrix[0][j] = j;
+
+    for (let i = 1; i <= a.length; i++) {
+      for (let j = 1; j <= b.length; j++) {
+        const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+        matrix[i][j] = Math.min(
+          matrix[i - 1][j] + 1,
+          matrix[i][j - 1] + 1,
+          matrix[i - 1][j - 1] + cost
+        );
+      }
+    }
+    return matrix[a.length][b.length];
+  }
+
+  function searchDictionary(query) {
+    const q = query.trim().toLowerCase();
+    if (!q) return null;
+
+    if (dict.has(q)) return { word: q, respelling: dict.get(q), exact: true };
+
+    let closestWord = null;
+    let minDistance = Infinity;
+
+    for (let word of dict.keys()) {
+      const dist = levenshtein(q, word);
+      if (dist < minDistance && dist <= 3) {
+        minDistance = dist;
+        closestWord = word;
+      }
+    }
+
+    if (closestWord) {
+      return { word: closestWord, respelling: dict.get(closestWord), exact: false };
+    }
+
+    return null;
+  }
+
+  function renderSyllables(respellingStr) {
+    const container = document.getElementById('syllableContainer');
+    container.innerHTML = '';
+    
+    const primary = respellingStr.split('|')[0].trim();
+    const rawSyllables = primary.split('-');
+
+    currentSyllables = rawSyllables.map(s => s.trim());
+
+    currentSyllables.forEach((syl, index) => {
+      if (index > 0) {
+        const dot = document.createElement('span');
+        dot.className = 'dot-sep';
+        dot.textContent = '·';
+        container.appendChild(dot);
+      }
+
+      const span = document.createElement('span');
+      span.className = 'syllable';
+      if (syl === syl.toUpperCase()) {
+        span.classList.add('stressed');
+      }
+      span.textContent = syl.toLowerCase();
+      span.id = `syl-${index}`;
+      container.appendChild(span);
+    });
+  }
+
+  function onSearchInput() {
+    const query = document.getElementById('searchInput').value;
+    const match = searchDictionary(query);
+    const didYouMean = document.getElementById('didYouMean');
+
+    if (match) {
+      document.getElementById('displayWord').textContent = match.word.charAt(0).toUpperCase() + match.word.slice(1);
+      renderSyllables(match.respelling);
+      
+      if (!match.exact) {
+        didYouMean.style.display = 'block';
+        didYouMean.innerHTML = `Showing results for <strong>${match.word}</strong>`;
+      } else {
+        didYouMean.style.display = 'none';
+      }
+    } else {
+      document.getElementById('displayWord').textContent = query || '---';
+      document.getElementById('syllableContainer').innerHTML = `<span style="font-size:18px; color:var(--text-muted)">Word not found</span>`;
+      didYouMean.style.display = 'none';
+    }
+  }
+
+  function speakCurrentWord() {
+    if (!('speechSynthesis' in window)) return;
+    window.speechSynthesis.cancel();
+
+    const text = document.getElementById('displayWord').textContent;
+    const utterance = new SpeechSynthesisUtterance(text);
+    
+    const voiceSelect = document.getElementById('voiceSelect');
+    const voices = window.speechSynthesis.getVoices();
+    if (voices[voiceSelect.value]) {
+      utterance.voice = voices[voiceSelect.value];
+    }
+
+    const isSlow = document.getElementById('slowToggle').checked;
+    utterance.rate = isSlow ? 0.6 : 1.0;
+
+    const numSyllables = currentSyllables.length;
+    let animInterval = null;
+
+    utterance.onstart = () => {
+      if (numSyllables === 0) return;
+      const totalEstDuration = (text.length * 80) / utterance.rate;
+      const perSyllableTime = totalEstDuration / numSyllables;
+
+      let idx = 0;
+      highlightSyllable(idx);
+
+      animInterval = setInterval(() => {
+        idx++;
+        if (idx < numSyllables) {
+          highlightSyllable(idx);
+        } else {
+          clearInterval(animInterval);
+        }
+      }, perSyllableTime);
+    };
+
+    utterance.onend = () => {
+      clearInterval(animInterval);
+      clearHighlights();
+    };
+
+    window.speechSynthesis.speak(utterance);
+  }
+
+  function highlightSyllable(index) {
+    clearHighlights();
+    const el = document.getElementById(`syl-${index}`);
+    if (el) el.classList.add('active');
+  }
+
+  function clearHighlights() {
+    document.querySelectorAll('.syllable').forEach(el => el.classList.remove('active'));
+  }
+
+  buildRespellingKeyTable();
+  onSearchInput();
+</script>
+
+</body>
+</html>
