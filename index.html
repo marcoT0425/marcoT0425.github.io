@@ -12,8 +12,10 @@
     :root {
       --primary: #1a73e8;
       --primary-hover: #1557b0;
-      --vowel-bg: #c2e7ff;
+      --vowel-bg: #c2e7ff;            /* Light blue for [...] general vowels */
       --vowel-text: #001d35;
+      --vowel-stressed-bg: #1a73e8;   /* Dark blue for {...} stressed vowels */
+      --vowel-stressed-text: #ffffff;
       --bg: #f8f9fa;
       --card-bg: #ffffff;
       --text: #1f1f1f;
@@ -64,6 +66,7 @@
     .region-btn-group {
       display: flex;
       gap: 8px;
+      flex-wrap: wrap;
     }
 
     .btn-region {
@@ -162,7 +165,7 @@
       line-height: 1.4;
     }
 
-    /* Blue background vowel pills for French */
+    /* General Vowels Pill: [...] (Light Blue) */
     .vowel-pill {
       background-color: var(--vowel-bg);
       color: var(--vowel-text);
@@ -176,6 +179,23 @@
 
     .vowel-pill.active {
       background-color: var(--primary);
+      color: #ffffff;
+    }
+
+    /* Stressed Vowels Pill: {...} (Dark Blue) */
+    .vowel-pill-stressed {
+      background-color: var(--vowel-stressed-bg);
+      color: var(--vowel-stressed-text);
+      padding: 2px 8px;
+      border-radius: 8px;
+      font-weight: 700;
+      display: inline-block;
+      margin: 0 2px;
+      transition: background-color 0.15s ease, color 0.15s ease;
+    }
+
+    .vowel-pill-stressed.active {
+      background-color: #0d47a1;
       color: #ffffff;
     }
 
@@ -257,50 +277,6 @@
       color: var(--text-muted);
     }
 
-    /* Phoneme Reference Guide Styles (A-Z Sorted & Styled) */
-    .reference-card {
-      background: var(--card-bg);
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-      padding: 24px;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .reference-card h3 {
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--primary);
-    }
-
-    .phoneme-section-title {
-      font-size: 14px;
-      font-weight: 700;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      margin-top: 8px;
-      margin-bottom: 4px;
-      letter-spacing: 0.5px;
-    }
-
-    .phoneme-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 13px;
-    }
-
-    .phoneme-table th, .phoneme-table td {
-      border: 1px solid var(--border);
-      padding: 8px 12px;
-      text-align: left;
-    }
-
-    .phoneme-table th {
-      background-color: #f1f3f4;
-      font-weight: 600;
-    }
-
     .switch {
       position: relative;
       display: inline-block;
@@ -350,6 +326,50 @@
       transition: width 0.1s;
       border-radius: 2px;
     }
+
+    /* Phoneme Reference Guide Styles */
+    .reference-card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .reference-card h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .phoneme-section-title {
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-top: 8px;
+      margin-bottom: 4px;
+      letter-spacing: 0.5px;
+    }
+
+    .phoneme-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    .phoneme-table th, .phoneme-table td {
+      border: 1px solid var(--border);
+      padding: 8px 12px;
+      text-align: left;
+    }
+
+    .phoneme-table th {
+      background-color: #f1f3f4;
+      font-weight: 600;
+    }
   </style>
 </head>
 <body>
@@ -361,6 +381,7 @@
       <button id="btnUS" class="btn-region active" onclick="switchRegion('US')">US English</button>
       <button id="btnUK" class="btn-region" onclick="switchRegion('UK')">UK English</button>
       <button id="btnFR" class="btn-region" onclick="switchRegion('French')">French</button>
+      <button id="btnDE" class="btn-region" onclick="switchRegion('German')">German</button>
     </div>
     <div>
       <span id="fileStatus" style="color:var(--primary); font-weight:600;">Loading GitHub datasets...</span>
@@ -403,7 +424,7 @@
         * Capitalized syllables indicate primary stress.
       </div>
 
-      <!-- Alternative Variants Box (Second Line) -->
+      <!-- Alternative Variants Box -->
       <div id="alternativesBox" class="alternatives-box" style="display:none;"></div>
 
       <div class="toggle-row">
@@ -416,7 +437,7 @@
     </div>
   </div>
 
-  <!-- Phoneme Reference Guide (Restored & Sorted A-Z) -->
+  <!-- Phoneme Reference Guide -->
   <div class="reference-card">
     <h3 id="refTitle">Phoneme Reference Guide</h3>
     <div id="refContent"></div>
@@ -427,7 +448,8 @@
   const dictionaries = {
     US: new Map(),
     UK: new Map(),
-    French: new Map()
+    French: new Map(),
+    German: new Map()
   };
 
   let currentRegion = 'US';
@@ -485,7 +507,6 @@
         <tr><td>tʃ</td><td>ch</td><td>chat</td></tr>
         <tr><td>θ</td><td>th</td><td>think</td></tr>
         <tr><td>v</td><td>v</td><td>van</td></tr>
-        <tr><td>w</td><td>w</td><td>win</td></tr>
         <tr><td>w</td><td>w</td><td>win</td></tr>
         <tr><td>j</td><td>y</td><td>yes</td></tr>
         <tr><td>z</td><td>z</td><td>zoo</td></tr>
@@ -612,6 +633,35 @@
         <tr><td>ʒ</td><td>ZH</td><td>jour</td></tr>
         <tr><td>‿</td><td>‿</td><td>Liaison (continuous word linking)</td></tr>
       </table>
+    `,
+    German: `
+      <div class="phoneme-section-title">German Vowels & Diphthongs</div>
+      <table class="phoneme-table">
+        <tr><th>Visual Bracket</th><th>Meaning</th><th>Styling</th></tr>
+        <tr><td><strong>[...]</strong></td><td>General / Unstressed Vowel</td><td>Light Blue Pill</td></tr>
+        <tr><td><strong>{...}</strong></td><td>Stressed Vowel</td><td>Blue Pill</td></tr>
+      </table>
+      <table class="phoneme-table" style="margin-top:8px;">
+        <tr><th>Bracket / Respelling</th><th>Description</th><th>Example</th></tr>
+        <tr><td>[a] / {a}</td><td>Short open front vowel</td><td>Mann</td></tr>
+        <tr><td>[a͟i] / {a͟i}</td><td>Diphthong /ai/</td><td>Mai, Zeit</td></tr>
+        <tr><td>[ə] / {ə}</td><td>Unstressed schwa</td><td>Bitte</td></tr>
+        <tr><td>[ɐ] / {ɐ}</td><td>Vocalized r (er)</td><td>Vater</td></tr>
+        <tr><td>[ī] / {ī}</td><td>Long close front vowel /iː/</td><td>ihn, Liebe</td></tr>
+        <tr><td>[ɪ] / {ɪ}</td><td>Short close front vowel /ɪ/</td><td>mit</td></tr>
+        <tr><td>[o̱] / {o̱}</td><td>Long close-mid back /oː/</td><td>Sohn</td></tr>
+        <tr><td>[ʉ] / {ʉ}</td><td>High front rounded /u/ vowel</td><td>Null</td></tr>
+        <tr><td>[ʏ] / {ʏ}</td><td>Short front rounded /ʏ/</td><td>Fünf</td></tr>
+      </table>
+
+      <div class="phoneme-section-title">German Consonants & Marks</div>
+      <table class="phoneme-table">
+        <tr><th>Symbol</th><th>Description</th><th>Example</th></tr>
+        <tr><td>SH</td><td>Voiceless postalveolar fricative /ʃ/</td><td>Flasche</td></tr>
+        <tr><td>dʀ / ʀ</td><td>Uvular rhotic /ʀ/</td><td>drei</td></tr>
+        <tr><td>tsv</td><td>Affricate /ts/ + /v/</td><td>zwei</td></tr>
+        <tr><td>ˈ</td><td>Stress mark (Omitted visually in display)</td><td>Detects { } brackets</td></tr>
+      </table>
     `
   };
 
@@ -624,9 +674,12 @@
     } else if (currentRegion === 'UK') {
       title.textContent = 'Phoneme Reference Guide: UK English';
       content.innerHTML = phonemeReferences.UK;
-    } else {
+    } else if (currentRegion === 'French') {
       title.textContent = 'Phoneme Reference Guide: French';
       content.innerHTML = phonemeReferences.French;
+    } else if (currentRegion === 'German') {
+      title.textContent = 'Phoneme Reference Guide: German';
+      content.innerHTML = phonemeReferences.German;
     }
   }
 
@@ -645,6 +698,9 @@
     } else if (currentRegion === 'French') {
       targetLang = 'fr-FR';
       preferredKeyword = 'amelie';
+    } else if (currentRegion === 'German') {
+      targetLang = 'de-DE';
+      preferredKeyword = 'marlene';
     }
 
     const matchingVoices = voices.filter(v => v.lang.toLowerCase().startsWith(targetLang.substring(0, 2)));
@@ -676,12 +732,16 @@
     document.getElementById('btnUS').classList.toggle('active', regionKey === 'US');
     document.getElementById('btnUK').classList.toggle('active', regionKey === 'UK');
     document.getElementById('btnFR').classList.toggle('active', regionKey === 'French');
+    document.getElementById('btnDE').classList.toggle('active', regionKey === 'German');
 
     const searchInput = document.getElementById('searchInput');
 
     if (regionKey === 'French') {
       document.getElementById('accentDisplayLabel').textContent = 'French Pronunciation';
       searchInput.value = 'bonjour';
+    } else if (regionKey === 'German') {
+      document.getElementById('accentDisplayLabel').textContent = 'German Pronunciation';
+      searchInput.value = '0,5-liter-flasche';
     } else {
       document.getElementById('accentDisplayLabel').textContent = regionKey === 'US' ? 'US English Pronunciation' : 'UK English Pronunciation';
       searchInput.value = 'hello';
@@ -721,7 +781,7 @@
     const progressContainer = document.getElementById('progressContainer');
     const progressBar = document.getElementById('progressBar');
     progressContainer.style.display = 'block';
-    progressBar.style.width = '10%';
+    progressBar.style.width = '5%';
 
     try {
       const usRes = await fetch('./all_respellings.txt');
@@ -732,7 +792,7 @@
           if (p) dictionaries.US.set(p.word, p.respelling);
         });
       }
-      progressBar.style.width = '30%';
+      progressBar.style.width = '20%';
 
       const ukRes = await fetch('./all_uk_respellings.txt');
       if (ukRes.ok) {
@@ -742,8 +802,9 @@
           if (p) dictionaries.UK.set(p.word, p.respelling);
         });
       }
-      progressBar.style.width = '50%';
+      progressBar.style.width = '35%';
 
+      // Load French (5 parts)
       for (let i = 1; i <= 5; i++) {
         const partName = `./all_fr_respellings_bracket_00${i}.txt`;
         try {
@@ -755,14 +816,31 @@
               if (p) dictionaries.French.set(p.word, p.respelling);
             });
           }
-        } catch(e) { console.log(`Part ${i} skipped`); }
-        progressBar.style.width = `${50 + i * 10}%`;
+        } catch(e) { console.log(`French part ${i} skipped`); }
+      }
+      progressBar.style.width = '55%';
+
+      // Load German (16 databases)
+      for (let i = 1; i <= 16; i++) {
+        const paddedNum = String(i).padStart(3, '0');
+        const dePartName = `./all_de_respellings_bracket_${paddedNum}.txt`;
+        try {
+          const deRes = await fetch(dePartName);
+          if (deRes.ok) {
+            const text = await deRes.text();
+            text.split('\n').forEach(line => {
+              const p = parseLine(line);
+              if (p) dictionaries.German.set(p.word, p.respelling);
+            });
+          }
+        } catch(e) { console.log(`German part ${i} skipped`); }
+        progressBar.style.width = `${55 + Math.round((i / 16) * 40)}%`;
       }
 
       progressBar.style.width = '100%';
       setTimeout(() => {
         progressContainer.style.display = 'none';
-        document.getElementById('fileStatus').textContent = `Loaded (US: ${dictionaries.US.size}, UK: ${dictionaries.UK.size}, FR: ${dictionaries.French.size})`;
+        document.getElementById('fileStatus').textContent = `Loaded (US: ${dictionaries.US.size}, UK: ${dictionaries.UK.size}, FR: ${dictionaries.French.size}, DE: ${dictionaries.German.size})`;
         document.getElementById('searchInput').disabled = false;
         
         switchRegion('US');
@@ -830,24 +908,37 @@
     capitalizationNote.style.display = 'none';
     currentTokens = [];
 
+    // Split by '|' to separate primary vs alternative pronunciations
     const variants = rawRespellingStr.split('|').map(v => v.trim()).filter(Boolean);
     const primaryRaw = variants[0].normalize('NFC');
     const alternativeVariants = variants.slice(1);
 
-    if (currentRegion === 'French') {
-      const regex = /(\[[^\]]+\])|(‿)|([^\[‿]+)/g;
+    if (currentRegion === 'French' || currentRegion === 'German') {
+      // Omit explicit IPA stress mark (ˈ) and parse brackets:
+      // [...] = General Vowel (Light Blue Pill)
+      // {...} = Stressed Vowel (Blue Pill)
+      const cleanPrimary = primaryRaw.replace(/ˈ/g, '');
+      const regex = /(\[[^\]]+\])|(\{[^\}]+\})|(‿)|([^[\{\}]‿]+)/g;
       let match;
       let tokenIndex = 0;
 
-      while ((match = regex.exec(primaryRaw)) !== null) {
+      while ((match = regex.exec(cleanPrimary)) !== null) {
         const fullText = match[0];
-        const isVowel = fullText.startsWith('[') && fullText.endsWith(']');
+        const isGeneralVowel = fullText.startsWith('[') && fullText.endsWith(']');
+        const isStressedVowel = fullText.startsWith('{') && fullText.endsWith('}');
         const isLiaison = fullText === '‿';
 
         const span = document.createElement('span');
-        if (isVowel) {
+        if (isGeneralVowel) {
           const cleanContent = fullText.slice(1, -1);
           span.className = 'vowel-pill';
+          span.id = `token-${tokenIndex}`;
+          span.textContent = cleanContent;
+          currentTokens.push({ id: `token-${tokenIndex}`, isVowel: true, content: cleanContent });
+          tokenIndex++;
+        } else if (isStressedVowel) {
+          const cleanContent = fullText.slice(1, -1);
+          span.className = 'vowel-pill-stressed';
           span.id = `token-${tokenIndex}`;
           span.textContent = cleanContent;
           currentTokens.push({ id: `token-${tokenIndex}`, isVowel: true, content: cleanContent });
@@ -862,6 +953,7 @@
         container.appendChild(span);
       }
     } else {
+      // English rendering
       const rawSyllables = primaryRaw.split('-');
       currentTokens = rawSyllables.map((syl, index) => ({
         id: `token-${index}`,
@@ -888,11 +980,13 @@
       }
     }
 
+    // Render Alternative Pronunciations on a SEPARATE SECOND LINE (omitting ˈ for German/French)
     if (alternativeVariants.length > 0) {
+      const cleanAlternatives = alternativeVariants.map(v => v.replace(/ˈ/g, ''));
       alternativesBox.style.display = 'flex';
       alternativesBox.innerHTML = `
         <div class="alt-title">Alternative Pronunciations</div>
-        <div>${alternativeVariants.join(' &nbsp;|&nbsp; ')}</div>
+        <div>${cleanAlternatives.join(' &nbsp;|&nbsp; ')}</div>
       `;
     }
   }
@@ -933,6 +1027,8 @@
     
     if (currentRegion === 'French') {
       utterance.lang = 'fr-FR';
+    } else if (currentRegion === 'German') {
+      utterance.lang = 'de-DE';
     } else if (currentRegion === 'UK') {
       utterance.lang = 'en-GB';
     } else {
@@ -986,7 +1082,7 @@
   }
 
   function clearHighlights() {
-    document.querySelectorAll('.vowel-pill, .consonant-text').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.vowel-pill, .vowel-pill-stressed, .consonant-text').forEach(el => el.classList.remove('active'));
   }
 
   loadAllGitHubFiles();
