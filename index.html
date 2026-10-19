@@ -146,7 +146,7 @@
       <button id="btnUS" class="btn-region active" onclick="switchRegion('US')">US English</button>
       <button id="btnUK" class="btn-region" onclick="switchRegion('UK')">UK English</button>
       <button id="btnFR" class="btn-region" onclick="switchRegion('French')">French</button>
-      <button id="btnDE" class="btn-region" onclick="switchRegion('German')">German</button>
+      <button id="btnDE" class="btn-region" onclick="switchRegion('')">German</button>
     </div>
     <div>
       <span id="fileStatus" style="color:var(--primary); font-weight:600;">Loading datasets...</span>
@@ -510,7 +510,7 @@
       progressBar.style.width = '35%';
       for (let i = 1; i <= 5; i++) {
         try {
-          const frRes = await fetch('./all_fr_respellings_bracket_00' + i + '.txt');
+          const frRes = await fetch('./all_fr_respellings_brack_00' + i + '.txt');
           if (frRes.ok) {
             (await frRes.text()).split('\n').forEach(line => {
               const p = parseLine(line);
@@ -523,7 +523,7 @@
       for (let i = 1; i <= 16; i++) {
         const padded = String(i).padStart(3, '0');
         try {
-          const deRes = await fetch('./all_de_respellings_bracket_' + padded + '.txt');
+          const deRes = await fetch('./all_de_respellings_brack_' + padded + '.txt');
           if (deRes.ok) {
             (await deRes.text()).split('\n').forEach(line => {
               const p = parseLine(line);
