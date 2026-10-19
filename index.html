@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multilingual TTS Phonetic Dictionary</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --primary: #1a73e8;
+      --primary-hover: #1557b0;
+      --vowel-bg: #c2e7ff;            /* Light blue for [...] general vowels */
+      --vowel-text: #001d35;
+      --vowel-stressed-bg: #1a73e8;   /* Dark blue for {...} stressed vowels */
+      --vowel-stressed-text: #ffffff;
+      --bg: #f8f9fa;
+      --card-bg: #ffffff;
+      --text: #1f1f1f;
+      --text-muted: #5f6368;
+      --border: #dadce0;
+      --radius: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Noto Sans', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px 16px;
+      min-height: 100vh;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 900px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* Region Selection & Status Bar */
+    .status-bar {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 14px;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .region-btn-group {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .btn-region {
+      padding: 6px 16px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      background: #f1f3f4;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+
+    .btn-region.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    /* Search Card */
+    .search-card {
+      background: var(--card-bg);
+      border-radius: 28px;
+      padding: 6px 16px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border: 1px solid var(--border);
+    }
+
+    .search-card:focus-within {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px rgba(26,115,232,0.2);
+    }
+
+    .search-input {
+      border: none;
+      outline: none;
+      font-size: 18px;
+      width: 100%;
+      background: transparent;
+      color: var(--text);
+      padding: 8px 0;
+    }
+
+    .select-control {
+      border: 1px solid var(--border);
+      background: #f8f9fa;
+      border-radius: 8px;
+      padding: 6px 10px;
+      font-size: 14px;
+      outline: none;
+      cursor: pointer;
+    }
+
+    /* Pronunciation Card */
+    .pronunciation-card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      position: relative;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .word-title {
+      font-size: 32px;
+      font-weight: 700;
+    }
+
+    .accent-label {
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    .sounds-like-label {
+      color: var(--text-muted);
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+
+    .respelling-display {
+      font-size: 32px;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0px;
+      line-height: 1.5;
+    }
+
+    /* General Vowels Pill: [...] (Light Blue) */
+    .vowel-pill {
+      background-color: var(--vowel-bg);
+      color: var(--vowel-text);
+      padding: 2px 8px;
+      border-radius: 8px;
+      font-weight: 600;
+      display: inline-block;
+      margin: 0 2px;
+      transition: background-color 0.15s ease, color 0.15s ease;
+    }
+
+    .vowel-pill.active {
+      background-color: var(--primary);
+      color: #ffffff;
+    }
+
+    /* Stressed Vowels Pill: {...} (Dark Blue) */
+    .vowel-pill-stressed {
+      background-color: var(--vowel-stressed-bg);
+      color: var(--vowel-stressed-text);
+      padding: 2px 8px;
+      border-radius: 8px;
+      font-weight: 700;
+      display: inline-block;
+      margin: 0 2px;
+      transition: background-color 0.15s ease, color 0.15s ease;
+    }
+
+    .vowel-pill-stressed.active {
+      background-color: #0d47a1;
+      color: #ffffff;
+    }
+
+    /* Unbracketed Consonants & non-vowels (White/Transparent Background) */
+    .consonant-text {
+      background: transparent;
+      color: var(--text);
+      padding: 0 2px;
+      font-weight: 600;
+      font-size: 32px;
+      display: inline-block;
+    }
+
+    .consonant-text.active {
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    .liaison-symbol {
+      color: var(--primary);
+      font-weight: 700;
+      padding: 0 1px;
+    }
+
+    /* Alternative Variants Section */
+    .alternatives-box {
+      font-size: 16px;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border);
+      padding-top: 12px;
+      margin-top: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .alt-title {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+    }
+
+    .capitalization-note {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-style: italic;
+      margin-top: 4px;
+    }
+
+    .play-btn {
+      background: #f1f3f4;
+      border: none;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: 16px;
+      flex-shrink: 0;
+      transition: background 0.2s;
+    }
+
+    .play-btn:hover {
+      background: #e8eaed;
+    }
+
+    .play-btn svg {
+      width: 22px;
+      height: 22px;
+      fill: var(--text);
+    }
+
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 16px;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 40px;
+      height: 22px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: #ccc;
+      transition: .3s;
+      border-radius: 22px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 16px;
+      width: 16px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: .3s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider {
+      background-color: var(--primary);
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(18px);
+    }
+
+    .progress-bar {
+      height: 4px;
+      background: var(--primary);
+      width: 0%;
+      transition: width 0.1s;
+      border-radius: 2px;
+    }
+
+    /* Phoneme Reference Guide Styles */
+    .reference-card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .reference-card h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .phoneme-section-title {
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-top: 8px;
+      margin-bottom: 4px;
+      letter-spacing: 0.5px;
+    }
+
+    .phoneme-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    .phoneme-table th, .phoneme-table td {
+      border: 1px solid var(--border);
+      padding: 8px 12px;
+      text-align: left;
+    }
+
+    .phoneme-table th {
+      background-color: #f1f3f4;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <!-- Region Switcher & Status Bar -->
+  <div class="status-bar">
+    <div class="region-btn-group">
+      <button id="btnUS" class="btn-region active" onclick="switchRegion('US')">US English</button>
+      <button id="btnUK" class="btn-region" onclick="switchRegion('UK')">UK English</button>
+      <button id="btnFR" class="btn-region" onclick="switchRegion('French')">French</button>
+      <button id="btnDE" class="btn-region" onclick="switchRegion('German')">German</button>
+    </div>
+    <div>
+      <span id="fileStatus" style="color:var(--primary); font-weight:600;">Loading GitHub datasets...</span>
+    </div>
+  </div>
+
+  <div id="progressContainer" style="display:none; background:#e0e0e0; height:4px; border-radius:2px;">
+    <div id="progressBar" class="progress-bar"></div>
+  </div>
+
+  <!-- Search Card -->
+  <div class="search-card">
+    <svg style="width:20px; height:20px; fill:var(--text-muted)" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+    <input type="text" id="searchInput" class="search-input" placeholder="Search word..." disabled oninput="onSearchInput()">
+    <select id="voiceSelect" class="select-control" style="max-width: 220px;"></select>
+  </div>
+
+  <div id="didYouMean" style="font-size:14px; color:var(--text-muted); display:none;"></div>
+
+  <!-- Pronunciation Card -->
+  <div class="pronunciation-card">
+    <div class="card-header">
+      <div id="displayWord" class="word-title">---</div>
+      <div class="accent-label" id="accentDisplayLabel">US English Pronunciation</div>
+    </div>
+
+    <div>
+      <div class="sounds-like-label">Phonetic Transcription</div>
+      <div style="display:flex; align-items:center; justify-content:space-between;">
+        <div id="respellingContainer" class="respelling-display">
+          <span style="font-size:18px; color:var(--text-muted);">Fetching dictionaries from GitHub...</span>
+        </div>
+        <button id="playBtn" class="play-btn" style="display:none;" onclick="speakCurrentWord()">
+          <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+        </button>
+      </div>
+
+      <!-- Capitalization Note -->
+      <div id="capitalizationNote" class="capitalization-note" style="display:none;">
+        * Capitalized syllables indicate primary stress.
+      </div>
+
+      <!-- Alternative Variants Box -->
+      <div id="alternativesBox" class="alternatives-box" style="display:none;"></div>
+
+      <div class="toggle-row">
+        <label class="switch">
+          <input type="checkbox" id="slowToggle">
+          <span class="slider"></span>
+        </label>
+        <span>Slow speed</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Phoneme Reference Guide -->
+  <div class="reference-card">
+    <h3 id="refTitle">Phoneme Reference Guide</h3>
+    <div id="refContent"></div>
+  </div>
+</div>
+
+<script>
+  const dictionaries = {
+    US: new Map(),
+    UK: new Map(),
+    French: new Map(),
+    German: new Map()
+  };
+
+  let currentRegion = 'US';
+  let currentTokens = [];
+
+  const phonemeReferences = {
+    US: `
+      <div class="phoneme-section-title">Vowels (Lexical Sets)</div>
+      <table class="phoneme-table">
+        <tr><th>IPA / Lexical Set</th><th>Respelling</th><th>Notes & Description</th><th>English Approximation</th></tr>
+        <tr><td>ɑː</td><td>aa</td><td>bath/palm set</td><td>as in <em>father</em></td></tr>
+        <tr><td>aɪ</td><td>igh</td><td>price set</td><td>as in <em>high</em></td></tr>
+        <tr><td>aɪə</td><td>igh-uh</td><td>fire set</td><td>as in <em>fire</em></td></tr>
+        <tr><td>aʊ</td><td>ow</td><td>mouth set</td><td>as in <em>now</em></td></tr>
+        <tr><td>aʊə</td><td>ow-uh</td><td>power set</td><td>as in <em>power</em></td></tr>
+        <tr><td>æ</td><td>a</td><td>trap set</td><td>as in <em>cat</em></td></tr>
+        <tr><td>ə / ɐ</td><td>uh</td><td>comma/letter set</td><td>as in <em>cup</em></td></tr>
+        <tr><td>əʊ</td><td>oh</td><td>goat set</td><td>as in <em>go</em></td></tr>
+        <tr><td>eə</td><td>air</td><td>square set</td><td>as in <em>air</em></td></tr>
+        <tr><td>eɪ</td><td>ay</td><td>face set</td><td>as in <em>day</em></td></tr>
+        <tr><td>ɛ</td><td>e</td><td>dress set (standardised; not plain e)</td><td>as in <em>bed</em></td></tr>
+        <tr><td>ɜː</td><td>ur</td><td>nurse set (ɜːɹ → ur-r)</td><td>as in <em>nurse</em></td></tr>
+        <tr><td>i</td><td>ee</td><td>happy set</td><td>as in <em>happy</em></td></tr>
+        <tr><td>iː</td><td>ee</td><td>fleece set</td><td>as in <em>feet</em></td></tr>
+        <tr><td>ɪ</td><td>i</td><td>kit set</td><td>as in <em>bit</em></td></tr>
+        <tr><td>ɪə / iə</td><td>eer</td><td>near set</td><td>as in <em>peer</em></td></tr>
+        <tr><td>ɔː</td><td>aw</td><td>thought set</td><td>as in <em>law</em></td></tr>
+        <tr><td>ɔɪ</td><td>oy</td><td>choice set</td><td>as in <em>boy</em></td></tr>
+        <tr><td>ɒ</td><td>o</td><td>lot set (UK/global)</td><td>as in <em>lot</em></td></tr>
+        <tr><td>ʊ</td><td>uu</td><td>foot set</td><td>as in <em>book</em></td></tr>
+        <tr><td>uː / u</td><td>oo</td><td>goose set</td><td>as in <em>too</em></td></tr>
+        <tr><td>ʌ</td><td>uh</td><td>strut set</td><td>as in <em>cup</em></td></tr>
+      </table>
+
+      <div class="phoneme-section-title">Consonants (Core)</div>
+      <table class="phoneme-table">
+        <tr><th>IPA</th><th>Respelling</th><th>Example</th></tr>
+        <tr><td>b</td><td>b</td><td>bad</td></tr>
+        <tr><td>d</td><td>d</td><td>dog</td></tr>
+        <tr><td>dʒ</td><td>j</td><td>joy</td></tr>
+        <tr><td>ð</td><td>dh</td><td>this</td></tr>
+        <tr><td>f</td><td>f</td><td>fox</td></tr>
+        <tr><td>ɡ / g</td><td>g</td><td>go</td></tr>
+        <tr><td>h</td><td>h</td><td>hat</td></tr>
+        <tr><td>k</td><td>k</td><td>kit</td></tr>
+        <tr><td>l</td><td>l</td><td>lip</td></tr>
+        <tr><td>m</td><td>m</td><td>man</td></tr>
+        <tr><td>n</td><td>n</td><td>net</td></tr>
+        <tr><td>ŋ</td><td>ng</td><td>sing</td></tr>
+        <tr><td>p</td><td>p</td><td>pen</td></tr>
+        <tr><td>ɹ / r</td><td>r</td><td>run</td></tr>
+        <tr><td>s</td><td>s</td><td>sun</td></tr>
+        <tr><td>ʃ</td><td>sh</td><td>ship</td></tr>
+        <tr><td>t</td><td>t</td><td>top</td></tr>
+        <tr><td>tʃ</td><td>ch</td><td>chat</td></tr>
+        <tr><td>θ</td><td>th</td><td>think</td></tr>
+        <tr><td>v</td><td>v</td><td>van</td></tr>
+        <tr><td>w</td><td>w</td><td>win</td></tr>
+        <tr><td>j</td><td>y</td><td>yes</td></tr>
+        <tr><td>z</td><td>z</td><td>zoo</td></tr>
+        <tr><td>ʒ</td><td>zh</td><td>vision</td></tr>
+        <tr><td>ʔ</td><td>'</td><td>glottal stop</td></tr>
+      </table>
+
+      <div class="phoneme-section-title">Loanword / Marginal</div>
+      <table class="phoneme-table">
+        <tr><th>IPA</th><th>Respelling</th><th>Description / Example</th></tr>
+        <tr><td>ɑ̃</td><td>aa(n)</td><td>nasal open back unrounded (croissant)</td></tr>
+        <tr><td>æ̃</td><td>a(n)</td><td>nasal trap (gratin)</td></tr>
+        <tr><td>ʲ</td><td>(y)</td><td>palatalized</td></tr>
+        <tr><td>ɬ</td><td>hl</td><td>Welsh ll</td></tr>
+        <tr><td>x</td><td>kh</td><td>loch</td></tr>
+      </table>
+    `,
+    UK: `
+      <div class="phoneme-section-title">Vowels (Lexical Sets - UK)</div>
+      <table class="phoneme-table">
+        <tr><th>IPA / Lexical Set</th><th>Respelling</th><th>Notes & Description</th><th>English Approximation</th></tr>
+        <tr><td>ɑː</td><td>aa</td><td>bath/palm set</td><td>as in RP <em>father</em></td></tr>
+        <tr><td>aɪ</td><td>igh</td><td>price set</td><td>as in <em>high</em></td></tr>
+        <tr><td>aɪə</td><td>igh-uh</td><td>fire set</td><td>as in <em>fire</em></td></tr>
+        <tr><td>aʊ</td><td>ow</td><td>mouth set</td><td>as in <em>now</em></td></tr>
+        <tr><td>aʊə</td><td>ow-uh</td><td>power set</td><td>as in <em>power</em></td></tr>
+        <tr><td>æ</td><td>a</td><td>trap set</td><td>as in <em>cat</em></td></tr>
+        <tr><td>ə / ɐ</td><td>uh</td><td>comma/letter set</td><td>as in <em>cup</em></td></tr>
+        <tr><td>əʊ</td><td>oh</td><td>goat set</td><td>as in <em>go</em></td></tr>
+        <tr><td>eə</td><td>air</td><td>square set</td><td>as in <em>air</em></td></tr>
+        <tr><td>eɪ</td><td>ay</td><td>face set</td><td>as in <em>day</em></td></tr>
+        <tr><td>ɛ</td><td>e</td><td>dress set</td><td>as in <em>bed</em></td></tr>
+        <tr><td>ɜː</td><td>ur</td><td>nurse set</td><td>as in <em>nurse</em></td></tr>
+        <tr><td>i</td><td>ee</td><td>happy set</td><td>as in <em>happy</em></td></tr>
+        <tr><td>iː</td><td>ee</td><td>fleece set</td><td>as in <em>feet</em></td></tr>
+        <tr><td>ɪ</td><td>i</td><td>kit set</td><td>as in <em>bit</em></td></tr>
+        <tr><td>ɪə / iə</td><td>eer</td><td>near set</td><td>as in <em>peer</em></td></tr>
+        <tr><td>ɔː</td><td>aw</td><td>thought set</td><td>as in <em>thought</em></td></tr>
+        <tr><td>ɔɪ</td><td>oy</td><td>choice set</td><td>as in <em>boy</em></td></tr>
+        <tr><td>ɒ</td><td>o</td><td>lot set</td><td>as in <em>lot</em></td></tr>
+        <tr><td>ʊ</td><td>uu</td><td>foot set</td><td>as in <em>book</em></td></tr>
+        <tr><td>uː / u</td><td>oo</td><td>goose set</td><td>as in <em>too</em></td></tr>
+        <tr><td>ʌ</td><td>uh</td><td>strut set</td><td>as in <em>cup</em></td></tr>
+      </table>
+
+      <div class="phoneme-section-title">Consonants (Core)</div>
+      <table class="phoneme-table">
+        <tr><th>IPA</th><th>Respelling</th><th>Example</th></tr>
+        <tr><td>b</td><td>b</td><td>bad</td></tr>
+        <tr><td>d</td><td>d</td><td>dog</td></tr>
+        <tr><td>dʒ</td><td>j</td><td>joy</td></tr>
+        <tr><td>ð</td><td>dh</td><td>this</td></tr>
+        <tr><td>f</td><td>f</td><td>fox</td></tr>
+        <tr><td>ɡ / g</td><td>g</td><td>go</td></tr>
+        <tr><td>h</td><td>h</td><td>hat</td></tr>
+        <tr><td>k</td><td>k</td><td>kit</td></tr>
+        <tr><td>l</td><td>l</td><td>lip</td></tr>
+        <tr><td>m</td><td>m</td><td>man</td></tr>
+        <tr><td>n</td><td>n</td><td>net</td></tr>
+        <tr><td>ŋ</td><td>ng</td><td>sing</td></tr>
+        <tr><td>p</td><td>p</td><td>pen</td></tr>
+        <tr><td>ɹ / r</td><td>r</td><td>run</td></tr>
+        <tr><td>s</td><td>s</td><td>sun</td></tr>
+        <tr><td>ʃ</td><td>sh</td><td>ship</td></tr>
+        <tr><td>t</td><td>t</td><td>top</td></tr>
+        <tr><td>tʃ</td><td>ch</td><td>chat</td></tr>
+        <tr><td>θ</td><td>th</td><td>think</td></tr>
+        <tr><td>v</td><td>v</td><td>van</td></tr>
+        <tr><td>w</td><td>w</td><td>win</td></tr>
+        <tr><td>j</td><td>y</td><td>yes</td></tr>
+        <tr><td>z</td><td>z</td><td>zoo</td></tr>
+        <tr><td>ʒ</td><td>zh</td><td>vision</td></tr>
+        <tr><td>ʔ</td><td>'</td><td>glottal stop</td></tr>
+      </table>
+    `,
+    French: `
+      <div class="phoneme-section-title">French Vowels & Nasals (A-Z Sorted)</div>
+      <table class="phoneme-table">
+        <tr><th>IPA</th><th>Respelling</th><th>Description / Example</th></tr>
+        <tr><td>a</td><td>a</td><td>patte</td></tr>
+        <tr><td>aː</td><td>aa</td><td>long a (pâte)</td></tr>
+        <tr><td>ɑ</td><td>aa</td><td>back a</td></tr>
+        <tr><td>ɑ̃ / ã</td><td>aaᴺ</td><td>nasal open back (an, dans)</td></tr>
+        <tr><td>e</td><td>e</td><td>close-mid front unrounded (été)</td></tr>
+        <tr><td>ɛ</td><td>eh</td><td>open-mid front unrounded (lait)</td></tr>
+        <tr><td>ɛː</td><td>e͟h</td><td>long open-mid front</td></tr>
+        <tr><td>ɛ̃ / ẽ</td><td>ehᴺ</td><td>nasal open-front unrounded (in, pain)</td></tr>
+        <tr><td>ə</td><td>ə</td><td>schwa (le)</td></tr>
+        <tr><td>i</td><td>i</td><td>close front unrounded (fini, lit)</td></tr>
+        <tr><td>o</td><td>o</td><td>close-mid back rounded (côte)</td></tr>
+        <tr><td>oː</td><td>o</td><td>long close-mid back</td></tr>
+        <tr><td>ɔ</td><td>aw</td><td>open-mid back rounded (cotte)</td></tr>
+        <tr><td>ɔ̃ / õ</td><td>awᴺ</td><td>nasal open-mid back (bon)</td></tr>
+        <tr><td>œ</td><td>œ</td><td>open-mid front rounded (fleur)</td></tr>
+        <tr><td>œ̃</td><td>œᴺ</td><td>nasal open-mid front rounded (un, brun)</td></tr>
+        <tr><td>ø</td><td>ø</td><td>close-mid front rounded (peu)</td></tr>
+        <tr><td>u</td><td>u</td><td>close back rounded (ou)</td></tr>
+        <tr><td>y</td><td>ü</td><td>close front rounded (tu)</td></tr>
+      </table>
+
+      <div class="phoneme-section-title">French Consonants & Semivowels (A-Z Sorted)</div>
+      <table class="phoneme-table">
+        <tr><th>IPA</th><th>Respelling</th><th>Description / Example</th></tr>
+        <tr><td>b</td><td>b</td><td>bain</td></tr>
+        <tr><td>d</td><td>d</td><td>dans</td></tr>
+        <tr><td>f</td><td>f</td><td>feu</td></tr>
+        <tr><td>ɡ / g</td><td>g</td><td>gare</td></tr>
+        <tr><td>ɥ</td><td>ʏ</td><td>semivowel (huit, nuit)</td></tr>
+        <tr><td>j</td><td>y</td><td>semivowel (yeux)</td></tr>
+        <tr><td>k</td><td>k</td><td>coq</td></tr>
+        <tr><td>l</td><td>l</td><td>lac</td></tr>
+        <tr><td>m</td><td>m</td><td>mille</td></tr>
+        <tr><td>n</td><td>n</td><td>nous</td></tr>
+        <tr><td>ɲ</td><td>ñ</td><td>gn (gagne)</td></tr>
+        <tr><td>ŋ</td><td>NG</td><td>nasal velar</td></tr>
+        <tr><td>p</td><td>p</td><td>pas</td></tr>
+        <tr><td>ʁ / ʀ</td><td>ʀ</td><td>voiced uvular fricative / trill (roue)</td></tr>
+        <tr><td>s</td><td>s</td><td>sel</td></tr>
+        <tr><td>ʃ</td><td>SH</td><td>chat</td></tr>
+        <tr><td>t</td><td>t</td><td>tas</td></tr>
+        <tr><td>v</td><td>v</td><td>vin</td></tr>
+        <tr><td>w</td><td>w</td><td>oui</td></tr>
+        <tr><td>z</td><td>z</td><td>zéro</td></tr>
+        <tr><td>ʒ</td><td>ZH</td><td>jour</td></tr>
+        <tr><td>‿</td><td>‿</td><td>Liaison (continuous word linking)</td></tr>
+      </table>
+    `,
+    German: `
+      <div class="phoneme-section-title">German Phonemes - Core Consonants (A-Z)</div>
+      <table class="phoneme-table">
+        <tr><th>Glyph</th><th>IPA</th><th>Example</th></tr>
+        <tr><td>b</td><td>b</td><td>bei</td></tr>
+        <tr><td>CH</td><td>tʃ</td><td>Matsch</td></tr>
+        <tr><td>d</td><td>d</td><td>dann</td></tr>
+        <tr><td>f</td><td>f</td><td>für</td></tr>
+        <tr><td>g</td><td>g / ɡ</td><td>gut</td></tr>
+        <tr><td>h</td><td>h</td><td>hat</td></tr>
+        <tr><td>KH</td><td>x</td><td>nach</td></tr>
+        <tr><td>K͟H</td><td>ç</td><td>ich</td></tr>
+        <tr><td>l</td><td>l</td><td>leben</td></tr>
+        <tr><td>ᵊl</td><td>l̩</td><td>Mantel</td></tr>
+        <tr><td>m</td><td>m</td><td>Mann</td></tr>
+        <tr><td>ᵊm</td><td>m̩</td><td>großem</td></tr>
+        <tr><td>n</td><td>n</td><td>Name</td></tr>
+        <tr><td>ᵊn</td><td>n̩</td><td>beiden</td></tr>
+        <tr><td>NG</td><td>ŋ</td><td>lang</td></tr>
+        <tr><td>p</td><td>p</td><td>Person</td></tr>
+        <tr><td>PF</td><td>pf</td><td>Pferd</td></tr>
+        <tr><td>ʀ</td><td>ʁ</td><td>reden</td></tr>
+        <tr><td>s</td><td>s</td><td>lassen</td></tr>
+        <tr><td>SH</td><td>ʃ</td><td>schon</td></tr>
+        <tr><td>t</td><td>t</td><td>Tag</td></tr>
+        <tr><td>TS</td><td>ts</td><td>Zeit</td></tr>
+        <tr><td>v</td><td>v</td><td>was</td></tr>
+        <tr><td>Y</td><td>j</td><td>Jahr</td></tr>
+        <tr><td>z</td><td>z</td><td>Sie</td></tr>
+        <tr><td>ʔ</td><td>ʔ</td><td>beamtet</td></tr>
+      </table>
+
+      <div class="phoneme-section-title">German Phonemes - Non-Native Consonants (A-Z)</div>
+      <table class="phoneme-table">
+        <tr><th>Glyph</th><th>IPA</th><th>Example</th></tr>
+        <tr><td>DH</td><td>ð</td><td>Motherboard</td></tr>
+        <tr><td>ᴊ</td><td>dʒ</td><td>Dschungel</td></tr>
+        <tr><td>LY</td><td>ʎ</td><td>Melilla</td></tr>
+        <tr><td>ñ</td><td>ɲ</td><td>Piñata</td></tr>
+        <tr><td>r</td><td>r</td><td>Spray</td></tr>
+        <tr><td>TH</td><td>θ</td><td>Thatcherismus</td></tr>
+        <tr><td>w</td><td>w</td><td>Web</td></tr>
+        <tr><td>ZH</td><td>ʒ</td><td>Genie</td></tr>
+      </table>
+
+      <div class="phoneme-section-title">German Phonemes - Full / Syllabic Vowels (A-Z)</div>
+      <table class="phoneme-table">
+        <tr><th>Glyph</th><th>IPA</th><th>Example</th></tr>
+        <tr><td>a</td><td>a</td><td>alles</td></tr>
+        <tr><td>ā</td><td>aː</td><td>aber</td></tr>
+        <tr><td>a͟i</td><td>aɪ / aɪ̆</td><td>ein</td></tr>
+        <tr><td>a͟u</td><td>aʊ / aʊ̆</td><td>auf</td></tr>
+        <tr><td>e</td><td>e</td><td>Element (reduced/foreign short)</td></tr>
+        <tr><td>ē</td><td>eː</td><td>eben</td></tr>
+        <tr><td>ᴇ</td><td>ɛ</td><td>Ende</td></tr>
+        <tr><td>ᴇ̄</td><td>ɛː</td><td>spät</td></tr>
+        <tr><td>ə</td><td>ə</td><td>Name</td></tr>
+        <tr><td>ɐ</td><td>ɐ</td><td>Immer</td></tr>
+        <tr><td>i</td><td>i</td><td>Italien (reduced/foreign short)</td></tr>
+        <tr><td>ī</td><td>iː</td><td>Liebe</td></tr>
+        <tr><td>ɪ</td><td>ɪ</td><td>ist</td></tr>
+        <tr><td>o</td><td>o</td><td>originell (reduced/foreign short)</td></tr>
+        <tr><td>ō</td><td>oː</td><td>oder</td></tr>
+        <tr><td>o̱</td><td>ɔ</td><td>kommen</td></tr>
+        <tr><td>o͟i</td><td>ɔʏ / ɔɪ / ɔʏ̆</td><td>Euro</td></tr>
+        <tr><td>ø</td><td>ø</td><td>Ökonomie (reduced/foreign short)</td></tr>
+        <tr><td>ø̄</td><td>øː</td><td>Österreich</td></tr>
+        <tr><td>œ</td><td>œ</td><td>Köln</td></tr>
+        <tr><td>u</td><td>u</td><td>Universität (reduced/foreign short)</td></tr>
+        <tr><td>ū</td><td>uː</td><td>Hut</td></tr>
+        <tr><td>ʉ</td><td>ʊ</td><td>und</td></tr>
+        <tr><td>y</td><td>y</td><td>Psychologie (reduced/foreign short)</td></tr>
+        <tr><td>ȳ</td><td>yː</td><td>über</td></tr>
+        <tr><td>ʏ</td><td>ʏ</td><td>fünf</td></tr>
+      </table>
+
+      <div class="phoneme-section-title">German Phonemes - Non-Syllabic Vowels (A-Z)</div>
+      <table class="phoneme-table">
+        <tr><th>Glyph</th><th>IPA</th><th>Example / Note</th></tr>
+        <tr><td>ɐ̆</td><td>ɐ̯</td><td>Uhr (never bracketed)</td></tr>
+        <tr><td>ĭ</td><td>i̯</td><td>Studio (never bracketed)</td></tr>
+        <tr><td>ŏ</td><td>o̯</td><td>Pointe (never bracketed)</td></tr>
+        <tr><td>ŭ</td><td>u̯</td><td>linguist (never bracketed)</td></tr>
+        <tr><td>y̆</td><td>y̯</td><td>Etui (never bracketed)</td></tr>
+      </table>
+
+      <div class="phoneme-section-title">German Phonemes - Foreign & Nasal Vowels (A-Z)</div>
+      <table class="phoneme-table">
+        <tr><th>Glyph</th><th>IPA</th><th>Example</th></tr>
+        <tr><td>aᴺ</td><td>ã</td><td>engagieren</td></tr>
+        <tr><td>āᴺ</td><td>ãː</td><td>Gourmand</td></tr>
+        <tr><td>a͟w</td><td>(approx.)</td><td>stalken</td></tr>
+        <tr><td>e͟i</td><td>ɛɪ</td><td>Mail</td></tr>
+        <tr><td>ᴇᴺ</td><td>ɛ̃</td><td>impair</td></tr>
+        <tr><td>ᴇ̄ᴺ</td><td>ɛ̃ː</td><td>Pointe</td></tr>
+        <tr><td>oᴺ</td><td>ɔ̃</td><td>foncé</td></tr>
+        <tr><td>ōᴺ</td><td>õː</td><td>Garçon</td></tr>
+        <tr><td>o͟u</td><td>oʊ</td><td>Code</td></tr>
+        <tr><td>œᴺ</td><td>œ̃</td><td>Lundist</td></tr>
+        <tr><td>œ̄ᴺ</td><td>œ̃ː</td><td>Parfum</td></tr>
+      </table>
+
+      <div class="phoneme-section-title">Stress & Bracketing Conventions</div>
+      <table class="phoneme-table">
+        <tr><th>Mark / Bracket</th><th>Meaning</th><th>Display Styling</th></tr>
+        <tr><td><strong>[...]</strong></td><td>General Vowel</td><td>Light Blue Pill</td></tr>
+        <tr><td><strong>{...}</strong></td><td>Stressed Vowel</td><td>Dark Blue Pill</td></tr>
+        <tr><td><strong>Unbracketed Text</strong></td><td>Consonants / Non-Vowels</td><td>Plain Text on White Background</td></tr>
+      </table>
+    `
+  };
+
+  function updateReferenceGuide() {
+    const title = document.getElementById('refTitle');
+    const content = document.getElementById('refContent');
+    if (currentRegion === 'US') {
+      title.textContent = 'Phoneme Reference Guide: US English';
+      content.innerHTML = phonemeReferences.US;
+    } else if (currentRegion === 'UK') {
+      title.textContent = 'Phoneme Reference Guide: UK English';
+      content.innerHTML = phonemeReferences.UK;
+    } else if (currentRegion === 'French') {
+      title.textContent = 'Phoneme Reference Guide: French';
+      content.innerHTML = phonemeReferences.French;
+    } else if (currentRegion === 'German') {
+      title.textContent = 'Phoneme Reference Guide: German';
+      content.innerHTML = phonemeReferences.German;
+    }
+  }
+
+  function updateVoicesList() {
+    const voiceSelect = document.getElementById('voiceSelect');
+    if (!('speechSynthesis' in window)) return;
+    const voices = window.speechSynthesis.getVoices();
+    voiceSelect.innerHTML = '';
+
+    let targetLang = 'en-US';
+    let preferredKeyword = 'eddy';
+
+    if (currentRegion === 'UK') {
+      targetLang = 'en-GB';
+      preferredKeyword = 'eddy';
+    } else if (currentRegion === 'French') {
+      targetLang = 'fr-FR';
+      preferredKeyword = 'amelie';
+    } else if (currentRegion === 'German') {
+      targetLang = 'de-DE';
+      preferredKeyword = 'marlene';
+    }
+
+    const matchingVoices = voices.filter(v => v.lang.toLowerCase().startsWith(targetLang.substring(0, 2)));
+    const targetList = matchingVoices.length > 0 ? matchingVoices : voices;
+
+    let selectedVoice = targetList.find(v => v.name.toLowerCase().includes(preferredKeyword));
+    if (!selectedVoice && targetList.length > 0) {
+      selectedVoice = targetList[0];
+    }
+
+    targetList.forEach((voice) => {
+      const option = document.createElement('option');
+      option.value = voice.name;
+      option.textContent = `${voice.name} (${voice.lang})`;
+      if (selectedVoice && voice.name === selectedVoice.name) {
+        option.selected = true;
+      }
+      voiceSelect.appendChild(option);
+    });
+  }
+
+  if ('speechSynthesis' in window) {
+    window.speechSynthesis.onvoiceschanged = updateVoicesList;
+    setTimeout(updateVoicesList, 200);
+  }
+
+  function switchRegion(regionKey) {
+    currentRegion = regionKey;
+    document.getElementById('btnUS').classList.toggle('active', regionKey === 'US');
+    document.getElementById('btnUK').classList.toggle('active', regionKey === 'UK');
+    document.getElementById('btnFR').classList.toggle('active', regionKey === 'French');
+    document.getElementById('btnDE').classList.toggle('active', regionKey === 'German');
+
+    const searchInput = document.getElementById('searchInput');
+
+    if (regionKey === 'French') {
+      document.getElementById('accentDisplayLabel').textContent = 'French Pronunciation';
+      searchInput.value = 'bonjour';
+    } else if (regionKey === 'German') {
+      document.getElementById('accentDisplayLabel').textContent = 'German Pronunciation';
+      searchInput.value = 'hallo';
+    } else {
+      document.getElementById('accentDisplayLabel').textContent = regionKey === 'US' ? 'US English Pronunciation' : 'UK English Pronunciation';
+      searchInput.value = 'hello';
+    }
+
+    updateVoicesList();
+    updateReferenceGuide();
+    onSearchInput();
+  }
+
+  function parseLine(line) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith('#') || trimmed.startsWith('-')) return null;
+
+    const parts = trimmed.split(/\s{2,}|\t+/);
+    let wordPart = '';
+    let respellingPart = '';
+
+    if (parts.length >= 2) {
+      wordPart = parts[0].trim().toLowerCase();
+      respellingPart = parts.slice(1).join(' ').trim();
+    } else {
+      const firstSpace = trimmed.indexOf(' ');
+      if (firstSpace > 0) {
+        wordPart = trimmed.substring(0, firstSpace).trim().toLowerCase();
+        respellingPart = trimmed.substring(firstSpace).trim();
+      }
+    }
+
+    if (wordPart && respellingPart) {
+      return { word: wordPart, respelling: respellingPart };
+    }
+    return null;
+  }
+
+  async function loadAllGitHubFiles() {
+    const progressContainer = document.getElementById('progressContainer');
+    const progressBar = document.getElementById('progressBar');
+    progressContainer.style.display = 'block';
+    progressBar.style.width = '5%';
+
+    try {
+      const usRes = await fetch('./all_respellings.txt');
+      if (usRes.ok) {
+        const text = await usRes.text();
+        text.split('\n').forEach(line => {
+          const p = parseLine(line);
+          if (p) dictionaries.US.set(p.word, p.respelling);
+        });
+      }
+      progressBar.style.width = '20%';
+
+      const ukRes = await fetch('./all_uk_respellings.txt');
+      if (ukRes.ok) {
+        const text = await ukRes.text();
+        text.split('\n').forEach(line => {
+          const p = parseLine(line);
+          if (p) dictionaries.UK.set(p.word, p.respelling);
+        });
+      }
+      progressBar.style.width = '35%';
+
+      // Load French (5 parts)
+      for (let i = 1; i <= 5; i++) {
+        const partName = `./all_fr_respellings_bracket_00${i}.txt`;
+        try {
+          const frRes = await fetch(partName);
+          if (frRes.ok) {
+            const text = await frRes.text();
+            text.split('\n').forEach(line => {
+              const p = parseLine(line);
+              if (p) dictionaries.French.set(p.word, p.respelling);
+            });
+          }
+        } catch(e) { console.log(`French part ${i} skipped`); }
+      }
+      progressBar.style.width = '55%';
+
+      // Load German (16 databases: all_de_respellings_bracket_001.txt to 016.txt)
+      for (let i = 1; i <= 16; i++) {
+        const paddedNum = String(i).padStart(3, '0');
+        const dePartName = `./all_de_respellings_bracket_${paddedNum}.txt`;
+        try {
+          const deRes = await fetch(dePartName);
+          if (deRes.ok) {
+            const text = await deRes.text();
+            text.split('\n').forEach(line => {
+              const p = parseLine(line);
+              if (p) dictionaries.German.set(p.word, p.respelling);
+            });
+          }
+        } catch(e) { console.log(`German part ${i} skipped`); }
+        progressBar.style.width = `${55 + Math.round((i / 16) * 40)}%`;
+      }
+
+      progressBar.style.width = '100%';
+      setTimeout(() => {
+        progressContainer.style.display = 'none';
+        document.getElementById('fileStatus').textContent = `Loaded (US: ${dictionaries.US.size}, UK: ${dictionaries.UK.size}, FR: ${dictionaries.French.size}, DE: ${dictionaries.German.size})`;
+        document.getElementById('searchInput').disabled = false;
+        
+        switchRegion('US');
+      }, 300);
+
+    } catch (err) {
+      document.getElementById('fileStatus').textContent = "Error loading GitHub files.";
+      console.error(err);
+    }
+  }
+
+  function getActiveDictionary() {
+    return dictionaries[currentRegion] || dictionaries.US;
+  }
+
+  function levenshtein(a, b) {
+    const matrix = Array.from({ length: a.length + 1 }, (_, i) => [i]);
+    for (let j = 1; j <= b.length; j++) matrix[0][j] = j;
+
+    for (let i = 1; i <= a.length; i++) {
+      for (let j = 1; j <= b.length; j++) {
+        const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+        matrix[i][j] = Math.min(
+          matrix[i - 1][j] + 1,
+          matrix[i][j - 1] + 1,
+          matrix[i - 1][j - 1] + cost
+        );
+      }
+    }
+    return matrix[a.length][b.length];
+  }
+
+  function searchDictionary(query) {
+    const q = query.trim().toLowerCase();
+    if (!q) return null;
+    const currentDict = getActiveDictionary();
+
+    if (currentDict.has(q)) return { word: q, respelling: currentDict.get(q), exact: true };
+
+    let closestWord = null;
+    let minDistance = Infinity;
+
+    for (let word of currentDict.keys()) {
+      const dist = levenshtein(q, word);
+      if (dist < minDistance && dist <= 3) {
+        minDistance = dist;
+        closestWord = word;
+      }
+    }
+
+    if (closestWord) {
+      return { word: closestWord, respelling: currentDict.get(closestWord), exact: false };
+    }
+    return null;
+  }
+
+  function renderRespelling(rawRespellingStr) {
+    const container = document.getElementById('respellingContainer');
+    const alternativesBox = document.getElementById('alternativesBox');
+    const capitalizationNote = document.getElementById('capitalizationNote');
+    
+    container.innerHTML = '';
+    alternativesBox.innerHTML = '';
+    alternativesBox.style.display = 'none';
+    capitalizationNote.style.display = 'none';
+    currentTokens = [];
+
+    const variants = rawRespellingStr.split('|').map(v => v.trim()).filter(Boolean);
+    const primaryRaw = variants[0].normalize('NFC');
+    const alternativeVariants = variants.slice(1);
+
+    if (currentRegion === 'French' || currentRegion === 'German') {
+      // Omit explicit stress mark ˈ
+      const cleanPrimary = primaryRaw.replace(/ˈ/g, '');
+      
+      // Parse bracketed vowels vs unbracketed consonants/text
+      // Match [...] or {...} or ‿ or plain text outside brackets
+      const regex = /(\[[^\]]+\])|(\{[^\}]+\})|(‿)|([^[\{\}]‿]+)/g;
+      let match;
+      let tokenIndex = 0;
+
+      while ((match = regex.exec(cleanPrimary)) !== null) {
+        const fullText = match[0];
+        const isGeneralVowel = fullText.startsWith('[') && fullText.endsWith(']');
+        const isStressedVowel = fullText.startsWith('{') && fullText.endsWith('}');
+        const isLiaison = fullText === '‿';
+
+        if (isGeneralVowel) {
+          const cleanContent = fullText.slice(1, -1);
+          const span = document.createElement('span');
+          span.className = 'vowel-pill';
+          span.id = `token-${tokenIndex}`;
+          span.textContent = cleanContent;
+          container.appendChild(span);
+          currentTokens.push({ id: `token-${tokenIndex}`, isVowel: true, content: cleanContent });
+          tokenIndex++;
+        } else if (isStressedVowel) {
+          const cleanContent = fullText.slice(1, -1);
+          const span = document.createElement('span');
+          span.className = 'vowel-pill-stressed';
+          span.id = `token-${tokenIndex}`;
+          span.textContent = cleanContent;
+          container.appendChild(span);
+          currentTokens.push({ id: `token-${tokenIndex}`, isVowel: true, content: cleanContent });
+          tokenIndex++;
+        } else if (isLiaison) {
+          const span = document.createElement('span');
+          span.className = 'liaison-symbol';
+          span.textContent = '‿';
+          container.appendChild(span);
+        } else {
+          // Unbracketed consonants or other non-vowel text
+          // Render on white/transparent background as plain text
+          const span = document.createElement('span');
+          span.className = 'consonant-text';
+          span.textContent = fullText;
+          container.appendChild(span);
+        }
+      }
+    } else {
+      const rawSyllables = primaryRaw.split('-');
+      currentTokens = rawSyllables.map((syl, index) => ({
+        id: `token-${index}`,
+        isVowel: true,
+        content: syl
+      }));
+
+      currentTokens.forEach((item, index) => {
+        if (index > 0) {
+          const dot = document.createElement('span');
+          dot.className = 'consonant-text';
+          dot.textContent = ' · ';
+          container.appendChild(dot);
+        }
+        const span = document.createElement('span');
+        span.className = 'consonant-text';
+        span.id = item.id;
+        span.textContent = item.content;
+        container.appendChild(span);
+      });
+
+      if (/[A-Z]/.test(primaryRaw)) {
+        capitalizationNote.style.display = 'block';
+      }
+    }
+
+    if (alternativeVariants.length > 0) {
+      const cleanAlternatives = alternativeVariants.map(v => v.replace(/ˈ/g, ''));
+      alternativesBox.style.display = 'flex';
+      alternativesBox.innerHTML = `
+        <div class="alt-title">Alternative Pronunciations</div>
+        <div>${cleanAlternatives.join(' &nbsp;|&nbsp; ')}</div>
+      `;
+    }
+  }
+
+  function onSearchInput() {
+    const query = document.getElementById('searchInput').value;
+    const match = searchDictionary(query);
+    const didYouMean = document.getElementById('didYouMean');
+    const playBtn = document.getElementById('playBtn');
+
+    if (match) {
+      document.getElementById('displayWord').textContent = match.word;
+      renderRespelling(match.respelling);
+      playBtn.style.display = 'flex';
+      
+      if (!match.exact) {
+        didYouMean.style.display = 'block';
+        didYouMean.innerHTML = `Showing results for <strong>${match.word}</strong>`;
+      } else {
+        didYouMean.style.display = 'none';
+      }
+    } else {
+      document.getElementById('displayWord').textContent = query || '---';
+      document.getElementById('respellingContainer').innerHTML = `<span style="font-size:18px; color:var(--text-muted)">Word not found</span>`;
+      document.getElementById('alternativesBox').style.display = 'none';
+      document.getElementById('capitalizationNote').style.display = 'none';
+      playBtn.style.display = 'none';
+      didYouMean.style.display = 'none';
+    }
+  }
+
+  function speakCurrentWord() {
+    if (!('speechSynthesis' in window)) return;
+    window.speechSynthesis.cancel();
+
+    const text = document.getElementById('displayWord').textContent;
+    const utterance = new SpeechSynthesisUtterance(text);
+    
+    if (currentRegion === 'French') {
+      utterance.lang = 'fr-FR';
+    } else if (currentRegion === 'German') {
+      utterance.lang = 'de-DE';
+    } else if (currentRegion === 'UK') {
+      utterance.lang = 'en-GB';
+    } else {
+      utterance.lang = 'en-US';
+    }
+
+    const voiceSelect = document.getElementById('voiceSelect');
+    const voices = window.speechSynthesis.getVoices();
+    if (voiceSelect.value) {
+      const selectedVoice = voices.find(v => v.name === voiceSelect.value);
+      if (selectedVoice) utterance.voice = selectedVoice;
+    }
+
+    const isSlow = document.getElementById('slowToggle').checked;
+    utterance.rate = isSlow ? 0.6 : 1.0;
+
+    const vowelsOnly = currentTokens.filter(t => t.isVowel);
+    const numVowels = vowelsOnly.length;
+    let animInterval = null;
+
+    utterance.onstart = () => {
+      if (numVowels === 0) return;
+      const totalEstDuration = (text.length * 90) / utterance.rate;
+      const perVowelTime = totalEstDuration / numVowels;
+
+      let idx = 0;
+      highlightToken(vowelsOnly[idx].id);
+
+      animInterval = setInterval(() => {
+        idx++;
+        if (idx < numVowels) {
+          highlightToken(vowelsOnly[idx].id);
+        } else {
+          clearInterval(animInterval);
+        }
+      }, perVowelTime);
+    };
+
+    utterance.onend = () => {
+      clearInterval(animInterval);
+      clearHighlights();
+    };
+
+    window.speechSynthesis.speak(utterance);
+  }
+
+  function highlightToken(id) {
+    clearHighlights();
+    const el = document.getElementById(id);
+    if (el) el.classList.add('active');
+  }
+
+  function clearHighlights() {
+    document.querySelectorAll('.vowel-pill, .vowel-pill-stressed, .consonant-text').forEach(el => el.classList.remove('active'));
+  }
+
+  loadAllGitHubFiles();
+</script>
+
+</body>
+</html>
