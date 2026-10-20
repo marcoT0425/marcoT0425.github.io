@@ -199,208 +199,228 @@
   let currentRegion = 'US';
   let currentTokens = [];
 
+  /* ========== Phoneme reference tables (sorted A–Z by IPA / glyph) ========== */
   const phonemeReferences = {
     US: `
-      <div class="phoneme-section-title">Vowels (A-Z)</div>
+      <div class="phoneme-section-title">Vowels (A–Z)</div>
       <table class="phoneme-table">
         <tr><th>IPA</th><th>Respelling</th><th>Example</th></tr>
         <tr><td>ɑː</td><td>aa</td><td>father</td></tr>
         <tr><td>æ</td><td>a</td><td>cat</td></tr>
-        <tr><td>ʌ / ə / ɐ</td><td>uh</td><td>cup / about</td></tr>
-        <tr><td>ɔː</td><td>aw</td><td>law</td></tr>
-        <tr><td>aʊ</td><td>ow</td><td>now</td></tr>
         <tr><td>aɪ</td><td>igh</td><td>high</td></tr>
+        <tr><td>aʊ</td><td>ow</td><td>now</td></tr>
         <tr><td>ɛ</td><td>e</td><td>bed</td></tr>
         <tr><td>eɪ</td><td>ay</td><td>day</td></tr>
         <tr><td>ɜː</td><td>ur</td><td>nurse</td></tr>
         <tr><td>iː / i</td><td>ee</td><td>feet / happy</td></tr>
         <tr><td>ɪ</td><td>i</td><td>bit</td></tr>
-        <tr><td>oʊ / əʊ</td><td>oh</td><td>go</td></tr>
+        <tr><td>ɔː</td><td>aw</td><td>law</td></tr>
         <tr><td>ɔɪ</td><td>oy</td><td>boy</td></tr>
+        <tr><td>oʊ / əʊ</td><td>oh</td><td>go</td></tr>
         <tr><td>ʊ</td><td>uu</td><td>book</td></tr>
         <tr><td>uː</td><td>oo</td><td>too</td></tr>
+        <tr><td>ʌ / ə / ɐ</td><td>uh</td><td>cup / about</td></tr>
       </table>
-      <div class="phoneme-section-title">Consonants (A-Z)</div>
+      <div class="phoneme-section-title">Consonants (A–Z)</div>
       <table class="phoneme-table">
         <tr><th>IPA</th><th>Respelling</th><th>Example</th></tr>
         <tr><td>b</td><td>b</td><td>bad</td></tr>
-        <tr><td>tʃ</td><td>ch</td><td>chat</td></tr>
         <tr><td>d</td><td>d</td><td>dog</td></tr>
         <tr><td>ð</td><td>dh</td><td>this</td></tr>
+        <tr><td>dʒ</td><td>j</td><td>joy</td></tr>
         <tr><td>f</td><td>f</td><td>fox</td></tr>
         <tr><td>ɡ</td><td>g</td><td>go</td></tr>
         <tr><td>h</td><td>h</td><td>hat</td></tr>
         <tr><td>hw</td><td>hw</td><td>whine (distinction)</td></tr>
-        <tr><td>dʒ</td><td>j</td><td>joy</td></tr>
+        <tr><td>j</td><td>y</td><td>yes</td></tr>
         <tr><td>k</td><td>k</td><td>kit</td></tr>
         <tr><td>l</td><td>l</td><td>lip</td></tr>
         <tr><td>m</td><td>m</td><td>man</td></tr>
         <tr><td>n</td><td>n</td><td>net</td></tr>
         <tr><td>ŋ</td><td>ng</td><td>sing</td></tr>
         <tr><td>p</td><td>p</td><td>pen</td></tr>
-        <tr><td>ʔ</td><td>'</td><td>glottal stop</td></tr>
         <tr><td>ɹ</td><td>r</td><td>run</td></tr>
         <tr><td>s</td><td>s</td><td>sun</td></tr>
         <tr><td>ʃ</td><td>sh</td><td>ship</td></tr>
         <tr><td>t</td><td>t</td><td>top</td></tr>
+        <tr><td>tʃ</td><td>ch</td><td>chat</td></tr>
         <tr><td>θ</td><td>th</td><td>think</td></tr>
         <tr><td>v</td><td>v</td><td>van</td></tr>
         <tr><td>w</td><td>w</td><td>win</td></tr>
-        <tr><td>j</td><td>y</td><td>yes</td></tr>
         <tr><td>z</td><td>z</td><td>zoo</td></tr>
         <tr><td>ʒ</td><td>zh</td><td>vision</td></tr>
+        <tr><td>ʔ</td><td>'</td><td>glottal stop</td></tr>
       </table>
     `,
     UK: `
-      <div class="phoneme-section-title">Vowels (A-Z)</div>
+      <div class="phoneme-section-title">Vowels (A–Z)</div>
       <table class="phoneme-table">
         <tr><th>IPA</th><th>Respelling</th><th>Example</th></tr>
         <tr><td>ɑː</td><td>aa</td><td>father</td></tr>
         <tr><td>æ</td><td>a</td><td>cat</td></tr>
-        <tr><td>ʌ / ə / ɐ</td><td>uh</td><td>cup / about</td></tr>
-        <tr><td>ɔː</td><td>aw</td><td>thought</td></tr>
-        <tr><td>aʊ</td><td>ow</td><td>now</td></tr>
         <tr><td>aɪ</td><td>igh</td><td>high</td></tr>
+        <tr><td>aʊ</td><td>ow</td><td>now</td></tr>
+        <tr><td>ɒ</td><td>o</td><td>lot</td></tr>
         <tr><td>ɛ</td><td>e</td><td>bed</td></tr>
-        <tr><td>eɪ</td><td>ay</td><td>day</td></tr>
         <tr><td>eə</td><td>air</td><td>square</td></tr>
+        <tr><td>eɪ</td><td>ay</td><td>day</td></tr>
         <tr><td>ɜː</td><td>ur</td><td>nurse</td></tr>
+        <tr><td>əʊ</td><td>oh</td><td>go</td></tr>
         <tr><td>iː / i</td><td>ee</td><td>feet / happy</td></tr>
         <tr><td>ɪ</td><td>i</td><td>bit</td></tr>
         <tr><td>ɪə</td><td>eer</td><td>near</td></tr>
-        <tr><td>ɒ</td><td>o</td><td>lot</td></tr>
-        <tr><td>əʊ</td><td>oh</td><td>go</td></tr>
+        <tr><td>ɔː</td><td>aw</td><td>thought</td></tr>
         <tr><td>ɔɪ</td><td>oy</td><td>boy</td></tr>
         <tr><td>ʊ</td><td>uu</td><td>book</td></tr>
         <tr><td>uː</td><td>oo</td><td>too</td></tr>
+        <tr><td>ʌ / ə / ɐ</td><td>uh</td><td>cup / about</td></tr>
       </table>
-      <div class="phoneme-section-title">Consonants (A-Z)</div>
+      <div class="phoneme-section-title">Consonants (A–Z)</div>
       <table class="phoneme-table">
         <tr><th>IPA</th><th>Respelling</th><th>Example</th></tr>
         <tr><td>b</td><td>b</td><td>bad</td></tr>
-        <tr><td>tʃ</td><td>ch</td><td>chat</td></tr>
         <tr><td>d</td><td>d</td><td>dog</td></tr>
         <tr><td>ð</td><td>dh</td><td>this</td></tr>
+        <tr><td>dʒ</td><td>j</td><td>joy</td></tr>
         <tr><td>f</td><td>f</td><td>fox</td></tr>
         <tr><td>ɡ</td><td>g</td><td>go</td></tr>
         <tr><td>h</td><td>h</td><td>hat</td></tr>
         <tr><td>hw</td><td>hw</td><td>whine (older distinction)</td></tr>
-        <tr><td>ɬ</td><td>hl</td><td>Llanos (Welsh)</td></tr>
-        <tr><td>dʒ</td><td>j</td><td>joy</td></tr>
+        <tr><td>j</td><td>y</td><td>yes</td></tr>
+        <tr><td>ʲ</td><td>(y)</td><td>palatalization</td></tr>
         <tr><td>k</td><td>k</td><td>kit</td></tr>
-        <tr><td>x</td><td>kh</td><td>loch</td></tr>
         <tr><td>l</td><td>l</td><td>lip</td></tr>
+        <tr><td>ɬ</td><td>hl</td><td>Llanos (Welsh)</td></tr>
         <tr><td>m</td><td>m</td><td>man</td></tr>
         <tr><td>n</td><td>n</td><td>net</td></tr>
         <tr><td>ŋ</td><td>ng</td><td>sing</td></tr>
         <tr><td>p</td><td>p</td><td>pen</td></tr>
-        <tr><td>ʔ</td><td>'</td><td>glottal stop</td></tr>
         <tr><td>ɹ</td><td>r</td><td>run</td></tr>
         <tr><td>s</td><td>s</td><td>sun</td></tr>
         <tr><td>ʃ</td><td>sh</td><td>ship</td></tr>
         <tr><td>t</td><td>t</td><td>top</td></tr>
+        <tr><td>tʃ</td><td>ch</td><td>chat</td></tr>
         <tr><td>θ</td><td>th</td><td>think</td></tr>
         <tr><td>v</td><td>v</td><td>van</td></tr>
         <tr><td>w</td><td>w</td><td>win</td></tr>
-        <tr><td>j</td><td>y</td><td>yes</td></tr>
-        <tr><td>ʲ</td><td>(y)</td><td>palatalization</td></tr>
+        <tr><td>x</td><td>kh</td><td>loch</td></tr>
         <tr><td>z</td><td>z</td><td>zoo</td></tr>
         <tr><td>ʒ</td><td>zh</td><td>vision</td></tr>
+        <tr><td>ʔ</td><td>'</td><td>glottal stop</td></tr>
       </table>
     `,
     French: `
-      <div class="phoneme-section-title">French Vowels (A-Z)</div>
+      <div class="phoneme-section-title">French Vowels (A–Z)</div>
       <table class="phoneme-table">
-        <tr><th>IPA</th><th>Respelling</th><th>Example</th></tr>
-        <tr><td>a</td><td>ah</td><td>ami</td></tr>
-        <tr><td>ɑ̃</td><td>aa(n)</td><td>dans</td></tr>
-        <tr><td>e</td><td>ey</td><td>été</td></tr>
-        <tr><td>ɛ</td><td>e</td><td>lait</td></tr>
-        <tr><td>ɛ̃</td><td>e(n)</td><td>pain</td></tr>
-        <tr><td>ə</td><td>uh</td><td>le</td></tr>
-        <tr><td>i</td><td>ee</td><td>lit</td></tr>
-        <tr><td>o</td><td>oh</td><td>côte</td></tr>
-        <tr><td>ɔ</td><td>aw</td><td>cotte</td></tr>
-        <tr><td>ɔ̃</td><td>aw(n)</td><td>bon</td></tr>
-        <tr><td>œ</td><td>oeh</td><td>fleur</td></tr>
-        <tr><td>œ̃</td><td>oeh(n)</td><td>brun</td></tr>
-        <tr><td>ø</td><td>oe</td><td>peu</td></tr>
-        <tr><td>u</td><td>oo</td><td>ou</td></tr>
-        <tr><td>y</td><td>ue</td><td>tu</td></tr>
+        <tr><th>Respelling</th><th>IPA</th><th>Example</th></tr>
+        <tr><td>a</td><td>a</td><td>patte</td></tr>
+        <tr><td>aa</td><td>ɑ / aː</td><td>pâte</td></tr>
+        <tr><td>aaᴺ</td><td>ɑ̃</td><td>sans</td></tr>
+        <tr><td>aw</td><td>ɔ</td><td>sort</td></tr>
+        <tr><td>awᴺ</td><td>ɔ̃</td><td>son</td></tr>
+        <tr><td>e</td><td>e</td><td>clé</td></tr>
+        <tr><td>eh</td><td>ɛ</td><td>baie</td></tr>
+        <tr><td>ehᴺ</td><td>ɛ̃</td><td>vin</td></tr>
+        <tr><td>e͟h</td><td>ɛː</td><td>fête</td></tr>
+        <tr><td>ə</td><td>ə</td><td>reposer</td></tr>
+        <tr><td>i</td><td>i</td><td>si</td></tr>
+        <tr><td>o</td><td>o</td><td>saut</td></tr>
+        <tr><td>œ</td><td>œ</td><td>sœur</td></tr>
+        <tr><td>œᴺ</td><td>œ̃</td><td>un</td></tr>
+        <tr><td>ø</td><td>ø</td><td>ceux</td></tr>
+        <tr><td>u</td><td>u</td><td>coup</td></tr>
+        <tr><td>ü</td><td>y</td><td>tu</td></tr>
       </table>
-      <div class="phoneme-section-title">French Consonants (A-Z)</div>
+      <div class="phoneme-section-title">French Consonants (A–Z)</div>
       <table class="phoneme-table">
-        <tr><th>IPA</th><th>Respelling</th><th>Example</th></tr>
-        <tr><td>b</td><td>b</td><td>bain</td></tr>
-        <tr><td>d</td><td>d</td><td>dans</td></tr>
-        <tr><td>f</td><td>f</td><td>feu</td></tr>
-        <tr><td>ɡ</td><td>g</td><td>gare</td></tr>
-        <tr><td>ɥ</td><td>(y)</td><td>huit</td></tr>
-        <tr><td>j</td><td>y</td><td>yeux</td></tr>
-        <tr><td>k</td><td>k</td><td>coq</td></tr>
-        <tr><td>l</td><td>l</td><td>lac</td></tr>
-        <tr><td>m</td><td>m</td><td>mille</td></tr>
+        <tr><th>Respelling</th><th>IPA</th><th>Example</th></tr>
+        <tr><td>b</td><td>b</td><td>bon</td></tr>
+        <tr><td>d</td><td>d</td><td>deux</td></tr>
+        <tr><td>f</td><td>f</td><td>faire</td></tr>
+        <tr><td>g</td><td>ɡ</td><td>garçon</td></tr>
+        <tr><td>k</td><td>k</td><td>corps</td></tr>
+        <tr><td>l</td><td>l</td><td>laisser</td></tr>
+        <tr><td>m</td><td>m</td><td>même</td></tr>
         <tr><td>n</td><td>n</td><td>nous</td></tr>
-        <tr><td>ɲ</td><td>gn</td><td>gagne</td></tr>
-        <tr><td>p</td><td>p</td><td>pas</td></tr>
-        <tr><td>ʁ</td><td>rh</td><td>roue</td></tr>
-        <tr><td>s</td><td>s</td><td>sel</td></tr>
-        <tr><td>ʃ</td><td>sh</td><td>chat</td></tr>
-        <tr><td>t</td><td>t</td><td>tas</td></tr>
-        <tr><td>v</td><td>v</td><td>vin</td></tr>
+        <tr><td>ñ</td><td>ɲ</td><td>gagner</td></tr>
+        <tr><td>NG</td><td>ŋ</td><td>camping</td></tr>
+        <tr><td>p</td><td>p</td><td>père</td></tr>
+        <tr><td>ʀ</td><td>ʁ</td><td>regarder</td></tr>
+        <tr><td>s</td><td>s</td><td>sans</td></tr>
+        <tr><td>SH</td><td>ʃ</td><td>chance</td></tr>
+        <tr><td>t</td><td>t</td><td>tout</td></tr>
+        <tr><td>v</td><td>v</td><td>vous</td></tr>
         <tr><td>w</td><td>w</td><td>oui</td></tr>
+        <tr><td>y</td><td>j</td><td>fief</td></tr>
+        <tr><td>ʏ</td><td>ɥ</td><td>huit</td></tr>
         <tr><td>z</td><td>z</td><td>zéro</td></tr>
-        <tr><td>ʒ</td><td>zh</td><td>jour</td></tr>
-        <tr><td>‿</td><td>‿</td><td>liaison</td></tr>
+        <tr><td>ZH</td><td>ʒ</td><td>jamais</td></tr>
+      </table>
+      <div class="phoneme-section-title">Liaison</div>
+      <table class="phoneme-table">
+        <tr><th>Mark</th><th>Meaning</th><th>Example</th></tr>
+        <tr><td>‿</td><td>Liaison (link)</td><td>les‿amis</td></tr>
       </table>
     `,
     German: `
-      <div class="phoneme-section-title">German Vowels (A-Z)</div>
+      <div class="phoneme-section-title">German Vowels (A–Z)</div>
       <table class="phoneme-table">
         <tr><th>Glyph</th><th>IPA</th><th>Example</th></tr>
         <tr><td>a</td><td>a</td><td>alles</td></tr>
         <tr><td>ā</td><td>aː</td><td>aber</td></tr>
+        <tr><td>ᴀ</td><td>ɑ</td><td>(loan) engagement</td></tr>
+        <tr><td>ᴀ̄</td><td>ɑː</td><td>(loan)</td></tr>
         <tr><td>a͟i</td><td>aɪ</td><td>ein</td></tr>
         <tr><td>a͟u</td><td>aʊ</td><td>auf</td></tr>
+        <tr><td>æ</td><td>æ</td><td>(loan)</td></tr>
+        <tr><td>ɐ / ɐ̆</td><td>ɐ / ɐ̯</td><td>Name / (non-syllabic)</td></tr>
         <tr><td>e / ē</td><td>e / eː</td><td>Element / eben</td></tr>
         <tr><td>ᴇ / ᴇ̄</td><td>ɛ / ɛː</td><td>Ende / spät</td></tr>
         <tr><td>ə</td><td>ə</td><td>Name</td></tr>
         <tr><td>i / ī / ɪ</td><td>i / iː / ɪ</td><td>Italien / Liebe / ist</td></tr>
+        <tr><td>ĭ</td><td>i̯</td><td>studio (semi-vowel)</td></tr>
         <tr><td>o / ō / o̱</td><td>o / oː / ɔ</td><td>originell / oder / kommen</td></tr>
+        <tr><td>ọ̄</td><td>ɔː</td><td>(long open-o)</td></tr>
         <tr><td>o͟i</td><td>ɔʏ</td><td>Euro</td></tr>
-        <tr><td>ø / ø̄ / œ</td><td>ø / øː / œ</td><td>Ökonomie / Österreich / Köln</td></tr>
+        <tr><td>o͟u / o͟h</td><td>ɔʊ / oʊ</td><td>(diphthongs)</td></tr>
+        <tr><td>ø / ø̄ / œ / œ̄</td><td>ø / øː / œ / œː</td><td>Ökonomie / Österreich / Köln</td></tr>
         <tr><td>u / ū / ʉ</td><td>u / uː / ʊ</td><td>Universität / Hut / und</td></tr>
+        <tr><td>ŭ</td><td>u̯</td><td>(semi-vowel)</td></tr>
         <tr><td>y / ȳ / ʏ</td><td>y / yː / ʏ</td><td>Psychologie / über / fünf</td></tr>
+        <tr><td>y̆</td><td>y̯ / y̑</td><td>(non-syllabic)</td></tr>
       </table>
-      <div class="phoneme-section-title">German Consonants (A-Z)</div>
+      <div class="phoneme-section-title">German Consonants (A–Z)</div>
       <table class="phoneme-table">
         <tr><th>Glyph</th><th>IPA</th><th>Example</th></tr>
-        <tr><td>b</td><td>b</td><td>bei</td></tr>
+        <tr><td>b / (b)</td><td>b / b̥</td><td>bei</td></tr>
         <tr><td>CH</td><td>tʃ</td><td>Matsch</td></tr>
-        <tr><td>d</td><td>d</td><td>dann</td></tr>
+        <tr><td>d / (d) / ḏ</td><td>d / d̥ / d̪</td><td>dann</td></tr>
         <tr><td>f</td><td>f</td><td>für</td></tr>
-        <tr><td>g</td><td>ɡ</td><td>gut</td></tr>
-        <tr><td>h</td><td>h</td><td>hat</td></tr>
+        <tr><td>g / (g)</td><td>ɡ / ɡ̊</td><td>gut</td></tr>
+        <tr><td>h / ẖ</td><td>h / ħ ɦ</td><td>hat</td></tr>
+        <tr><td>ᴊ</td><td>dʒ</td><td>(loan) Job</td></tr>
         <tr><td>KH / K͟H</td><td>x / ç</td><td>nach / ich</td></tr>
-        <tr><td>l / ᵊl</td><td>l / l̩</td><td>leben / Mantel</td></tr>
-        <tr><td>m / ᵊm</td><td>m / m̩</td><td>Mann / großem</td></tr>
+        <tr><td>l / ᵊl / ƚ / ᵊƚ</td><td>l / l̩ / ɫ / ɫ̩</td><td>leben / Mantel</td></tr>
+        <tr><td>m / ᵊm</td><td>m / m̩ ɱ̍</td><td>Mann / großem</td></tr>
         <tr><td>n / ᵊn</td><td>n / n̩</td><td>Name / beiden</td></tr>
-        <tr><td>NG</td><td>ŋ</td><td>lang</td></tr>
-        <tr><td>p / PF</td><td>p / pf</td><td>Person / Pferd</td></tr>
-        <tr><td>ʀ</td><td>ʁ</td><td>reden</td></tr>
-        <tr><td>s / SH / TS</td><td>s / ʃ / ts</td><td>lassen / schon / Zeit</td></tr>
-        <tr><td>t</td><td>t</td><td>Tag</td></tr>
-        <tr><td>v</td><td>v</td><td>was</td></tr>
+        <tr><td>NG / ᵊŋ</td><td>ŋ / ŋ̩</td><td>lang</td></tr>
+        <tr><td>ñ</td><td>ɲ</td><td>(loan)</td></tr>
+        <tr><td>p / PF / ᵖ</td><td>p / pf / p̚</td><td>Person / Pferd</td></tr>
+        <tr><td>ʀ / ʀ̤ / ʀ̱ / ʀ̣</td><td>ʁ / r / r̺ / ɾ</td><td>reden</td></tr>
+        <tr><td>ᵊʀ / ᵊʀ̤</td><td>ʁ̩ / r̩</td><td>(syllabic)</td></tr>
+        <tr><td>s / SH / TS / (z)</td><td>s / ʃ / ts / z̥</td><td>lassen / schon / Zeit</td></tr>
+        <tr><td>t / ṯ</td><td>t / ʈ</td><td>Tag</td></tr>
+        <tr><td>v / v̱</td><td>v / ʋ</td><td>was</td></tr>
         <tr><td>Y</td><td>j</td><td>Jahr</td></tr>
-        <tr><td>z</td><td>z</td><td>Sie</td></tr>
+        <tr><td>z / ZH</td><td>z / ʒ</td><td>Sie / Garage</td></tr>
         <tr><td>ʔ</td><td>ʔ</td><td>beamtet</td></tr>
       </table>
       <div class="phoneme-section-title">Bracketing</div>
       <table class="phoneme-table">
         <tr><th>Mark</th><th>Meaning</th><th>Display</th></tr>
-        <tr><td>[...]</td><td>General vowel</td><td>Light blue pill</td></tr>
+        <tr><td>[...]</td><td>Unstressed vowel</td><td>Light blue pill</td></tr>
         <tr><td>{...}</td><td>Stressed vowel</td><td>Dark blue pill</td></tr>
-        <tr><td>Unbracketed</td><td>Consonants</td><td>Plain text</td></tr>
+        <tr><td>Unbracketed</td><td>Consonants / semi-vowels (ĭ …)</td><td>Plain text</td></tr>
         <tr><td>|</td><td>Syllable boundary</td><td> · </td></tr>
       </table>
     `
@@ -500,6 +520,7 @@
         });
       }
       progressBar.style.width = '20%';
+
       const ukRes = await fetch('./all_uk_respellings.txt');
       if (ukRes.ok) {
         (await ukRes.text()).split('\n').forEach(line => {
@@ -508,9 +529,12 @@
         });
       }
       progressBar.style.width = '35%';
+
+      /* French: STANDARD (plain) respellings — not bracket files */
       for (let i = 1; i <= 5; i++) {
+        const padded = String(i).padStart(3, '0');
         try {
-          const frRes = await fetch('./all_fr_respellings_bracket_00' + i + '.txt');
+          const frRes = await fetch('./all_fr_respellings_' + padded + '.txt');
           if (frRes.ok) {
             (await frRes.text()).split('\n').forEach(line => {
               const p = parseLine(line);
@@ -519,7 +543,21 @@
           }
         } catch (e) {}
       }
+      /* fallback single file */
+      if (dictionaries.French.size === 0) {
+        try {
+          const frOne = await fetch('./all_fr_respellings.txt');
+          if (frOne.ok) {
+            (await frOne.text()).split('\n').forEach(line => {
+              const p = parseLine(line);
+              if (p) dictionaries.French.set(p.word, p.respelling);
+            });
+          }
+        } catch (e) {}
+      }
       progressBar.style.width = '55%';
+
+      /* German: bracket form (vowel pills) */
       for (let i = 1; i <= 16; i++) {
         const padded = String(i).padStart(3, '0');
         try {
@@ -587,15 +625,13 @@
     return null;
   }
 
-  /* ========== FIXED renderRespelling ==========
-     Bug was: regex character class [^[\{\}]‿] closed early at ],
-     so unbracketed consonants never matched and were omitted.
-  */
+  /* French vowels (longest first) for highlight animation */
+  const FR_VOWEL_CHUNK = /aaᴺ|ehᴺ|œᴺ|awᴺ|e͟h|aa|eh|aw|ü|ə|œ|ø|[aeiou]/gi;
+
   function renderRespelling(rawRespellingStr) {
     const container = document.getElementById('respellingContainer');
     const alternativesBox = document.getElementById('alternativesBox');
     const capitalizationNote = document.getElementById('capitalizationNote');
-
     container.innerHTML = '';
     alternativesBox.innerHTML = '';
     alternativesBox.style.display = 'none';
@@ -603,10 +639,8 @@
     currentTokens = [];
 
     const variants = rawRespellingStr.split('|').map(v => v.trim()).filter(Boolean);
-
-    // Prefer a variant that still has unbracketed consonants (German/French)
     let chosenVariantIndex = 0;
-    if ((currentRegion === 'German' || currentRegion === 'French') && variants.length > 1) {
+    if (currentRegion === 'German' && variants.length > 1) {
       const hasConsonants = (str) => {
         const stripped = str
           .replace(/\[[^\]]+\]/g, '')
@@ -624,13 +658,12 @@
         }
       }
     }
-
     const primaryRaw = variants[chosenVariantIndex].normalize('NFC');
     const alternativeVariants = variants.filter((_, idx) => idx !== chosenVariantIndex);
 
-    if (currentRegion === 'French' || currentRegion === 'German') {
+    if (currentRegion === 'German') {
+      /* Bracket mode: [vowel] {stressed} plain consonants / semi-vowels */
       const cleanPrimary = primaryRaw.replace(/ˈ/g, '');
-      // FIXED character class — excludes [ ] { } ‿ | correctly
       const regex = /(\[[^\]]+\])|(\{[^}]+\})|(‿)|(\|)|([^\[\]{}‿|]+)/gu;
       let match;
       let tokenIndex = 0;
@@ -640,7 +673,6 @@
         const isStressedVowel = fullText.startsWith('{') && fullText.endsWith('}');
         const isLiaison = fullText === '‿';
         const isPipe = fullText === '|';
-
         if (isGeneralVowel) {
           const cleanContent = fullText.slice(1, -1);
           const span = document.createElement('span');
@@ -670,7 +702,6 @@
           span.textContent = ' · ';
           container.appendChild(span);
         } else {
-          // Unbracketed consonants — always shown
           const span = document.createElement('span');
           span.className = 'consonant-text';
           span.id = 'token-' + tokenIndex;
@@ -680,8 +711,56 @@
           tokenIndex++;
         }
       }
+    } else if (currentRegion === 'French') {
+      /* STANDARD French: continuous plain respelling (no [] brackets) */
+      const cleanPrimary = primaryRaw.replace(/ˈ/g, '');
+      let tokenIndex = 0;
+      let i = 0;
+      const s = cleanPrimary;
+      while (i < s.length) {
+        if (s[i] === '‿') {
+          const span = document.createElement('span');
+          span.className = 'liaison-symbol';
+          span.textContent = '‿';
+          container.appendChild(span);
+          i++;
+          continue;
+        }
+        if (s[i] === '-' || s[i] === ' ') {
+          const span = document.createElement('span');
+          span.className = 'consonant-text';
+          span.textContent = s[i] === '-' ? ' · ' : ' ';
+          container.appendChild(span);
+          i++;
+          continue;
+        }
+        FR_VOWEL_CHUNK.lastIndex = 0;
+        const rest = s.slice(i);
+        const vm = rest.match(FR_VOWEL_CHUNK);
+        if (vm && rest.startsWith(vm[0])) {
+          const span = document.createElement('span');
+          span.className = 'vowel-pill';
+          span.id = 'token-' + tokenIndex;
+          span.textContent = vm[0];
+          container.appendChild(span);
+          currentTokens.push({ id: 'token-' + tokenIndex, isVowel: true, content: vm[0] });
+          tokenIndex++;
+          i += vm[0].length;
+        } else {
+          /* take one grapheme cluster as consonant */
+          const cp = [...s.slice(i)][0];
+          const span = document.createElement('span');
+          span.className = 'consonant-text';
+          span.id = 'token-' + tokenIndex;
+          span.textContent = cp;
+          container.appendChild(span);
+          currentTokens.push({ id: 'token-' + tokenIndex, isVowel: false, content: cp });
+          tokenIndex++;
+          i += cp.length;
+        }
+      }
     } else {
-      // US / UK: hyphen-separated syllables
+      /* US / UK: hyphen-separated syllables */
       const rawSyllables = primaryRaw.split('-');
       currentTokens = rawSyllables.map((syl, index) => ({
         id: 'token-' + index,
