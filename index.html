@@ -488,104 +488,141 @@
   }
 
   function parseLine(line) {
-    const trimmed = line.trim();
+    // strip BOM / CR
+    let trimmed = line.replace(/^\uFEFF/, '').replace(/\r$/, '').trim();
     if (!trimmed || trimmed.startsWith('#') || trimmed.startsWith('-')) return null;
-    const parts = trimmed.split(/\s{2,}|\t+/);
+    // Prefer 2+ spaces or tab (fixed-width export columns)
+    let parts = trimmed.split(/\s{2,}|\t+/);
     let wordPart = '', respellingPart = '';
     if (parts.length >= 2) {
       wordPart = parts[0].trim().toLowerCase();
       respellingPart = parts.slice(1).join(' ').trim();
     } else {
-      const firstSpace = trimmed.indexOf(' ');
-      if (firstSpace > 0) {
-        wordPart = trimmed.substring(0, firstSpace).trim().toLowerCase();
-        respellingPart = trimmed.substring(firstSpace).trim();
+      // single-space fallback: first token = word, rest = respelling
+      const m = trimmed.match(/^(\S+)\s+(.+)$/);
+      if (m) {
+        wordPart = m[1].toLowerCase();
+        respellingPart = m[2].trim();
       }
     }
     if (wordPart && respellingPart) return { word: wordPart, respelling: respellingPart };
     return null;
   }
 
+  async function loadTextFile(url) {
+    try {
+      const res = await fetch(url);
+      if (!res.ok) {
+        console.warn('HTTP ' + res.status + ' for ' + url);
+        return null;
+      }
+      return await res.text();
+    } catch (e) {
+      console.warn('Fetch failed: ' + url, e);
+      return null;
+    }
+  }
+
+  function ingestLines(text, map) {
+    if (!text) return 0;
+    let n = 0;
+    text.split(/\n/).forEach(line => {
+      const p = parseLine(line);
+      if (p) {
+        map.set(p.word, p.respelling);
+        n++;
+      }
+    });
+    return n;
+  }
+
   async function loadAllGitHubFiles() {
     const progressContainer = document.getElementById('progressContainer');
     const progressBar = document.getElementById('progressBar');
+    const fileStatus = document.getElementById('fileStatus');
     progressContainer.style.display = 'block';
     progressBar.style.width = '5%';
+    const frLoadedFiles = [];
+
     try {
-      const usRes = await fetch('./all_respellings.txt');
-      if (usRes.ok) {
-        (await usRes.text()).split('\n').forEach(line => {
-          const p = parseLine(line);
-          if (p) dictionaries.US.set(p.word, p.respelling);
-        });
-      }
+      // US
+      let text = await loadTextFile('all_respellings.txt');
+      if (!text) text = await loadTextFile('./all_respellings.txt');
+      ingestLines(text, dictionaries.US);
       progressBar.style.width = '20%';
 
-      const ukRes = await fetch('./all_uk_respellings.txt');
-      if (ukRes.ok) {
-        (await ukRes.text()).split('\n').forEach(line => {
-          const p = parseLine(line);
-          if (p) dictionaries.UK.set(p.word, p.respelling);
-        });
-      }
+      // UK
+      text = await loadTextFile('all_uk_respellings.txt');
+      if (!text) text = await loadTextFile('./all_uk_respellings.txt');
+      ingestLines(text, dictionaries.UK);
       progressBar.style.width = '35%';
 
-      /* French: bracket export files (all_fr_respellings_bracket_001 … 005) */
-      for (let i = 1; i <= 5; i++) {
-        const padded = String(i).padStart(3, '0');
-        try {
-          const frRes = await fetch('./all_fr_respellings_bracket_' + padded + '.txt');
-          if (frRes.ok) {
-            (await frRes.text()).split('\n').forEach(line => {
-              const p = parseLine(line);
-              if (p) dictionaries.French.set(p.word, p.respelling);
-            });
-          }
-        } catch (e) {}
+      // French — exact GitHub names: all_fr_respellings_bracket_001.txt … 005
+      const frNames = [
+        'all_fr_respellings_bracket_001.txt',
+        'all_fr_respellings_bracket_002.txt',
+        'all_fr_respellings_bracket_003.txt',
+        'all_fr_respellings_bracket_004.txt',
+        'all_fr_respellings_bracket_005.txt',
+      ];
+      for (let i = 0; i < frNames.length; i++) {
+        const name = frNames[i];
+        let t = await loadTextFile(name);
+        if (!t) t = await loadTextFile('./' + name);
+        const before = dictionaries.French.size;
+        const added = ingestLines(t, dictionaries.French);
+        if (added > 0) frLoadedFiles.push(name + ' (+' + added + ')');
+        else if (t) console.warn(name + ' fetched but 0 lines parsed (check format)');
+        else console.warn(name + ' not found');
+        progressBar.style.width = (35 + Math.round(((i + 1) / frNames.length) * 20)) + '%';
       }
+      // extra fallbacks
       if (dictionaries.French.size === 0) {
-        for (const name of ['./all_fr_respellings_bracket.txt', './all_fr_respellings.txt']) {
-          try {
-            const frOne = await fetch(name);
-            if (frOne.ok) {
-              (await frOne.text()).split('\n').forEach(line => {
-                const p = parseLine(line);
-                if (p) dictionaries.French.set(p.word, p.respelling);
-              });
-              if (dictionaries.French.size > 0) break;
-            }
-          } catch (e) {}
+        for (const name of [
+          'all_fr_respellings_bracket.txt',
+          'all_fr_respellings.txt',
+          'all_fr_respellings_001.txt',
+        ]) {
+          let t = await loadTextFile(name);
+          if (!t) t = await loadTextFile('./' + name);
+          if (ingestLines(t, dictionaries.French) > 0) {
+            frLoadedFiles.push(name);
+            break;
+          }
         }
       }
       progressBar.style.width = '55%';
 
-      /* German: bracket form (vowel pills) */
+      // German
       for (let i = 1; i <= 16; i++) {
         const padded = String(i).padStart(3, '0');
-        try {
-          const deRes = await fetch('./all_de_respellings_bracket_' + padded + '.txt');
-          if (deRes.ok) {
-            (await deRes.text()).split('\n').forEach(line => {
-              const p = parseLine(line);
-              if (p) dictionaries.German.set(p.word, p.respelling);
-            });
-          }
-        } catch (e) {}
+        const name = 'all_de_respellings_bracket_' + padded + '.txt';
+        let t = await loadTextFile(name);
+        if (!t) t = await loadTextFile('./' + name);
+        ingestLines(t, dictionaries.German);
         progressBar.style.width = (55 + Math.round((i / 16) * 40)) + '%';
       }
       progressBar.style.width = '100%';
+
       setTimeout(() => {
         progressContainer.style.display = 'none';
-        document.getElementById('fileStatus').textContent =
+        let msg =
           'Loaded (US: ' + dictionaries.US.size +
           ', UK: ' + dictionaries.UK.size +
           ', FR: ' + dictionaries.French.size +
           ', DE: ' + dictionaries.German.size + ')';
+        if (dictionaries.French.size === 0) {
+          msg += ' — FR files missing or unparsed (see console)';
+          console.warn('French load failed. Tried:', frNames);
+        } else {
+          console.log('French files loaded:', frLoadedFiles);
+        }
+        fileStatus.textContent = msg;
         document.getElementById('searchInput').disabled = false;
         switchRegion('US');
       }, 300);
     } catch (err) {
-      document.getElementById('fileStatus').textContent = 'Error loading files.';
+      fileStatus.textContent = 'Error loading files.';
       console.error(err);
     }
   }
