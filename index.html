@@ -530,11 +530,11 @@
       }
       progressBar.style.width = '35%';
 
-      /* French: STANDARD (plain) respellings — not bracket files */
+      /* French: bracket export files (all_fr_respellings_bracket_001 … 005) */
       for (let i = 1; i <= 5; i++) {
         const padded = String(i).padStart(3, '0');
         try {
-          const frRes = await fetch('./all_fr_respellings_' + padded + '.txt');
+          const frRes = await fetch('./all_fr_respellings_bracket_' + padded + '.txt');
           if (frRes.ok) {
             (await frRes.text()).split('\n').forEach(line => {
               const p = parseLine(line);
@@ -543,17 +543,19 @@
           }
         } catch (e) {}
       }
-      /* fallback single file */
       if (dictionaries.French.size === 0) {
-        try {
-          const frOne = await fetch('./all_fr_respellings.txt');
-          if (frOne.ok) {
-            (await frOne.text()).split('\n').forEach(line => {
-              const p = parseLine(line);
-              if (p) dictionaries.French.set(p.word, p.respelling);
-            });
-          }
-        } catch (e) {}
+        for (const name of ['./all_fr_respellings_bracket.txt', './all_fr_respellings.txt']) {
+          try {
+            const frOne = await fetch(name);
+            if (frOne.ok) {
+              (await frOne.text()).split('\n').forEach(line => {
+                const p = parseLine(line);
+                if (p) dictionaries.French.set(p.word, p.respelling);
+              });
+              if (dictionaries.French.size > 0) break;
+            }
+          } catch (e) {}
+        }
       }
       progressBar.style.width = '55%';
 
@@ -640,7 +642,7 @@
 
     const variants = rawRespellingStr.split('|').map(v => v.trim()).filter(Boolean);
     let chosenVariantIndex = 0;
-    if (currentRegion === 'German' && variants.length > 1) {
+    if ((currentRegion === 'German' || currentRegion === 'French') && variants.length > 1) {
       const hasConsonants = (str) => {
         const stripped = str
           .replace(/\[[^\]]+\]/g, '')
@@ -661,8 +663,8 @@
     const primaryRaw = variants[chosenVariantIndex].normalize('NFC');
     const alternativeVariants = variants.filter((_, idx) => idx !== chosenVariantIndex);
 
-    if (currentRegion === 'German') {
-      /* Bracket mode: [vowel] {stressed} plain consonants / semi-vowels */
+    if (currentRegion === 'German' || currentRegion === 'French') {
+      /* Bracket mode: [vowel] {stressed} plain consonants; ‿ = liaison */
       const cleanPrimary = primaryRaw.replace(/ˈ/g, '');
       const regex = /(\[[^\]]+\])|(\{[^}]+\})|(‿)|(\|)|([^\[\]{}‿|]+)/gu;
       let match;
@@ -709,54 +711,6 @@
           container.appendChild(span);
           currentTokens.push({ id: 'token-' + tokenIndex, isVowel: false, content: fullText });
           tokenIndex++;
-        }
-      }
-    } else if (currentRegion === 'French') {
-      /* STANDARD French: continuous plain respelling (no [] brackets) */
-      const cleanPrimary = primaryRaw.replace(/ˈ/g, '');
-      let tokenIndex = 0;
-      let i = 0;
-      const s = cleanPrimary;
-      while (i < s.length) {
-        if (s[i] === '‿') {
-          const span = document.createElement('span');
-          span.className = 'liaison-symbol';
-          span.textContent = '‿';
-          container.appendChild(span);
-          i++;
-          continue;
-        }
-        if (s[i] === '-' || s[i] === ' ') {
-          const span = document.createElement('span');
-          span.className = 'consonant-text';
-          span.textContent = s[i] === '-' ? ' · ' : ' ';
-          container.appendChild(span);
-          i++;
-          continue;
-        }
-        FR_VOWEL_CHUNK.lastIndex = 0;
-        const rest = s.slice(i);
-        const vm = rest.match(FR_VOWEL_CHUNK);
-        if (vm && rest.startsWith(vm[0])) {
-          const span = document.createElement('span');
-          span.className = 'vowel-pill';
-          span.id = 'token-' + tokenIndex;
-          span.textContent = vm[0];
-          container.appendChild(span);
-          currentTokens.push({ id: 'token-' + tokenIndex, isVowel: true, content: vm[0] });
-          tokenIndex++;
-          i += vm[0].length;
-        } else {
-          /* take one grapheme cluster as consonant */
-          const cp = [...s.slice(i)][0];
-          const span = document.createElement('span');
-          span.className = 'consonant-text';
-          span.id = 'token-' + tokenIndex;
-          span.textContent = cp;
-          container.appendChild(span);
-          currentTokens.push({ id: 'token-' + tokenIndex, isVowel: false, content: cp });
-          tokenIndex++;
-          i += cp.length;
         }
       }
     } else {
