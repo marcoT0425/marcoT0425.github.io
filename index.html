@@ -6,7 +6,7 @@
   <title>Multilingual TTS Phonetic Dictionary</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Noto+Sans+HK:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --primary: #1a73e8;
@@ -22,7 +22,8 @@
       --border: #dadce0;
       --radius: 16px;
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Noto Sans', sans-serif; }
+    /* Noto Sans HK first for CJK; Noto Sans second for Latin */
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Noto Sans', 'Noto Sans HK', sans-serif; }
     body {
       background-color: var(--bg); color: var(--text);
       display: flex; flex-direction: column; align-items: center;
@@ -147,6 +148,7 @@
       <button id="btnUK" class="btn-region" onclick="switchRegion('UK')">UK English</button>
       <button id="btnFR" class="btn-region" onclick="switchRegion('French')">French</button>
       <button id="btnDE" class="btn-region" onclick="switchRegion('German')">German</button>
+      <button id="btnYUE" class="btn-region" onclick="switchRegion('Cantonese')">粵語</button>
     </div>
     <div>
       <span id="fileStatus" style="color:var(--primary); font-weight:600;">Loading datasets...</span>
@@ -195,7 +197,7 @@
   </div>
 </div>
 <script>
-  const dictionaries = { US: new Map(), UK: new Map(), French: new Map(), German: new Map() };
+  const dictionaries = { US: new Map(), UK: new Map(), French: new Map(), German: new Map(), Cantonese: new Map() };
   let currentRegion = 'US';
   let currentTokens = [];
 
@@ -423,17 +425,79 @@
         <tr><td>Unbracketed</td><td>Consonants / semi-vowels (ĭ …)</td><td>Plain text</td></tr>
         <tr><td>|</td><td>Syllable boundary</td><td> · </td></tr>
       </table>
+    `,
+    Cantonese: `
+      <div class="phoneme-section-title">Cantonese Initials (A–Z)</div>
+      <table class="phoneme-table">
+        <tr><th>Respelling</th><th>IPA</th><th>Note</th></tr>
+        <tr><td>b</td><td>p</td><td>unaspirated</td></tr>
+        <tr><td>p</td><td>pʰ</td><td>aspirated</td></tr>
+        <tr><td>m</td><td>m</td><td></td></tr>
+        <tr><td>f</td><td>f</td><td></td></tr>
+        <tr><td>d</td><td>t</td><td>unaspirated</td></tr>
+        <tr><td>t</td><td>tʰ</td><td>aspirated</td></tr>
+        <tr><td>n</td><td>n</td><td></td></tr>
+        <tr><td>l</td><td>l</td><td></td></tr>
+        <tr><td>g</td><td>k</td><td>unaspirated</td></tr>
+        <tr><td>k</td><td>kʰ</td><td>aspirated</td></tr>
+        <tr><td>ng</td><td>ŋ</td><td></td></tr>
+        <tr><td>h</td><td>h</td><td></td></tr>
+        <tr><td>gw</td><td>kʷ</td><td>unaspirated</td></tr>
+        <tr><td>kw</td><td>kʷʰ</td><td>aspirated</td></tr>
+        <tr><td>w</td><td>w</td><td></td></tr>
+        <tr><td>dz</td><td>ts</td><td>unaspirated</td></tr>
+        <tr><td>ts</td><td>tsʰ</td><td>aspirated</td></tr>
+        <tr><td>s</td><td>s</td><td></td></tr>
+        <tr><td>y</td><td>j</td><td></td></tr>
+      </table>
+      <div class="phoneme-section-title">Cantonese Vowels / Finals (A–Z)</div>
+      <table class="phoneme-table">
+        <tr><th>Respelling</th><th>IPA</th><th>Example idea</th></tr>
+        <tr><td>ā</td><td>aː</td><td>long a</td></tr>
+        <tr><td>a</td><td>ɐ</td><td>short a</td></tr>
+        <tr><td>āi / ai</td><td>aːi / ɐi</td><td></td></tr>
+        <tr><td>āu / au</td><td>aːu / ɐu</td><td></td></tr>
+        <tr><td>e</td><td>ɛː / ɛ</td><td></td></tr>
+        <tr><td>ei</td><td>ei</td><td></td></tr>
+        <tr><td>i</td><td>iː / i</td><td></td></tr>
+        <tr><td>o</td><td>ɔː / ɔ</td><td></td></tr>
+        <tr><td>oi</td><td>ɔːi</td><td></td></tr>
+        <tr><td>ou</td><td>ou</td><td></td></tr>
+        <tr><td>ö</td><td>œː / œ</td><td></td></tr>
+        <tr><td>ø / øi</td><td>ɵ / ɵy</td><td>eo-type</td></tr>
+        <tr><td>u</td><td>uː / u / ʊ</td><td></td></tr>
+        <tr><td>ui</td><td>ui</td><td></td></tr>
+        <tr><td>ü</td><td>yː / y</td><td></td></tr>
+        <tr><td>ʹm ʹng ʹhm ʹhng</td><td>m̩ ŋ̩ …</td><td>syllabic</td></tr>
+        <tr><td>-p -t -k</td><td>codas</td><td>checked tones</td></tr>
+      </table>
+      <div class="phoneme-section-title">Tones</div>
+      <table class="phoneme-table">
+        <tr><th>Mark</th><th>IPA contour</th><th>Name</th></tr>
+        <tr><td>¹</td><td>˥</td><td>high level</td></tr>
+        <tr><td>²</td><td>˧˥</td><td>mid rising</td></tr>
+        <tr><td>³</td><td>˧</td><td>mid level</td></tr>
+        <tr><td>⁴</td><td>˨˩</td><td>low falling</td></tr>
+        <tr><td>⁵</td><td>˨˧</td><td>low rising</td></tr>
+        <tr><td>⁶</td><td>˨</td><td>low level</td></tr>
+      </table>
+      <div class="phoneme-section-title">Display</div>
+      <table class="phoneme-table">
+        <tr><th>Rule</th><th>Meaning</th></tr>
+        <tr><td>Space</td><td>Syllable boundary (lexical item kept whole)</td></tr>
+        <tr><td>No brackets</td><td>Plain syllables + tone superscripts</td></tr>
+      </table>
     `
   };
 
   function updateReferenceGuide() {
     const title = document.getElementById('refTitle');
     const content = document.getElementById('refContent');
-    title.textContent = 'Phoneme Reference Guide: ' + (
-      currentRegion === 'US' ? 'US English' :
-      currentRegion === 'UK' ? 'UK English' :
-      currentRegion === 'French' ? 'French' : 'German'
-    );
+    const names = {
+      US: 'US English', UK: 'UK English', French: 'French',
+      German: 'German', Cantonese: '粵語 Cantonese'
+    };
+    title.textContent = 'Phoneme Reference Guide: ' + (names[currentRegion] || currentRegion);
     content.innerHTML = phonemeReferences[currentRegion] || '';
   }
 
@@ -447,6 +511,7 @@
     if (currentRegion === 'UK') { targetLang = 'en-GB'; preferredKeyword = 'eddy'; }
     else if (currentRegion === 'French') { targetLang = 'fr-FR'; preferredKeyword = 'amelie'; }
     else if (currentRegion === 'German') { targetLang = 'de-DE'; preferredKeyword = 'marlene'; }
+    else if (currentRegion === 'Cantonese') { targetLang = 'zh-HK'; preferredKeyword = 'sinji'; }
     const matchingVoices = voices.filter(v => v.lang.toLowerCase().startsWith(targetLang.substring(0, 2)));
     const targetList = matchingVoices.length > 0 ? matchingVoices : voices;
     let selectedVoice = targetList.find(v => v.name.toLowerCase().includes(preferredKeyword));
@@ -470,6 +535,8 @@
     document.getElementById('btnUK').classList.toggle('active', regionKey === 'UK');
     document.getElementById('btnFR').classList.toggle('active', regionKey === 'French');
     document.getElementById('btnDE').classList.toggle('active', regionKey === 'German');
+    const btnY = document.getElementById('btnYUE');
+    if (btnY) btnY.classList.toggle('active', regionKey === 'Cantonese');
     const searchInput = document.getElementById('searchInput');
     if (regionKey === 'French') {
       document.getElementById('accentDisplayLabel').textContent = 'French Pronunciation';
@@ -477,6 +544,9 @@
     } else if (regionKey === 'German') {
       document.getElementById('accentDisplayLabel').textContent = 'German Pronunciation';
       searchInput.value = 'hallo';
+    } else if (regionKey === 'Cantonese') {
+      document.getElementById('accentDisplayLabel').textContent = '粵語 Cantonese Pronunciation';
+      searchInput.value = '你好';
     } else {
       document.getElementById('accentDisplayLabel').textContent =
         regionKey === 'US' ? 'US English Pronunciation' : 'UK English Pronunciation';
@@ -495,18 +565,21 @@
     let parts = trimmed.split(/\s{2,}|\t+/);
     let wordPart = '', respellingPart = '';
     if (parts.length >= 2) {
-      wordPart = parts[0].trim().toLowerCase();
+      wordPart = parts[0].trim();
       respellingPart = parts.slice(1).join(' ').trim();
     } else {
-      // single-space fallback: first token = word, rest = respelling
       const m = trimmed.match(/^(\S+)\s+(.+)$/);
       if (m) {
-        wordPart = m[1].toLowerCase();
+        wordPart = m[1];
         respellingPart = m[2].trim();
       }
     }
-    if (wordPart && respellingPart) return { word: wordPart, respelling: respellingPart };
-    return null;
+    if (!wordPart || !respellingPart) return null;
+    // Lowercase Latin only; keep CJK / IDS forms as-is (lexical items)
+    if (/[A-Za-z]/.test(wordPart) && !/[\u4e00-\u9fff]/.test(wordPart)) {
+      wordPart = wordPart.toLowerCase();
+    }
+    return { word: wordPart, respelling: respellingPart };
   }
 
   async function loadTextFile(url) {
@@ -600,7 +673,28 @@
         let t = await loadTextFile(name);
         if (!t) t = await loadTextFile('./' + name);
         ingestLines(t, dictionaries.German);
-        progressBar.style.width = (55 + Math.round((i / 16) * 40)) + '%';
+        progressBar.style.width = (55 + Math.round((i / 16) * 25)) + '%';
+      }
+      // Cantonese / Yue — all_yue_respellings_001.txt … 002
+      const yueNames = [
+        'all_yue_respellings_001.txt',
+        'all_yue_respellings_002.txt',
+      ];
+      for (let i = 0; i < yueNames.length; i++) {
+        const name = yueNames[i];
+        let t = await loadTextFile(name);
+        if (!t) t = await loadTextFile('./' + name);
+        const added = ingestLines(t, dictionaries.Cantonese);
+        if (added > 0) console.log('Yue loaded', name, '+' + added);
+        else console.warn('Yue missing or empty:', name);
+        progressBar.style.width = (80 + Math.round(((i + 1) / yueNames.length) * 15)) + '%';
+      }
+      if (dictionaries.Cantonese.size === 0) {
+        for (const name of ['all_yue_respellings.txt', 'all_yue_respellings_003.txt']) {
+          let t = await loadTextFile(name);
+          if (!t) t = await loadTextFile('./' + name);
+          if (ingestLines(t, dictionaries.Cantonese) > 0) break;
+        }
       }
       progressBar.style.width = '100%';
 
@@ -610,12 +704,16 @@
           'Loaded (US: ' + dictionaries.US.size +
           ', UK: ' + dictionaries.UK.size +
           ', FR: ' + dictionaries.French.size +
-          ', DE: ' + dictionaries.German.size + ')';
+          ', DE: ' + dictionaries.German.size +
+          ', Yue: ' + dictionaries.Cantonese.size + ')';
         if (dictionaries.French.size === 0) {
           msg += ' — FR files missing or unparsed (see console)';
           console.warn('French load failed. Tried:', frNames);
         } else {
           console.log('French files loaded:', frLoadedFiles);
+        }
+        if (dictionaries.Cantonese.size === 0) {
+          console.warn('Yue load failed. Tried:', yueNames);
         }
         fileStatus.textContent = msg;
         document.getElementById('searchInput').disabled = false;
@@ -648,22 +746,26 @@
   }
 
   function searchDictionary(query) {
-    const q = query.trim().toLowerCase();
-    if (!q) return null;
+    const raw = query.trim();
+    if (!raw) return null;
     const currentDict = getActiveDictionary();
-    // Exact match first (fast)
-    if (currentDict.has(q)) return { word: q, respelling: currentDict.get(q), exact: true };
+    // Exact match (CJK kept as-is; Latin also try lower)
+    if (currentDict.has(raw)) return { word: raw, respelling: currentDict.get(raw), exact: true };
+    const q = raw.toLowerCase();
+    if (q !== raw && currentDict.has(q)) return { word: q, respelling: currentDict.get(q), exact: true };
+    // Cantonese: lexical items only — no fuzzy over huge CJK set
+    if (currentRegion === 'Cantonese') return null;
     // Fuzzy only after Enter — length band + early exit to avoid freezes
     let closestWord = null, minDistance = Infinity;
     const qLen = q.length;
     for (let word of currentDict.keys()) {
       const wLen = word.length;
-      if (Math.abs(wLen - qLen) > 3) continue; // can't be within edit distance 3
+      if (Math.abs(wLen - qLen) > 3) continue;
       const dist = levenshtein(q, word);
       if (dist < minDistance && dist <= 3) {
         minDistance = dist;
         closestWord = word;
-        if (dist === 1) break; // good enough
+        if (dist === 1) break;
       }
     }
     if (closestWord) return { word: closestWord, respelling: currentDict.get(closestWord), exact: false };
@@ -713,7 +815,24 @@
     const primaryRaw = variants[chosenVariantIndex].normalize('NFC');
     const alternativeVariants = variants.filter((_, idx) => idx !== chosenVariantIndex);
 
-    if (currentRegion === 'German' || currentRegion === 'French') {
+    if (currentRegion === 'Cantonese') {
+      /* Space-separated syllables; tone superscripts ¹²³⁴⁵⁶; no brackets */
+      const syllables = primaryRaw.split(/\s+/).filter(Boolean);
+      syllables.forEach((syl, index) => {
+        if (index > 0) {
+          const gap = document.createElement('span');
+          gap.className = 'consonant-text';
+          gap.textContent = ' ';
+          container.appendChild(gap);
+        }
+        const span = document.createElement('span');
+        span.className = 'vowel-pill';
+        span.id = 'token-' + index;
+        span.textContent = syl;
+        container.appendChild(span);
+        currentTokens.push({ id: 'token-' + index, isVowel: true, content: syl });
+      });
+    } else if (currentRegion === 'German' || currentRegion === 'French') {
       /* Bracket mode: [vowel] {stressed} plain consonants; ‿ = liaison */
       const cleanPrimary = primaryRaw.replace(/ˈ/g, '');
       const regex = /(\[[^\]]+\])|(\{[^}]+\})|(‿)|(\|)|([^\[\]{}‿|]+)/gu;
@@ -832,6 +951,7 @@
     const utterance = new SpeechSynthesisUtterance(text);
     if (currentRegion === 'French') utterance.lang = 'fr-FR';
     else if (currentRegion === 'German') utterance.lang = 'de-DE';
+    else if (currentRegion === 'Cantonese') utterance.lang = 'zh-HK';
     else if (currentRegion === 'UK') utterance.lang = 'en-GB';
     else utterance.lang = 'en-US';
     const voiceSelect = document.getElementById('voiceSelect');
