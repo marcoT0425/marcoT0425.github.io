@@ -1044,7 +1044,7 @@
           <tr><th>Mark</th><th>Meaning</th></tr>
           <tr><td>hyphen -</td><td>Syllable boundary</td></tr>
           <tr><td>dot .</td><td>Glottal-stop boundary</td></tr>
-          <tr><td>′ + bold</td><td>Primary stress at syllable start (no CAPS, no pills)</td></tr>
+          <tr><td>weight 700 / 300</td><td>Stressed / unstressed (no prime, no markdown, no pills)</td></tr>
         </table>
       `;
     } else if (region === 'Cantonese') {
@@ -1401,47 +1401,36 @@
         currentTokens.push({ id: 'token-' + index, isVowel: true, content: syl });
       });
     } else if (currentRegion === 'German') {
-      /* Hyphen / glottal '.' syllables; ′ + **bold** stress; no pills */
+      /* Hyphen / '.' syllables; stress = font-weight 700 (no ′ shown, no markdown) */
       let cleaned = primaryRaw.replace(/[\[\]{}]/g, '');
-      // split on - or . but keep which separator
+      cleaned = cleaned.replace(/\*\*/g, ''); // strip any legacy ** 
       const chunks = cleaned.split(/([-.])/).filter(s => s.length);
       let tokenIndex = 0;
       chunks.forEach((chunk) => {
         if (chunk === '-' || chunk === '.') {
           const sep = document.createElement('span');
           sep.className = 'consonant-text';
+          sep.style.fontWeight = '300';
           sep.textContent = chunk === '.' ? ' . ' : ' - ';
           container.appendChild(sep);
           return;
         }
         let text = chunk;
         let stressed = false;
-        if (text.startsWith('′')) {
+        if (text.startsWith('′') || text.startsWith("'") || text.startsWith('ˈ')) {
           stressed = true;
-          text = text.slice(1);
+          text = text.replace(/^[′'ˈ]+/, '');
         }
-        // markdown **bold**
-        text = text.replace(/^\*\*(.+)\*\*$/, '$1');
-        if (/\*\*/.test(text)) {
-          stressed = true;
-          text = text.replace(/\*\*/g, '');
-        }
-        // italic *ch* / *r*
         const span = document.createElement('span');
         span.className = 'consonant-text';
         span.id = 'token-' + tokenIndex;
-        if (stressed) {
-          span.style.fontWeight = '700';
-          const mark = document.createElement('span');
-          mark.className = 'consonant-text';
-          mark.textContent = '′';
-          container.appendChild(mark);
-        }
-        // render *italic* segments
+        span.style.fontWeight = stressed ? '700' : '300';
+        // *ch* / *r* → italic, no asterisks shown
         const parts = text.split(/(\*[^*]+\*)/g);
         parts.forEach(p => {
           if (p.startsWith('*') && p.endsWith('*') && p.length > 2) {
             const em = document.createElement('em');
+            em.style.fontWeight = stressed ? '700' : '300';
             em.textContent = p.slice(1, -1);
             span.appendChild(em);
           } else if (p) {
@@ -1479,11 +1468,16 @@
     }
 
     if (alternativeVariants.length > 0) {
-      const cleanAlternatives = alternativeVariants.map(v => v.replace(/ˈ/g, ''));
+      const cleanAlternatives = alternativeVariants.map(v =>
+        v.replace(/ˈ/g, '')
+         .replace(/′/g, '')
+         .replace(/\*\*/g, '')
+         .replace(/\*/g, '')
+      );
       alternativesBox.style.display = 'flex';
       alternativesBox.innerHTML =
         `<div class="alt-title">${t.altPron}</div>` +
-        '<div>' + cleanAlternatives.join(' &nbsp;|&nbsp; ') + '</div>';
+        '<div style="font-weight:300">' + cleanAlternatives.join(' &nbsp;|&nbsp; ') + '</div>';
     }
   }
 
