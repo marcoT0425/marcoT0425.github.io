@@ -204,7 +204,7 @@ zukunftsform                                ′tsuw-kuunfts-fawrm
 zukunftsformen                              ′tsuw-kuunfts-fawr-mən
 zukunftsforschung                           ′tsuw-kuunfts-fawr-shuung
 zukunftsmusik                               ′tsuw-kuunfts-muw-ziyk
-zukunftsorientiert                          ′tsuw-kuunfts.oh-riy-en-tiy-*r*t
+zukunftsorientiert                          ′tsuw-kuunfts.oh-riy-en-tiy*r*t
 zukunftsorientierte                         ′tsuw-kuunfts.oh-riy-en-tiy*r*-tə
 zukunftsorientiertem                        ′tsuw-kuunfts.oh-riy-en-tiy*r*-təm
 zukunftsorientierten                        ′tsuw-kuunfts.oh-riy-en-tiy*r*-tən
@@ -680,23 +680,23 @@ zumarschierender                            ′tsuw-mar-shiy-rən-d*r*
 zumarschierendes                            ′tsuw-mar-shiy-rən-dəs
 zumarschierest                              ′tsuw-mar-shiy-rəst
 zumarschieret                               ′tsuw-mar-shiy-rət
-zumarschierst                               ′tsuw-mar-shiy-*r*st
-zumarschiert                                ′tsuw-mar-shiy-*r*t
+zumarschierst                               ′tsuw-mar-shiy*r*st
+zumarschiert                                ′tsuw-mar-shiy*r*t
 zumarschierte                               ′tsuw-mar-shiy*r*-tə
 zumarschierten                              ′tsuw-mar-shiy*r*-tən
 zumarschiertest                             ′tsuw-mar-shiy*r*-təst
 zumarschiertet                              ′tsuw-mar-shiy*r*-tət
 zumauer                                     ′tsuw-mau*r*
 zumauere                                    ′tsuw-mau-ə-rə
-zumauern                                    ′tsuw-mau-*r*n
-zumauernd                                   ′tsuw-mau-*r*nt
-zumauernde                                  ′tsuw-mau-*r*n-də
-zumauerndem                                 ′tsuw-mau-*r*n-dəm
-zumauernden                                 ′tsuw-mau-*r*n-dən
-zumauernder                                 ′tsuw-mau-*r*n-d*r*
-zumauerndes                                 ′tsuw-mau-*r*n-dəs
-zumauerst                                   ′tsuw-mau-*r*st
-zumauert                                    ′tsuw-mau-*r*t
+zumauern                                    ′tsuw-mau*r*n
+zumauernd                                   ′tsuw-mau*r*nt
+zumauernde                                  ′tsuw-mau*r*n-də
+zumauerndem                                 ′tsuw-mau*r*n-dəm
+zumauernden                                 ′tsuw-mau*r*n-dən
+zumauernder                                 ′tsuw-mau*r*n-d*r*
+zumauerndes                                 ′tsuw-mau*r*n-dəs
+zumauerst                                   ′tsuw-mau*r*st
+zumauert                                    ′tsuw-mau*r*t
 zumauerte                                   ′tsuw-mau*r*-tə
 zumauerten                                  ′tsuw-mau*r*-tən
 zumauertest                                 ′tsuw-mau*r*-təst
@@ -724,7 +724,7 @@ zumindest                                   tsuw-′min-dəst
 zumindestens                                tsuw-′min-də-stəns
 zumisst                                     ′tsuw-mist
 zumkehr                                     ′tsuum-key*r*
-zumkehrs                                    ′tsuum-key-*r*s
+zumkehrs                                    ′tsuum-key*r*s
 zumpf                                       tsuumpf
 zumpfen                                     ′tsuum-pfən
 zumpferl                                    ′tsuum-pf*r*l
@@ -1287,7 +1287,7 @@ zur neige gehen                             tsuw*r*-′nigh-gə-gey-ən
 zur sache kommen                            tsuw*r*-′za-khə-kaw-əm
 zur salzsäule erstarren                     tsuw*r*-′zalts-zoy-lə-e*r*-′shta-rən
 zur see fahren                              tsuw*r*-′zey-faa-rən
-zur sprache kommen                          tsuw-*r*sh-′praa-khə-′kaw-mən
+zur sprache kommen                          tsuw*r*sh-′praa-khə-′kaw-mən
 zur welt bringen                            tsuw*r*-velt-′bri-ngən
 zur zeit                                    tsuur-′tsight
 zurande                                     tsuu-′ran-də
@@ -1497,8 +1497,8 @@ zurechtfrisierender                         tsuw-′re*ch*t-friy-ziy-rən-d*r*
 zurechtfrisierendes                         tsuw-′re*ch*t-friy-ziy-rən-dəs
 zurechtfrisierest                           tsuw-′re*ch*t-friy-ziy-rəst
 zurechtfrisieret                            tsuw-′re*ch*t-friy-ziy-rət
-zurechtfrisierst                            tsuw-′re*ch*t-friy-ziy-*r*st
-zurechtfrisiert                             tsuw-′re*ch*t-friy-ziy-*r*t
+zurechtfrisierst                            tsuw-′re*ch*t-friy-ziy*r*st
+zurechtfrisiert                             tsuw-′re*ch*t-friy-ziy*r*t
 zurechtfrisierte                            tsuw-′re*ch*t-friy-ziy*r*-tə
 zurechtfrisiertem                           tsuw-′re*ch*t-friy-ziy*r*-təm
 zurechtfrisierten                           tsuw-′re*ch*t-friy-ziy*r*-tən
@@ -2324,8 +2324,8 @@ zurückbegehrender                           tsuw-′rük-bə-gey-rən-d*r*
 zurückbegehrendes                           tsuw-′rük-bə-gey-rən-dəs
 zurückbegehrest                             tsuw-′rük-bə-gey-rəst
 zurückbegehret                              tsuw-′rük-bə-gey-rət
-zurückbegehrst                              tsuw-′rük-bə-gey-*r*st
-zurückbegehrt                               tsuw-′rük-bə-gey-*r*t
+zurückbegehrst                              tsuw-′rük-bə-gey*r*st
+zurückbegehrt                               tsuw-′rük-bə-gey*r*t
 zurückbegehrte                              tsuw-′rük-bə-gey*r*-tə
 zurückbegehrtem                             tsuw-′rük-bə-gey*r*-təm
 zurückbegehrten                             tsuw-′rük-bə-gey*r*-tən
@@ -2733,8 +2733,8 @@ zurückdatierender                           tsuw-′rük-da-tiy-rən-d*r*
 zurückdatierendes                           tsuw-′rük-da-tiy-rən-dəs
 zurückdatierest                             tsuw-′rük-da-tiy-rəst
 zurückdatieret                              tsuw-′rük-da-tiy-rət
-zurückdatierst                              tsuw-′rük-da-tiy-*r*st
-zurückdatiert                               tsuw-′rük-da-tiy-*r*t
+zurückdatierst                              tsuw-′rük-da-tiy*r*st
+zurückdatiert                               tsuw-′rük-da-tiy*r*t
 zurückdatierte                              tsuw-′rük-da-tiy*r*-tə
 zurückdatiertem                             tsuw-′rük-da-tiy*r*-təm
 zurückdatierten                             tsuw-′rük-da-tiy*r*-tən
@@ -3008,7 +3008,7 @@ zurückfahrender                             tsuw-′rük-faa-rən-d*r*
 zurückfahrendes                             tsuw-′rük-faa-rən-dəs
 zurückfahrest                               tsuw-′rük-faa-rəst
 zurückfahret                                tsuw-′rük-faa-rət
-zurückfahrt                                 tsuw-′rük-faa-*r*t
+zurückfahrt                                 tsuw-′rük-faa*r*t
 zurückfalle                                 tsuw-′rük-fa-lə
 zurückfallen                                tsuw-′rük-fa-lən
 zurückfallend                               tsuw-′rük-fa-lənt
@@ -3027,15 +3027,15 @@ zurückfandet                                tsuw-′rük-fan-dət
 zurückfandst                                tsuw-′rük-fantst
 zurückfeuer                                 tsuw-′rük-foy*r*
 zurückfeuere                                tsuw-′rük-foy-ə-rə
-zurückfeuern                                tsuw-′rük-foy-*r*n
-zurückfeuernd                               tsuw-′rük-foy-*r*nt
-zurückfeuernde                              tsuw-′rük-foy-*r*n-də
-zurückfeuerndem                             tsuw-′rük-foy-*r*n-dəm
-zurückfeuernden                             tsuw-′rük-foy-*r*n-dən
-zurückfeuernder                             tsuw-′rük-foy-*r*n-d*r*
-zurückfeuerndes                             tsuw-′rük-foy-*r*n-dəs
-zurückfeuerst                               tsuw-′rük-foy-*r*st
-zurückfeuert                                tsuw-′rük-foy-*r*t
+zurückfeuern                                tsuw-′rük-foy*r*n
+zurückfeuernd                               tsuw-′rük-foy*r*nt
+zurückfeuernde                              tsuw-′rük-foy*r*n-də
+zurückfeuerndem                             tsuw-′rük-foy*r*n-dəm
+zurückfeuernden                             tsuw-′rük-foy*r*n-dən
+zurückfeuernder                             tsuw-′rük-foy*r*n-d*r*
+zurückfeuerndes                             tsuw-′rük-foy*r*n-dəs
+zurückfeuerst                               tsuw-′rük-foy*r*st
+zurückfeuert                                tsuw-′rük-foy*r*t
 zurückfeuerte                               tsuw-′rük-foy*r*-tə
 zurückfeuerten                              tsuw-′rük-foy*r*-tən
 zurückfeuertest                             tsuw-′rük-foy*r*-təst
@@ -3177,10 +3177,10 @@ zurückfragtest                              tsuw-′rük-fraak-təst
 zurückfragtet                               tsuw-′rük-fraak-tət
 zurückfuhr                                  tsuw-′rük-fuw*r*
 zurückfuhren                                tsuw-′rük-fuw-rən
-zurückfuhrst                                tsuw-′rük-fuw-*r*st
-zurückfuhrt                                 tsuw-′rük-fuw-*r*t
-zurückfährst                                tsuw-′rük-feh-*r*st
-zurückfährt                                 tsuw-′rük-feh-*r*t
+zurückfuhrst                                tsuw-′rük-fuw*r*st
+zurückfuhrt                                 tsuw-′rük-fuw*r*t
+zurückfährst                                tsuw-′rük-feh*r*st
+zurückfährt                                 tsuw-′rük-feh*r*t
 zurückfällst                                tsuw-′rük-felst
 zurückfällt                                 tsuw-′rük-felt
 zurückfände                                 tsuw-′rük-fen-də
@@ -3197,8 +3197,8 @@ zurückführender                             tsuw-′rük-füh-rən-d*r*
 zurückführendes                             tsuw-′rük-füh-rən-dəs
 zurückführest                               tsuw-′rük-füh-rəst
 zurückführet                                tsuw-′rük-füh-rət
-zurückführst                                tsuw-′rük-füh-*r*st
-zurückführt                                 tsuw-′rük-füh-*r*t
+zurückführst                                tsuw-′rük-füh*r*st
+zurückführt                                 tsuw-′rük-füh*r*t
 zurückführte                                tsuw-′rük-füh*r*-tə
 zurückführten                               tsuw-′rük-füh*r*-tən
 zurückführtest                              tsuw-′rük-füh*r*-təst
@@ -3320,7 +3320,7 @@ zurückgefallenem                            tsuw-′rük-gə-fa-lə-nəm
 zurückgefallenen                            tsuw-′rük-gə-fa-lə-nən
 zurückgefallener                            tsuw-′rük-gə-fa-lə-n*r*
 zurückgefallenes                            tsuw-′rük-gə-fa-lə-nəs
-zurückgefeuert                              tsuw-′rük-gə-foy-*r*t
+zurückgefeuert                              tsuw-′rük-gə-foy*r*t
 zurückgefeuerte                             tsuw-′rük-gə-foy*r*-tə
 zurückgefeuertem                            tsuw-′rük-gə-foy*r*-təm
 zurückgefeuerten                            tsuw-′rük-gə-foy*r*-tən
@@ -3364,7 +3364,7 @@ zurückgefundenem                            tsuw-′rük-gə-fuun-də-nəm
 zurückgefundenen                            tsuw-′rük-gə-fuun-də-nən
 zurückgefundener                            tsuw-′rük-gə-fuun-də-n*r*
 zurückgefundenes                            tsuw-′rük-gə-fuun-də-nəs
-zurückgeführt                               tsuw-′rük-gə-füh-*r*t
+zurückgeführt                               tsuw-′rük-gə-füh*r*t
 zurückgeführte                              tsuw-′rük-gə-füh*r*-tə
 zurückgeführtem                             tsuw-′rük-gə-füh*r*-təm
 zurückgeführten                             tsuw-′rük-gə-füh*r*-tən
@@ -3447,7 +3447,7 @@ zurückgekauftem                             tsuw-′rük-gə-kauf-təm
 zurückgekauften                             tsuw-′rük-gə-kauf-tən
 zurückgekaufter                             tsuw-′rük-gə-kauf-t*r*
 zurückgekauftes                             tsuw-′rük-gə-kauf-təs
-zurückgekehrt                               tsuw-′rük-gə-key-*r*t
+zurückgekehrt                               tsuw-′rük-gə-key*r*t
 zurückgekehrte                              tsuw-′rük-gə-key*r*-tə
 zurückgekehrtem                             tsuw-′rük-gə-key*r*-təm
 zurückgekehrten                             tsuw-′rük-gə-key*r*-tən
@@ -4242,8 +4242,8 @@ zurückkatapultieren                         tsuw-′rük-ka-ta-puul-tiy-rən
 zurückkatapultierend                        tsuw-′rük-ka-ta-puul-tiy-rənt
 zurückkatapultierest                        tsuw-′rük-ka-ta-puul-tiy-rəst
 zurückkatapultieret                         tsuw-′rük-ka-ta-puul-tiy-rət
-zurückkatapultierst                         tsuw-′rük-ka-ta-puul-tiy-*r*st
-zurückkatapultiert                          tsuw-′rük-ka-ta-puul-tiy-*r*t
+zurückkatapultierst                         tsuw-′rük-ka-ta-puul-tiy*r*st
+zurückkatapultiert                          tsuw-′rük-ka-ta-puul-tiy*r*t
 zurückkatapultierte                         tsuw-′rük-ka-ta-puul-tiy*r*-tə
 zurückkatapultierten                        tsuw-′rük-ka-ta-puul-tiy*r*-tən
 zurückkatapultiertest                       tsuw-′rük-ka-ta-puul-tiy*r*-təst
@@ -4275,8 +4275,8 @@ zurückkehrender                             tsuw-′rük-key-rən-d*r*
 zurückkehrendes                             tsuw-′rük-key-rən-dəs
 zurückkehrest                               tsuw-′rük-key-rəst
 zurückkehret                                tsuw-′rük-key-rət
-zurückkehrst                                tsuw-′rük-key-*r*st
-zurückkehrt                                 tsuw-′rük-key-*r*t
+zurückkehrst                                tsuw-′rük-key*r*st
+zurückkehrt                                 tsuw-′rük-key*r*t
 zurückkehrte                                tsuw-′rük-key*r*-tə
 zurückkehrten                               tsuw-′rük-key*r*-tən
 zurückkehrtest                              tsuw-′rük-key*r*-təst
@@ -4571,8 +4571,8 @@ zurückmarschierender                        tsuw-′rük-mar-shiy-rən-d*r*
 zurückmarschierendes                        tsuw-′rük-mar-shiy-rən-dəs
 zurückmarschierest                          tsuw-′rük-mar-shiy-rəst
 zurückmarschieret                           tsuw-′rük-mar-shiy-rət
-zurückmarschierst                           tsuw-′rük-mar-shiy-*r*st
-zurückmarschiert                            tsuw-′rük-mar-shiy-*r*t
+zurückmarschierst                           tsuw-′rük-mar-shiy*r*st
+zurückmarschiert                            tsuw-′rük-mar-shiy*r*t
 zurückmarschierte                           tsuw-′rük-mar-shiy*r*-tə
 zurückmarschierten                          tsuw-′rük-mar-shiy*r*-tən
 zurückmarschiertest                         tsuw-′rük-mar-shiy*r*-təst
@@ -5812,8 +5812,8 @@ zurücktransportierender                     tsuw-′rük-tran-spawr-tiy-rən-d*
 zurücktransportierendes                     tsuw-′rük-tran-spawr-tiy-rən-dəs
 zurücktransportierest                       tsuw-′rük-tran-spawr-tiy-rəst
 zurücktransportieret                        tsuw-′rük-tran-spawr-tiy-rət
-zurücktransportierst                        tsuw-′rük-tran-spawr-tiy-*r*st
-zurücktransportiert                         tsuw-′rük-tran-spawr-tiy-*r*t
+zurücktransportierst                        tsuw-′rük-tran-spawr-tiy*r*st
+zurücktransportiert                         tsuw-′rük-tran-spawr-tiy*r*t
 zurücktransportierte                        tsuw-′rük-tran-spawr-tiy*r*-tə
 zurücktransportiertem                       tsuw-′rük-tran-spawr-tiy*r*-təm
 zurücktransportierten                       tsuw-′rük-tran-spawr-tiy*r*-tən
@@ -6429,7 +6429,7 @@ zurückzufahrenden                           tsuw-′rük-tsuw-faa-rən-dən
 zurückzufahrender                           tsuw-′rük-tsuw-faa-rən-d*r*
 zurückzufahrendes                           tsuw-′rük-tsuw-faa-rən-dəs
 zurückzufallen                              tsuw-′rük-tsuw-fa-lən
-zurückzufeuern                              tsuw-′rük-tsuw-foy-*r*n
+zurückzufeuern                              tsuw-′rük-tsuw-foy*r*n
 zurückzufinden                              tsuw-′rük-tsuw-fin-dən
 zurückzufliegen                             tsuw-′rük-tsuw-fliy-gən  |  tsuw-′rük-tsuw-fliy-gəng
 zurückzufliegende                           tsuw-′rük-tsuw-fliy-gən-də  |  tsuw-′rük-tsuw-fliy-gəng-də
@@ -7035,8 +7035,8 @@ zusammenaddierender                         tsuw-′za-mən.a-diy-rən-d*r*
 zusammenaddierendes                         tsuw-′za-mən.a-diy-rən-dəs
 zusammenaddierest                           tsuw-′za-mən.a-diy-rəst
 zusammenaddieret                            tsuw-′za-mən.a-diy-rət
-zusammenaddierst                            tsuw-′za-mən.a-diy-*r*st
-zusammenaddiert                             tsuw-′za-mən.a-diy-*r*t
+zusammenaddierst                            tsuw-′za-mən.a-diy*r*st
+zusammenaddiert                             tsuw-′za-mən.a-diy*r*t
 zusammenaddierte                            tsuw-′za-mən.a-diy*r*-tə
 zusammenaddiertem                           tsuw-′za-mən.a-diy*r*-təm
 zusammenaddierten                           tsuw-′za-mən.a-diy*r*-tən
@@ -7345,7 +7345,7 @@ zusammenfahrender                           tsuw-′za-mən-faa-rən-d*r*
 zusammenfahrendes                           tsuw-′za-mən-faa-rən-dəs
 zusammenfahrest                             tsuw-′za-mən-faa-rəst
 zusammenfahret                              tsuw-′za-mən-faa-rət
-zusammenfahrt                               tsuw-′za-mən-faa-*r*t
+zusammenfahrt                               tsuw-′za-mən-faa*r*t
 zusammenfalle                               tsuw-′za-mən-fa-lə
 zusammenfallen                              tsuw-′za-mən-fa-lən
 zusammenfallend                             tsuw-′za-mən-fa-lənt
@@ -7488,10 +7488,10 @@ zusammenflössest                            tsuw-′za-mən-flö-səst
 zusammenflösset                             tsuw-′za-mən-flö-sət
 zusammenfuhr                                tsuw-′za-mən-fuw*r*
 zusammenfuhren                              tsuw-′za-mən-fuw-rən
-zusammenfuhrst                              tsuw-′za-mən-fuw-*r*st
-zusammenfuhrt                               tsuw-′za-mən-fuw-*r*t
-zusammenfährst                              tsuw-′za-mən-feh-*r*st
-zusammenfährt                               tsuw-′za-mən-feh-*r*t
+zusammenfuhrst                              tsuw-′za-mən-fuw*r*st
+zusammenfuhrt                               tsuw-′za-mən-fuw*r*t
+zusammenfährst                              tsuw-′za-mən-feh*r*st
+zusammenfährt                               tsuw-′za-mən-feh*r*t
 zusammenfällst                              tsuw-′za-mən-felst
 zusammenfällt                               tsuw-′za-mən-felt
 zusammenfände                               tsuw-′za-mən-fen-də
@@ -7524,8 +7524,8 @@ zusammenführender                           tsuw-′za-mən-füh-rən-d*r*
 zusammenführendes                           tsuw-′za-mən-füh-rən-dəs
 zusammenführest                             tsuw-′za-mən-füh-rəst
 zusammenführet                              tsuw-′za-mən-füh-rət
-zusammenführst                              tsuw-′za-mən-füh-*r*st
-zusammenführt                               tsuw-′za-mən-füh-*r*t
+zusammenführst                              tsuw-′za-mən-füh*r*st
+zusammenführt                               tsuw-′za-mən-füh*r*t
 zusammenführte                              tsuw-′za-mən-füh*r*-tə
 zusammenführten                             tsuw-′za-mən-füh*r*-tən
 zusammenführtest                            tsuw-′za-mən-füh*r*-təst
@@ -7686,7 +7686,7 @@ zusammengefügtem                            tsuw-′za-mən-gə-fühk-təm
 zusammengefügten                            tsuw-′za-mən-gə-fühk-tən
 zusammengefügter                            tsuw-′za-mən-gə-fühk-t*r*
 zusammengefügtes                            tsuw-′za-mən-gə-fühk-təs
-zusammengeführt                             tsuw-′za-mən-gə-füh-*r*t
+zusammengeführt                             tsuw-′za-mən-gə-füh*r*t
 zusammengeführte                            tsuw-′za-mən-gə-füh*r*-tə
 zusammengeführtem                           tsuw-′za-mən-gə-füh*r*-təm
 zusammengeführten                           tsuw-′za-mən-gə-füh*r*-tən
@@ -7789,10 +7789,10 @@ zusammengehörigkeitsgefühle                 tsuw-′za-mən-gə-höh-ri*ch*-ki
 zusammengehörigkeitsgefühlen                tsuw-′za-mən-gə-höh-ri*ch*-kights-gə-füh-lən
 zusammengehörigkeitsgefühles                tsuw-′za-mən-gə-höh-ri*ch*-kights-gə-füh-ləs
 zusammengehörigkeitsgefühls                 tsuw-′za-mən-gə-höh-ri*ch*-kights-gə-fühls
-zusammengehört                              tsuw-′za-mən-gə-höh-*r*t
+zusammengehört                              tsuw-′za-mən-gə-höh*r*t
 zusammengehörte                             tsuw-′za-mən-gə-höh*r*-tə
 zusammengehörten                            tsuw-′za-mən-gə-höh*r*-tən
-zusammengekauert                            tsuw-′za-mən-gə-kau-*r*t
+zusammengekauert                            tsuw-′za-mən-gə-kau*r*t
 zusammengekauerte                           tsuw-′za-mən-gə-kau*r*-tə
 zusammengekauertem                          tsuw-′za-mən-gə-kau*r*-təm
 zusammengekauerten                          tsuw-′za-mən-gə-kau*r*-tən
@@ -7804,7 +7804,7 @@ zusammengekauftem                           tsuw-′za-mən-gə-kauf-təm
 zusammengekauften                           tsuw-′za-mən-gə-kauf-tən
 zusammengekaufter                           tsuw-′za-mən-gə-kauf-t*r*
 zusammengekauftes                           tsuw-′za-mən-gə-kauf-təs
-zusammengekehrt                             tsuw-′za-mən-gə-key-*r*t
+zusammengekehrt                             tsuw-′za-mən-gə-key*r*t
 zusammengekehrte                            tsuw-′za-mən-gə-key*r*-tə
 zusammengekehrtem                           tsuw-′za-mən-gə-key*r*-təm
 zusammengekehrten                           tsuw-′za-mən-gə-key*r*-tən
@@ -7925,7 +7925,7 @@ zusammengelebtem                            tsuw-′za-mən-gə-leyp-təm
 zusammengelebten                            tsuw-′za-mən-gə-leyp-tən
 zusammengelebter                            tsuw-′za-mən-gə-leyp-t*r*
 zusammengelebtes                            tsuw-′za-mən-gə-leyp-təs
-zusammengeleert                             tsuw-′za-mən-gə-ley-*r*t
+zusammengeleert                             tsuw-′za-mən-gə-ley*r*t
 zusammengelegen                             tsuw-′za-mən-gə-ley-gən
 zusammengelegene                            tsuw-′za-mən-gə-ley-gə-nə
 zusammengelegenem                           tsuw-′za-mən-gə-ley-gə-nəm
@@ -8143,7 +8143,7 @@ zusammengerücktem                           tsuw-′za-mən-gə-rük-təm
 zusammengerückten                           tsuw-′za-mən-gə-rük-tən
 zusammengerückter                           tsuw-′za-mən-gə-rük-t*r*
 zusammengerücktes                           tsuw-′za-mən-gə-rük-təs
-zusammengerührt                             tsuw-′za-mən-gə-rüh-*r*t
+zusammengerührt                             tsuw-′za-mən-gə-rüh*r*t
 zusammengerührte                            tsuw-′za-mən-gə-rüh*r*-tə
 zusammengerührtem                           tsuw-′za-mən-gə-rüh*r*-təm
 zusammengerührten                           tsuw-′za-mən-gə-rüh*r*-tən
@@ -8167,7 +8167,7 @@ zusammengescharrtem                         tsuw-′za-mən-gə-shar-təm
 zusammengescharrten                         tsuw-′za-mən-gə-shar-tən
 zusammengescharrter                         tsuw-′za-mən-gə-shar-t*r*
 zusammengescharrtes                         tsuw-′za-mən-gə-shar-təs
-zusammengeschart                            tsuw-′za-mən-gə-shaa-*r*t
+zusammengeschart                            tsuw-′za-mən-gə-shaa*r*t
 zusammengeschimpft                          tsuw-′za-mən-gə-shimpft
 zusammengeschissen                          tsuw-′za-mən-gə-shi-sən
 zusammengeschissene                         tsuw-′za-mən-gə-shi-sə-nə
@@ -8211,7 +8211,7 @@ zusammengeschnorrtem                        tsuw-′za-mən-gəsh-nawr-təm
 zusammengeschnorrten                        tsuw-′za-mən-gəsh-nawr-tən
 zusammengeschnorrter                        tsuw-′za-mən-gəsh-nawr-t*r*
 zusammengeschnorrtes                        tsuw-′za-mən-gəsh-nawr-təs
-zusammengeschnürt                           tsuw-′za-mən-gəsh-nüh-*r*t
+zusammengeschnürt                           tsuw-′za-mən-gəsh-nüh*r*t
 zusammengeschnürte                          tsuw-′za-mən-gəsh-nüh*r*-tə
 zusammengeschnürtem                         tsuw-′za-mən-gəsh-nüh*r*-təm
 zusammengeschnürten                         tsuw-′za-mən-gəsh-nüh*r*-tən
@@ -8290,7 +8290,7 @@ zusammengesetztem                           tsuw-′za-mən-gə-zets-təm
 zusammengesetzten                           tsuw-′za-mən-gə-zets-tən
 zusammengesetzter                           tsuw-′za-mən-gə-zets-t*r*
 zusammengesetztes                           tsuw-′za-mən-gə-zets-təs
-zusammengespart                             tsuw-′za-mən-gə-shpaa-*r*t
+zusammengespart                             tsuw-′za-mən-gə-shpaa*r*t
 zusammengesparte                            tsuw-′za-mən-gə-shpaa*r*-tə
 zusammengespartem                           tsuw-′za-mən-gə-shpaa*r*-təm
 zusammengesparten                           tsuw-′za-mən-gə-shpaa*r*-tən
@@ -8745,15 +8745,15 @@ zusammenkauer                               tsuw-′za-mən-kau*r*
 zusammenkauere                              tsuw-′za-mən-kau-ə-rə
 zusammenkauerest                            tsuw-′za-mən-kau-ə-rəst
 zusammenkaueret                             tsuw-′za-mən-kau-ə-rət
-zusammenkauern                              tsuw-′za-mən-kau-*r*n
-zusammenkauernd                             tsuw-′za-mən-kau-*r*nt
-zusammenkauernde                            tsuw-′za-mən-kau-*r*n-də
-zusammenkauerndem                           tsuw-′za-mən-kau-*r*n-dəm
-zusammenkauernden                           tsuw-′za-mən-kau-*r*n-dən
-zusammenkauernder                           tsuw-′za-mən-kau-*r*n-d*r*
-zusammenkauerndes                           tsuw-′za-mən-kau-*r*n-dəs
-zusammenkauerst                             tsuw-′za-mən-kau-*r*st
-zusammenkauert                              tsuw-′za-mən-kau-*r*t
+zusammenkauern                              tsuw-′za-mən-kau*r*n
+zusammenkauernd                             tsuw-′za-mən-kau*r*nt
+zusammenkauernde                            tsuw-′za-mən-kau*r*n-də
+zusammenkauerndem                           tsuw-′za-mən-kau*r*n-dəm
+zusammenkauernden                           tsuw-′za-mən-kau*r*n-dən
+zusammenkauernder                           tsuw-′za-mən-kau*r*n-d*r*
+zusammenkauerndes                           tsuw-′za-mən-kau*r*n-dəs
+zusammenkauerst                             tsuw-′za-mən-kau*r*st
+zusammenkauert                              tsuw-′za-mən-kau*r*t
 zusammenkauerte                             tsuw-′za-mən-kau*r*-tə
 zusammenkauerten                            tsuw-′za-mən-kau*r*-tən
 zusammenkauertest                           tsuw-′za-mən-kau*r*-təst
@@ -8787,8 +8787,8 @@ zusammenkehrender                           tsuw-′za-mən-key-rən-d*r*
 zusammenkehrendes                           tsuw-′za-mən-key-rən-dəs
 zusammenkehrest                             tsuw-′za-mən-key-rəst
 zusammenkehret                              tsuw-′za-mən-key-rət
-zusammenkehrst                              tsuw-′za-mən-key-*r*st
-zusammenkehrt                               tsuw-′za-mən-key-*r*t
+zusammenkehrst                              tsuw-′za-mən-key*r*st
+zusammenkehrt                               tsuw-′za-mən-key*r*t
 zusammenkehrte                              tsuw-′za-mən-key*r*-tə
 zusammenkehrten                             tsuw-′za-mən-key*r*-tən
 zusammenkehrtest                            tsuw-′za-mən-key*r*-təst
@@ -9122,8 +9122,8 @@ zusammenleeren                              tsuw-′za-mən-ley-rən
 zusammenleerend                             tsuw-′za-mən-ley-rənt
 zusammenleerest                             tsuw-′za-mən-ley-rəst
 zusammenleeret                              tsuw-′za-mən-ley-rət
-zusammenleerst                              tsuw-′za-mən-ley-*r*st
-zusammenleert                               tsuw-′za-mən-ley-*r*t
+zusammenleerst                              tsuw-′za-mən-ley*r*st
+zusammenleert                               tsuw-′za-mən-ley*r*t
 zusammenleerte                              tsuw-′za-mən-ley*r*-tə
 zusammenleerten                             tsuw-′za-mən-ley*r*-tən
 zusammenleertest                            tsuw-′za-mən-ley*r*-təst
@@ -9290,8 +9290,8 @@ zusammenmontierender                        tsuw-′za-mən-mawn-tiy-rən-d*r*
 zusammenmontierendes                        tsuw-′za-mən-mawn-tiy-rən-dəs
 zusammenmontierest                          tsuw-′za-mən-mawn-tiy-rəst
 zusammenmontieret                           tsuw-′za-mən-mawn-tiy-rət
-zusammenmontierst                           tsuw-′za-mən-mawn-tiy-*r*st
-zusammenmontiert                            tsuw-′za-mən-mawn-tiy-*r*t
+zusammenmontierst                           tsuw-′za-mən-mawn-tiy*r*st
+zusammenmontiert                            tsuw-′za-mən-mawn-tiy*r*t
 zusammenmontierte                           tsuw-′za-mən-mawn-tiy*r*-tə
 zusammenmontiertem                          tsuw-′za-mən-mawn-tiy*r*-təm
 zusammenmontierten                          tsuw-′za-mən-mawn-tiy*r*-tən
@@ -9695,8 +9695,8 @@ zusammenrührender                           tsuw-′za-mən-rüh-rən-d*r*
 zusammenrührendes                           tsuw-′za-mən-rüh-rən-dəs
 zusammenrührest                             tsuw-′za-mən-rüh-rəst
 zusammenrühret                              tsuw-′za-mən-rüh-rət
-zusammenrührst                              tsuw-′za-mən-rüh-*r*st
-zusammenrührt                               tsuw-′za-mən-rüh-*r*t
+zusammenrührst                              tsuw-′za-mən-rüh*r*st
+zusammenrührt                               tsuw-′za-mən-rüh*r*t
 zusammenrührte                              tsuw-′za-mən-rüh*r*-tə
 zusammenrührten                             tsuw-′za-mən-rüh*r*-tən
 zusammenrührtest                            tsuw-′za-mən-rüh*r*-təst
@@ -9769,8 +9769,8 @@ zusammenscharrte                            tsuw-′za-mən-shar-tə
 zusammenscharrten                           tsuw-′za-mən-shar-tən
 zusammenscharrtest                          tsuw-′za-mən-shar-təst
 zusammenscharrtet                           tsuw-′za-mən-shar-tət
-zusammenscharst                             tsuw-′za-mən-shaa-*r*st
-zusammenschart                              tsuw-′za-mən-shaa-*r*t
+zusammenscharst                             tsuw-′za-mən-shaa*r*st
+zusammenschart                              tsuw-′za-mən-shaa*r*t
 zusammenscharte                             tsuw-′za-mən-shaa*r*-tə
 zusammenscharten                            tsuw-′za-mən-shaa*r*-tən
 zusammenschartest                           tsuw-′za-mən-shaa*r*-təst
@@ -9953,8 +9953,8 @@ zusammenschnürender                         tsuw-′za-mənsh-nüh-rən-d*r*
 zusammenschnürendes                         tsuw-′za-mənsh-nüh-rən-dəs
 zusammenschnürest                           tsuw-′za-mənsh-nüh-rəst
 zusammenschnüret                            tsuw-′za-mənsh-nüh-rət
-zusammenschnürst                            tsuw-′za-mənsh-nüh-*r*st
-zusammenschnürt                             tsuw-′za-mənsh-nüh-*r*t
+zusammenschnürst                            tsuw-′za-mənsh-nüh*r*st
+zusammenschnürt                             tsuw-′za-mənsh-nüh*r*t
 zusammenschnürte                            tsuw-′za-mənsh-nüh*r*-tə
 zusammenschnürten                           tsuw-′za-mənsh-nüh*r*-tən
 zusammenschnürtest                          tsuw-′za-mənsh-nüh*r*-təst
@@ -10164,8 +10164,8 @@ zusammensparender                           tsuw-′za-mən-shpaa-rən-d*r*
 zusammensparendes                           tsuw-′za-mən-shpaa-rən-dəs
 zusammensparest                             tsuw-′za-mən-shpaa-rəst
 zusammensparet                              tsuw-′za-mən-shpaa-rət
-zusammensparst                              tsuw-′za-mən-shpaa-*r*st
-zusammenspart                               tsuw-′za-mən-shpaa-*r*t
+zusammensparst                              tsuw-′za-mən-shpaa*r*st
+zusammenspart                               tsuw-′za-mən-shpaa*r*t
 zusammensparte                              tsuw-′za-mən-shpaa*r*-tə
 zusammensparten                             tsuw-′za-mən-shpaa*r*-tən
 zusammenspartest                            tsuw-′za-mən-shpaa*r*-təst
@@ -10480,8 +10480,8 @@ zusammentelefonierender                     tsuw-′za-mən-tey-lə-foh-niy-rən
 zusammentelefonierendes                     tsuw-′za-mən-tey-lə-foh-niy-rən-dəs
 zusammentelefonierest                       tsuw-′za-mən-tey-lə-foh-niy-rəst
 zusammentelefonieret                        tsuw-′za-mən-tey-lə-foh-niy-rət
-zusammentelefonierst                        tsuw-′za-mən-tey-lə-foh-niy-*r*st
-zusammentelefoniert                         tsuw-′za-mən-tey-lə-foh-niy-*r*t
+zusammentelefonierst                        tsuw-′za-mən-tey-lə-foh-niy*r*st
+zusammentelefoniert                         tsuw-′za-mən-tey-lə-foh-niy*r*t
 zusammentelefonierte                        tsuw-′za-mən-tey-lə-foh-niy*r*-tə
 zusammentelefonierten                       tsuw-′za-mən-tey-lə-foh-niy*r*-tən
 zusammentelefoniertest                      tsuw-′za-mən-tey-lə-foh-niy*r*-təst
@@ -10958,7 +10958,7 @@ zusammenzuhängendem                         tsuw-′za-mən-tsuw-he-ngən-dəm
 zusammenzuhängenden                         tsuw-′za-mən-tsuw-he-ngən-dən
 zusammenzuhängender                         tsuw-′za-mən-tsuw-he-ngən-d*r*
 zusammenzuhängendes                         tsuw-′za-mən-tsuw-he-ngən-dəs
-zusammenzukauern                            tsuw-′za-mən-tsuw-kau-*r*n
+zusammenzukauern                            tsuw-′za-mən-tsuw-kau*r*n
 zusammenzukaufen                            tsuw-′za-mən-tsuw-kau-fəm  |  tsuw-′za-mən-tsuw-kau-fən
 zusammenzukaufende                          tsuw-′za-mən-tsuw-kau-fəm-də  |  tsuw-′za-mən-tsuw-kau-fən-də
 zusammenzukaufendem                         tsuw-′za-mən-tsuw-kau-fəm-dəm  |  tsuw-′za-mən-tsuw-kau-fən-dəm
@@ -11609,7 +11609,7 @@ zuschauerin                                 ′tsuw-shau-ə-rin
 zuschauerinnen                              ′tsuw-shau-ə-ri-nən
 zuschauermenge                              ′tsuw-shau*r*-me-ngə
 zuschauermengen                             ′tsuw-shau*r*-me-ngən
-zuschauern                                  ′tsuw-shau-*r*n
+zuschauern                                  ′tsuw-shau*r*n
 zuschauerraum                               ′tsuw-shau*r*-raum
 zuschauerraume                              ′tsuw-shau*r*-rau-mə
 zuschauerraumes                             ′tsuw-shau*r*-rau-məs
@@ -11634,7 +11634,7 @@ zuschauerreihe                              ′tsuw-shau*r*-righ-ə
 zuschauerreihen                             ′tsuw-shau*r*-righ-ən
 zuschauerräume                              ′tsuw-shau*r*-roy-mə
 zuschauerräumen                             ′tsuw-shau*r*-roy-mən
-zuschauers                                  ′tsuw-shau-*r*s
+zuschauers                                  ′tsuw-shau*r*s
 zuschauerschwach                            ′tsuw-shau*r*-shvakh
 zuschauerschwache                           ′tsuw-shau*r*-shva-khə
 zuschauerschwachem                          ′tsuw-shau*r*-shva-khəm
@@ -11929,8 +11929,8 @@ zuschmierender                              ′tsuwsh-miy-rən-d*r*
 zuschmierendes                              ′tsuwsh-miy-rən-dəs
 zuschmierest                                ′tsuwsh-miy-rəst
 zuschmieret                                 ′tsuwsh-miy-rət
-zuschmierst                                 ′tsuwsh-miy-*r*st
-zuschmiert                                  ′tsuwsh-miy-*r*t
+zuschmierst                                 ′tsuwsh-miy*r*st
+zuschmiert                                  ′tsuwsh-miy*r*t
 zuschmierte                                 ′tsuwsh-miy*r*-tə
 zuschmierten                                ′tsuwsh-miy*r*-tən
 zuschmiertest                               ′tsuwsh-miy*r*-təst
@@ -12032,8 +12032,8 @@ zuschnürender                               ′tsuwsh-nüh-rən-d*r*
 zuschnürendes                               ′tsuwsh-nüh-rən-dəs
 zuschnürest                                 ′tsuwsh-nüh-rəst
 zuschnüret                                  ′tsuwsh-nüh-rət
-zuschnürst                                  ′tsuwsh-nüh-*r*st
-zuschnürt                                   ′tsuwsh-nüh-*r*t
+zuschnürst                                  ′tsuwsh-nüh*r*st
+zuschnürt                                   ′tsuwsh-nüh*r*t
 zuschnürte                                  ′tsuwsh-nüh*r*-tə
 zuschnürten                                 ′tsuwsh-nüh*r*-tən
 zuschnürtest                                ′tsuwsh-nüh*r*-təst
@@ -12293,8 +12293,8 @@ zusehends                                   ′tsuw-zey-ənts
 zuseher                                     ′tsuw-zey*r*
 zuseherin                                   ′tsuw-zey-ə-rin
 zuseherinnen                                ′tsuw-zey-ə-ri-nən
-zusehern                                    ′tsuw-zey-*r*n
-zusehers                                    ′tsuw-zey-*r*s
+zusehern                                    ′tsuw-zey*r*n
+zusehers                                    ′tsuw-zey*r*s
 zuseherschaft                               ′tsuw-zey*r*-shaft
 zuseherschaften                             ′tsuw-zey*r*-shaf-tən
 zusehest                                    ′tsuw-zey-əst
@@ -12561,15 +12561,15 @@ zustellung                                  ′tsuw-shte-luung
 zustellungen                                ′tsuw-shte-luu-ngən
 zusteuer                                    ′tsuw-shtoy*r*
 zusteuere                                   ′tsuw-shtoy-ə-rə
-zusteuern                                   ′tsuw-shtoy-*r*n
-zusteuernd                                  ′tsuw-shtoy-*r*nt
-zusteuernde                                 ′tsuw-shtoy-*r*n-də
-zusteuerndem                                ′tsuw-shtoy-*r*n-dəm
-zusteuernden                                ′tsuw-shtoy-*r*n-dən
-zusteuernder                                ′tsuw-shtoy-*r*n-d*r*
-zusteuerndes                                ′tsuw-shtoy-*r*n-dəs
-zusteuerst                                  ′tsuw-shtoy-*r*st
-zusteuert                                   ′tsuw-shtoy-*r*t
+zusteuern                                   ′tsuw-shtoy*r*n
+zusteuernd                                  ′tsuw-shtoy*r*nt
+zusteuernde                                 ′tsuw-shtoy*r*n-də
+zusteuerndem                                ′tsuw-shtoy*r*n-dəm
+zusteuernden                                ′tsuw-shtoy*r*n-dən
+zusteuernder                                ′tsuw-shtoy*r*n-d*r*
+zusteuerndes                                ′tsuw-shtoy*r*n-dəs
+zusteuerst                                  ′tsuw-shtoy*r*st
+zusteuert                                   ′tsuw-shtoy*r*t
 zusteuerte                                  ′tsuw-shtoy*r*-tə
 zusteuerten                                 ′tsuw-shtoy*r*-tən
 zusteuertest                                ′tsuw-shtoy*r*-təst
@@ -12629,11 +12629,11 @@ zustimmungsfähigster                        ′tsuw-shti-muungs-feh-ik-st*r*  |
 zustimmungsfähigstes                        ′tsuw-shti-muungs-feh-ik-stəs  |  ′tsuw-shti-muungs-feh-i*ch*-stəs
 zustimmungsquote                            ′tsuw-shti-muung-skvoh-tə
 zustimmungsquoten                           ′tsuw-shti-muung-skvoh-tən
-zustimmungswert                             ′tsuw-shti-muung-svey-*r*t
+zustimmungswert                             ′tsuw-shti-muung-svey*r*t
 zustimmungswerte                            ′tsuw-shti-muung-svey*r*-tə
 zustimmungswerten                           ′tsuw-shti-muung-svey*r*-tən
 zustimmungswertes                           ′tsuw-shti-muung-svey*r*-təs
-zustimmungswerts                            ′tsuw-shti-muung-svey-*r*ts
+zustimmungswerts                            ′tsuw-shti-muung-svey*r*ts
 zustopfe                                    ′tsuw-shtaw-pfə
 zustopfen                                   ′tsuw-shtaw-pfən
 zustopfend                                  ′tsuw-shtaw-pfənt
@@ -13425,14 +13425,14 @@ zuwiderläuft                                tsuw-′viy-d*r*-loyft
 zuwiderzuhandeln                            tsuw-′viy-d*r*-tsuw-han-dəln
 zuwiderzulaufen                             tsuw-′viy-d*r*-tsuw-lau-fəm  |  tsuw-′viy-d*r*-tsuw-lau-fən
 zuwiehere                                   ′tsuw-viy-ə-rə
-zuwiehern                                   ′tsuw-viy-*r*n
-zuwiehernd                                  ′tsuw-viy-*r*nt
-zuwiehernde                                 ′tsuw-viy-*r*n-də
-zuwieherndem                                ′tsuw-viy-*r*n-dəm
-zuwiehernden                                ′tsuw-viy-*r*n-dən
-zuwiehernder                                ′tsuw-viy-*r*n-d*r*
-zuwieherndes                                ′tsuw-viy-*r*n-dəs
-zuwiehert                                   ′tsuw-viy-*r*t
+zuwiehern                                   ′tsuw-viy*r*n
+zuwiehernd                                  ′tsuw-viy*r*nt
+zuwiehernde                                 ′tsuw-viy*r*n-də
+zuwieherndem                                ′tsuw-viy*r*n-dəm
+zuwiehernden                                ′tsuw-viy*r*n-dən
+zuwiehernder                                ′tsuw-viy*r*n-d*r*
+zuwieherndes                                ′tsuw-viy*r*n-dəs
+zuwiehert                                   ′tsuw-viy*r*t
 zuwieherte                                  ′tsuw-viy*r*-tə
 zuwieherten                                 ′tsuw-viy*r*-tən
 zuwiehre                                    ′tsuw-viy-rə
@@ -13558,8 +13558,8 @@ zuzementierender                            ′tsuw-tsey-men-tiy-rən-d*r*
 zuzementierendes                            ′tsuw-tsey-men-tiy-rən-dəs
 zuzementierest                              ′tsuw-tsey-men-tiy-rəst
 zuzementieret                               ′tsuw-tsey-men-tiy-rət
-zuzementierst                               ′tsuw-tsey-men-tiy-*r*st
-zuzementiert                                ′tsuw-tsey-men-tiy-*r*t
+zuzementierst                               ′tsuw-tsey-men-tiy*r*st
+zuzementiert                                ′tsuw-tsey-men-tiy*r*t
 zuzementierte                               ′tsuw-tsey-men-tiy*r*-tə
 zuzementiertem                              ′tsuw-tsey-men-tiy*r*-təm
 zuzementierten                              ′tsuw-tsey-men-tiy*r*-tən
@@ -13738,12 +13738,12 @@ zuzufertigendem                             ′tsuw-tsuw-fer-ti-gən-dəm
 zuzufertigenden                             ′tsuw-tsuw-fer-ti-gən-dən
 zuzufertigender                             ′tsuw-tsuw-fer-ti-gən-d*r*
 zuzufertigendes                             ′tsuw-tsuw-fer-ti-gən-dəs
-zuzufeuern                                  ′tsuw-tsuw-foy-*r*n
-zuzufeuernde                                ′tsuw-tsuw-foy-*r*n-də
-zuzufeuerndem                               ′tsuw-tsuw-foy-*r*n-dəm
-zuzufeuernden                               ′tsuw-tsuw-foy-*r*n-dən
-zuzufeuernder                               ′tsuw-tsuw-foy-*r*n-d*r*
-zuzufeuerndes                               ′tsuw-tsuw-foy-*r*n-dəs
+zuzufeuern                                  ′tsuw-tsuw-foy*r*n
+zuzufeuernde                                ′tsuw-tsuw-foy*r*n-də
+zuzufeuerndem                               ′tsuw-tsuw-foy*r*n-dəm
+zuzufeuernden                               ′tsuw-tsuw-foy*r*n-dən
+zuzufeuernder                               ′tsuw-tsuw-foy*r*n-d*r*
+zuzufeuerndes                               ′tsuw-tsuw-foy*r*n-dəs
 zuzuflattern                                ′tsuw-tsuw-fla-t*r*n
 zuzuflicken                                 ′tsuw-tsuw-fli-kən
 zuzuflickende                               ′tsuw-tsuw-fli-kən-də
@@ -14048,12 +14048,12 @@ zuzumailenden                               ′tsuw-tsuw-mey-lən-dən
 zuzumailender                               ′tsuw-tsuw-mey-lən-d*r*
 zuzumailendes                               ′tsuw-tsuw-mey-lən-dəs
 zuzumarschieren                             ′tsuw-tsuw-mar-shiy-rən
-zuzumauern                                  ′tsuw-tsuw-mau-*r*n
-zuzumauernde                                ′tsuw-tsuw-mau-*r*n-də
-zuzumauerndem                               ′tsuw-tsuw-mau-*r*n-dəm
-zuzumauernden                               ′tsuw-tsuw-mau-*r*n-dən
-zuzumauernder                               ′tsuw-tsuw-mau-*r*n-d*r*
-zuzumauerndes                               ′tsuw-tsuw-mau-*r*n-dəs
+zuzumauern                                  ′tsuw-tsuw-mau*r*n
+zuzumauernde                                ′tsuw-tsuw-mau*r*n-də
+zuzumauerndem                               ′tsuw-tsuw-mau*r*n-dəm
+zuzumauernden                               ′tsuw-tsuw-mau*r*n-dən
+zuzumauernder                               ′tsuw-tsuw-mau*r*n-d*r*
+zuzumauerndes                               ′tsuw-tsuw-mau*r*n-dəs
 zuzumessen                                  ′tsuw-tsuw-me-sən
 zuzumessende                                ′tsuw-tsuw-me-sən-də
 zuzumessendem                               ′tsuw-tsuw-me-sən-dəm
@@ -14429,12 +14429,12 @@ zuzustellendem                              ′tsuw-tsuw-shte-lən-dəm
 zuzustellenden                              ′tsuw-tsuw-shte-lən-dən
 zuzustellender                              ′tsuw-tsuw-shte-lən-d*r*
 zuzustellendes                              ′tsuw-tsuw-shte-lən-dəs
-zuzusteuern                                 ′tsuw-tsuw-shtoy-*r*n
-zuzusteuernde                               ′tsuw-tsuw-shtoy-*r*n-də
-zuzusteuerndem                              ′tsuw-tsuw-shtoy-*r*n-dəm
-zuzusteuernden                              ′tsuw-tsuw-shtoy-*r*n-dən
-zuzusteuernder                              ′tsuw-tsuw-shtoy-*r*n-d*r*
-zuzusteuerndes                              ′tsuw-tsuw-shtoy-*r*n-dəs
+zuzusteuern                                 ′tsuw-tsuw-shtoy*r*n
+zuzusteuernde                               ′tsuw-tsuw-shtoy*r*n-də
+zuzusteuerndem                              ′tsuw-tsuw-shtoy*r*n-dəm
+zuzusteuernden                              ′tsuw-tsuw-shtoy*r*n-dən
+zuzusteuernder                              ′tsuw-tsuw-shtoy*r*n-d*r*
+zuzusteuerndes                              ′tsuw-tsuw-shtoy*r*n-dəs
 zuzustimmen                                 ′tsuw-tsuw-shti-mən
 zuzustopfen                                 ′tsuw-tsuw-shtaw-pfən
 zuzustopfende                               ′tsuw-tsuw-shtaw-pfən-də
@@ -14523,7 +14523,7 @@ zuzuwerfendem                               ′tsuw-tsuw-ver-fən-dəm
 zuzuwerfenden                               ′tsuw-tsuw-ver-fən-dən
 zuzuwerfender                               ′tsuw-tsuw-ver-fən-d*r*
 zuzuwerfendes                               ′tsuw-tsuw-ver-fən-dəs
-zuzuwiehern                                 ′tsuw-tsuw-viy-*r*n
+zuzuwiehern                                 ′tsuw-tsuw-viy*r*n
 zuzuwinken                                  ′tsuw-tsuw-ving-kən
 zuzuwispern                                 ′tsuw-tsuw-vi-sp*r*n
 zuzuwuchern                                 ′tsuw-tsuw-vuw-kh*r*n
@@ -14746,8 +14746,8 @@ zwangsernährender                           ′tsvangs.e*r*-neh-rən-d*r*
 zwangsernährendes                           ′tsvangs.e*r*-neh-rən-dəs
 zwangsernährest                             ′tsvangs.e*r*-neh-rəst
 zwangsernähret                              ′tsvangs.e*r*-neh-rət
-zwangsernährst                              ′tsvangs.e*r*-neh-*r*st
-zwangsernährt                               ′tsvangs.e*r*-neh-*r*t
+zwangsernährst                              ′tsvangs.e*r*-neh*r*st
+zwangsernährt                               ′tsvangs.e*r*-neh*r*t
 zwangsernährte                              ′tsvangs.e*r*-neh*r*-tə
 zwangsernährtem                             ′tsvangs.e*r*-neh*r*-təm
 zwangsernährten                             ′tsvangs.e*r*-neh*r*-tən
@@ -14761,8 +14761,8 @@ zwangsexmatrikulieren                       ′tsvangs.ek-sma-triy-kuw-liy-rən
 zwangsexmatrikulierend                      ′tsvangs.ek-sma-triy-kuw-liy-rənt
 zwangsexmatrikulierest                      ′tsvangs.ek-sma-triy-kuw-liy-rəst
 zwangsexmatrikulieret                       ′tsvangs.ek-sma-triy-kuw-liy-rət
-zwangsexmatrikulierst                       ′tsvangs.ek-sma-triy-kuw-liy-*r*st
-zwangsexmatrikuliert                        ′tsvangs.ek-sma-triy-kuw-liy-*r*t
+zwangsexmatrikulierst                       ′tsvangs.ek-sma-triy-kuw-liy*r*st
+zwangsexmatrikuliert                        ′tsvangs.ek-sma-triy-kuw-liy*r*t
 zwangsexmatrikulierte                       ′tsvangs.ek-sma-triy-kuw-liy*r*-tə
 zwangsexmatrikuliertem                      ′tsvangs.ek-sma-triy-kuw-liy*r*-təm
 zwangsexmatrikulierten                      ′tsvangs.ek-sma-triy-kuw-liy*r*-tən
@@ -14819,8 +14819,8 @@ zwangspensionierender                       ′tsvang-spang-ziy-oh-niy-rən-d*r*
 zwangspensionierendes                       ′tsvang-spang-ziy-oh-niy-rən-dəs  |  ′tsvang-spaaⁿ-ziy-oh-niy-rən-dəs  |  ′tsvang-spen-ziy-oh-niy-rən-dəs
 zwangspensionierest                         ′tsvang-spang-ziy-oh-niy-rəst  |  ′tsvang-spaaⁿ-ziy-oh-niy-rəst  |  ′tsvang-spen-ziy-oh-niy-rəst
 zwangspensionieret                          ′tsvang-spang-ziy-oh-niy-rət  |  ′tsvang-spaaⁿ-ziy-oh-niy-rət  |  ′tsvang-spen-ziy-oh-niy-rət
-zwangspensionierst                          ′tsvang-spang-ziy-oh-niy-*r*st  |  ′tsvang-spaaⁿ-ziy-oh-niy-*r*st  |  ′tsvang-spen-ziy-oh-niy-*r*st
-zwangspensioniert                           ′tsvang-spang-ziy-oh-niy-*r*t  |  ′tsvang-spaaⁿ-ziy-oh-niy-*r*t  |  ′tsvang-spen-ziy-oh-niy-*r*t
+zwangspensionierst                          ′tsvang-spang-ziy-oh-niy*r*st  |  ′tsvang-spaaⁿ-ziy-oh-niy*r*st  |  ′tsvang-spen-ziy-oh-niy*r*st
+zwangspensioniert                           ′tsvang-spang-ziy-oh-niy*r*t  |  ′tsvang-spaaⁿ-ziy-oh-niy*r*t  |  ′tsvang-spen-ziy-oh-niy*r*t
 zwangspensionierte                          ′tsvang-spang-ziy-oh-niy*r*-tə  |  ′tsvang-spaaⁿ-ziy-oh-niy*r*-tə  |  ′tsvang-spen-ziy-oh-niy*r*-tə
 zwangspensioniertem                         ′tsvang-spang-ziy-oh-niy*r*-təm  |  ′tsvang-spaaⁿ-ziy-oh-niy*r*-təm  |  ′tsvang-spen-ziy-oh-niy*r*-təm
 zwangspensionierten                         ′tsvang-spang-ziy-oh-niy*r*-tən  |  ′tsvang-spaaⁿ-ziy-oh-niy*r*-tən  |  ′tsvang-spen-ziy-oh-niy*r*-tən
@@ -15328,10 +15328,10 @@ zweiergruppen                               ′tsvigh*r*-gruu-pən
 zweierlei                                   ′tsvigh*r*-ligh
 zweierlogarithmen                           ′tsvigh*r*-loh-ga-rit-mən
 zweierlogarithmus                           ′tsvigh*r*-loh-ga-rit-muus
-zweiern                                     ′tsvigh-*r*n
+zweiern                                     ′tsvigh*r*n
 zweierreihe                                 ′tsvigh*r*-righ-ə
 zweierreihen                                ′tsvigh*r*-righ-ən
-zweiers                                     ′tsvigh-*r*s
+zweiers                                     ′tsvigh*r*s
 zweiersystem                                ′tsvigh*r*-zü-steym
 zweiersystems                               ′tsvigh*r*-zü-steyms
 zweierteam                                  ′tsvigh*r*-tiym
@@ -15725,8 +15725,8 @@ zweiradfahrern                              ′tsvigh-raat-faa-r*r*n
 zweiradfahrers                              ′tsvigh-raat-faa-r*r*s
 zweirads                                    ′tsvigh-raats
 zweireiher                                  ′tsvigh-righ*r*
-zweireihern                                 ′tsvigh-righ-*r*n
-zweireihers                                 ′tsvigh-righ-*r*s
+zweireihern                                 ′tsvigh-righ*r*n
+zweireihers                                 ′tsvigh-righ*r*s
 zweireihig                                  ′tsvigh-righ-ik  |  ′tsvigh-righ-i*ch*
 zweireihige                                 ′tsvigh-righ-i-gə
 zweireihigem                                ′tsvigh-righ-i-gəm
@@ -15871,7 +15871,7 @@ zweitaktern                                 ′tsvigh-tak-t*r*n
 zweitakters                                 ′tsvigh-tak-t*r*s
 zweitaktmotor                               ′tsvigh-takt-moh-toh*r*
 zweitaktmotoren                             ′tsvigh-takt-moh-toh-rən
-zweitaktmotors                              ′tsvigh-takt-moh-toh-*r*s
+zweitaktmotors                              ′tsvigh-takt-moh-toh*r*s
 zweitausend                                 tsvigh-′tau-zənt  |  ′tsvigh-tau-zənt
 zweitausfertigung                           ′tsvight.aus-fer-ti-guung
 zweitausfertigungen                         ′tsvight.aus-fer-ti-guu-ngən
@@ -16007,7 +16007,7 @@ zweitklässlern                              ′tsvight-kle-sl*r*n
 zweitklässlers                              ′tsvight-kle-sl*r*s
 zweitkorrektor                              ′tsvight-kaw-rek-toh*r*
 zweitkorrektoren                            ′tsvight-kaw-rek-toh-rən
-zweitkorrektors                             ′tsvight-kaw-rek-toh-*r*s
+zweitkorrektors                             ′tsvight-kaw-rek-toh*r*s
 zweitligist                                 ′tsvight-liy-gist
 zweitligisten                               ′tsvight-liy-gi-stən
 zweitlängste                                ′tsvight-leng-stə
@@ -16166,7 +16166,7 @@ zweizuteilendes                             ′tsvigh-tsuw-tigh-lən-dəs
 zweizylinder                                ′tsvigh-tsiy-lin-d*r*  |  ′tsvigh-tsüh-lin-d*r*
 zweizylindermotor                           ′tsvigh-tsiy-lin-d*r*-moh-toh*r*  |  ′tsvigh-tsüh-lin-d*r*-moh-toh*r*
 zweizylindermotoren                         ′tsvigh-tsiy-lin-d*r*-moh-toh-rən  |  ′tsvigh-tsüh-lin-d*r*-moh-toh-rən
-zweizylindermotors                          ′tsvigh-tsiy-lin-d*r*-moh-toh-*r*s  |  ′tsvigh-tsüh-lin-d*r*-moh-toh-*r*s
+zweizylindermotors                          ′tsvigh-tsiy-lin-d*r*-moh-toh*r*s  |  ′tsvigh-tsüh-lin-d*r*-moh-toh*r*s
 zweizylindern                               ′tsvigh-tsiy-lin-d*r*n  |  ′tsvigh-tsüh-lin-d*r*n
 zweizylinders                               ′tsvigh-tsiy-lin-d*r*s  |  ′tsvigh-tsüh-lin-d*r*s
 zweiäugig                                   ′tsvigh.oy-gik  |  ′tsvigh.oy-gi*ch*
@@ -16216,11 +16216,11 @@ zwerges                                     ′tsver-gəs
 zwergfledermaus                             ′tsverk-fley-d*r*-maus
 zwergfledermäuse                            ′tsverk-fley-d*r*-moy-zə
 zwergfledermäusen                           ′tsverk-fley-d*r*-moy-zən
-zwergflusspferd                             ′tsverk-fluus-pfey-*r*t
+zwergflusspferd                             ′tsverk-fluus-pfey*r*t
 zwergflusspferde                            ′tsverk-fluus-pfey*r*-də
 zwergflusspferden                           ′tsverk-fluus-pfey*r*-dən
 zwergflusspferdes                           ′tsverk-fluus-pfey*r*-dəs
-zwergflusspferds                            ′tsverk-fluus-pfey-*r*ts
+zwergflusspferds                            ′tsverk-fluus-pfey*r*ts
 zwerggalaxie                                ′tsverk-ga-lak-siy
 zwerggalaxien                               ′tsverk-ga-lak-siy-ən
 zwerggans                                   ′tsverk-gans
@@ -16300,7 +16300,7 @@ zwickelbier                                 ′tsvi-kəl-biy*r*
 zwickelbiere                                ′tsvi-kəl-biy-rə
 zwickelbieren                               ′tsvi-kəl-biy-rən
 zwickelbieres                               ′tsvi-kəl-biy-rəs
-zwickelbiers                                ′tsvi-kəl-biy-*r*s
+zwickelbiers                                ′tsvi-kəl-biy*r*s
 zwickeln                                    ′tsvi-kəln
 zwickels                                    ′tsvi-kəls
 zwickeltag                                  ′tsvi-kəl-taak
@@ -16541,7 +16541,7 @@ zwillingsflüsse                             ′tsvi-lings-flü-sə
 zwillingsflüssen                            ′tsvi-lings-flü-sən
 zwillingsformel                             ′tsvi-lings-fawr-məl
 zwillingsformeln                            ′tsvi-lings-fawr-məln
-zwillingsgeburt                             ′tsvi-lings-gə-buw-*r*t  |  ′tsvi-lings-gə-buurt
+zwillingsgeburt                             ′tsvi-lings-gə-buw*r*t  |  ′tsvi-lings-gə-buurt
 zwillingsgeburten                           ′tsvi-lings-gə-buw*r*-tən  |  ′tsvi-lings-gə-buur-tən
 zwillingsjunge                              ′tsvi-ling-syuu-ngə
 zwillingsjungen                             ′tsvi-ling-syuu-ngən
@@ -16551,7 +16551,7 @@ zwillingspaar                               ′tsvi-ling-spaa*r*
 zwillingspaare                              ′tsvi-ling-spaa-rə
 zwillingspaaren                             ′tsvi-ling-spaa-rən
 zwillingspaares                             ′tsvi-ling-spaa-rəs
-zwillingspaars                              ′tsvi-ling-spaa-*r*s
+zwillingspaars                              ′tsvi-ling-spaa*r*s
 zwillingsparadoxa                           ′tsvi-ling-spa-raa-dawk-sa
 zwillingsparadoxon                          ′tsvi-ling-spa-raa-dawk-sawn
 zwillingsparadoxons                         ′tsvi-ling-spa-raa-dawk-sawns
@@ -16799,8 +16799,8 @@ zwischenfinanzierender                      ′tsvi-shən-fiy-nan-tsiy-rən-d*r*
 zwischenfinanzierendes                      ′tsvi-shən-fiy-nan-tsiy-rən-dəs
 zwischenfinanzierest                        ′tsvi-shən-fiy-nan-tsiy-rəst
 zwischenfinanzieret                         ′tsvi-shən-fiy-nan-tsiy-rət
-zwischenfinanzierst                         ′tsvi-shən-fiy-nan-tsiy-*r*st
-zwischenfinanziert                          ′tsvi-shən-fiy-nan-tsiy-*r*t
+zwischenfinanzierst                         ′tsvi-shən-fiy-nan-tsiy*r*st
+zwischenfinanziert                          ′tsvi-shən-fiy-nan-tsiy*r*t
 zwischenfinanzierte                         ′tsvi-shən-fiy-nan-tsiy*r*-tə
 zwischenfinanziertem                        ′tsvi-shən-fiy-nan-tsiy*r*-təm
 zwischenfinanzierten                        ′tsvi-shən-fiy-nan-tsiy*r*-tən
@@ -17417,7 +17417,7 @@ zwölfwöchiges                               ′tsvölf-vö-*ch*i-gəs
 zwölfzylinder                               ′tsvölf-tsiy-lin-d*r*  |  ′tsvölf-tsüh-lin-d*r*
 zwölfzylindermotor                          ′tsvölf-tsiy-lin-d*r*-moh-toh*r*  |  ′tsvölf-tsüh-lin-d*r*-moh-toh*r*
 zwölfzylindermotoren                        ′tsvölf-tsiy-lin-d*r*-moh-toh-rən  |  ′tsvölf-tsüh-lin-d*r*-moh-toh-rən
-zwölfzylindermotors                         ′tsvölf-tsiy-lin-d*r*-moh-toh-*r*s  |  ′tsvölf-tsüh-lin-d*r*-moh-toh-*r*s
+zwölfzylindermotors                         ′tsvölf-tsiy-lin-d*r*-moh-toh*r*s  |  ′tsvölf-tsüh-lin-d*r*-moh-toh*r*s
 zwölfzylindern                              ′tsvölf-tsiy-lin-d*r*n  |  ′tsvölf-tsüh-lin-d*r*n
 zwölfzylinders                              ′tsvölf-tsiy-lin-d*r*s  |  ′tsvölf-tsüh-lin-d*r*s
 zwönitz                                     ′tsvöh-nits
@@ -17546,7 +17546,7 @@ zyklons                                     tsüh-′klohns
 zyklop                                      tsüh-′klohp
 zyklopen                                    tsüh-′kloh-pən
 zyklopenmauer                               tsüh-′kloh-pən-mau*r*
-zyklopenmauern                              tsüh-′kloh-pən-mau-*r*n
+zyklopenmauern                              tsüh-′kloh-pən-mau*r*n
 zyklopisch                                  tsüh-′kloh-pish
 zyklopische                                 tsüh-′kloh-pi-shə
 zyklopischem                                tsüh-′kloh-pi-shəm
@@ -17696,8 +17696,8 @@ zyprians                                    tsüh-priy-′aans
 zyprier                                     ′tsüh-priy*r*
 zyprierin                                   ′tsüh-priy-ə-rin
 zyprierinnen                                ′tsüh-priy-ə-ri-nən
-zypriern                                    ′tsüh-priy-*r*n
-zypriers                                    ′tsüh-priy-*r*s
+zypriern                                    ′tsüh-priy*r*n
+zypriers                                    ′tsüh-priy*r*s
 zypriot                                     tsüh-priy-′oht
 zyprioten                                   tsüh-priy-′oh-tən
 zypriotin                                   tsüh-priy-′oh-tin
@@ -18237,27 +18237,27 @@ zärtelten                                   ′tseh*r*-təl-tən
 zärteltest                                  ′tseh*r*-təl-təst
 zärteltet                                   ′tseh*r*-təl-tət
 zärten                                      ′tser-tən
-zärtle                                      ′tseh-*r*t-lə
-zärtlest                                    ′tseh-*r*t-ləst
-zärtlet                                     ′tseh-*r*t-lət
-zärtlich                                    ′tsert-li*ch*  |  ′tseh-*r*t-li*ch*
-zärtliche                                   ′tsert-li-*ch*ə  |  ′tseh-*r*t-li-*ch*ə
-zärtlichem                                  ′tsert-li-*ch*əm  |  ′tseh-*r*t-li-*ch*əm
-zärtlichen                                  ′tsert-li-*ch*ən  |  ′tseh-*r*t-li-*ch*ən
-zärtlicher                                  ′tsert-li-*ch**r*  |  ′tseh-*r*t-li-*ch**r*
-zärtlichere                                 ′tsert-li-*ch*ə-rə  |  ′tseh-*r*t-li-*ch*ə-rə
-zärtlicherem                                ′tsert-li-*ch*ə-rəm  |  ′tseh-*r*t-li-*ch*ə-rəm
-zärtlicheren                                ′tsert-li-*ch*ə-rən  |  ′tseh-*r*t-li-*ch*ə-rən
-zärtlicherer                                ′tsert-li-*ch*ə-r*r*  |  ′tseh-*r*t-li-*ch*ə-r*r*
-zärtlicheres                                ′tsert-li-*ch*ə-rəs  |  ′tseh-*r*t-li-*ch*ə-rəs
-zärtliches                                  ′tsert-li-*ch*əs  |  ′tseh-*r*t-li-*ch*əs
-zärtlichkeit                                ′tseh-*r*t-li*ch*-kight
-zärtlichkeiten                              ′tseh-*r*t-li*ch*-kigh-tən
-zärtlichste                                 ′tsert-li*ch*-stə  |  ′tseh-*r*t-li*ch*-stə
-zärtlichstem                                ′tsert-li*ch*-stəm  |  ′tseh-*r*t-li*ch*-stəm
-zärtlichsten                                ′tsert-li*ch*-stən  |  ′tseh-*r*t-li*ch*-stən
-zärtlichster                                ′tsert-li*ch*-st*r*  |  ′tseh-*r*t-li*ch*-st*r*
-zärtlichstes                                ′tsert-li*ch*-stəs  |  ′tseh-*r*t-li*ch*-stəs
+zärtle                                      ′tseh*r*t-lə
+zärtlest                                    ′tseh*r*t-ləst
+zärtlet                                     ′tseh*r*t-lət
+zärtlich                                    ′tsert-li*ch*  |  ′tseh*r*t-li*ch*
+zärtliche                                   ′tsert-li-*ch*ə  |  ′tseh*r*t-li-*ch*ə
+zärtlichem                                  ′tsert-li-*ch*əm  |  ′tseh*r*t-li-*ch*əm
+zärtlichen                                  ′tsert-li-*ch*ən  |  ′tseh*r*t-li-*ch*ən
+zärtlicher                                  ′tsert-li-*ch**r*  |  ′tseh*r*t-li-*ch**r*
+zärtlichere                                 ′tsert-li-*ch*ə-rə  |  ′tseh*r*t-li-*ch*ə-rə
+zärtlicherem                                ′tsert-li-*ch*ə-rəm  |  ′tseh*r*t-li-*ch*ə-rəm
+zärtlicheren                                ′tsert-li-*ch*ə-rən  |  ′tseh*r*t-li-*ch*ə-rən
+zärtlicherer                                ′tsert-li-*ch*ə-r*r*  |  ′tseh*r*t-li-*ch*ə-r*r*
+zärtlicheres                                ′tsert-li-*ch*ə-rəs  |  ′tseh*r*t-li-*ch*ə-rəs
+zärtliches                                  ′tsert-li-*ch*əs  |  ′tseh*r*t-li-*ch*əs
+zärtlichkeit                                ′tseh*r*t-li*ch*-kight
+zärtlichkeiten                              ′tseh*r*t-li*ch*-kigh-tən
+zärtlichste                                 ′tsert-li*ch*-stə  |  ′tseh*r*t-li*ch*-stə
+zärtlichstem                                ′tsert-li*ch*-stəm  |  ′tseh*r*t-li*ch*-stəm
+zärtlichsten                                ′tsert-li*ch*-stən  |  ′tseh*r*t-li*ch*-stən
+zärtlichster                                ′tsert-li*ch*-st*r*  |  ′tseh*r*t-li*ch*-st*r*
+zärtlichstes                                ′tsert-li*ch*-stəs  |  ′tseh*r*t-li*ch*-stəs
 zäsium                                      ′tseh-ziy-uum
 zäsiums                                     ′tseh-ziy-uums
 zäsur                                       tse-′zuw*r*
@@ -18874,7 +18874,7 @@ zündnadelgewehr                             ′tsünt-naa-dəl-gə-vey*r*
 zündnadelgewehre                            ′tsünt-naa-dəl-gə-vey-rə
 zündnadelgewehren                           ′tsünt-naa-dəl-gə-vey-rən
 zündnadelgewehres                           ′tsünt-naa-dəl-gə-vey-rəs
-zündnadelgewehrs                            ′tsünt-naa-dəl-gə-vey-*r*s
+zündnadelgewehrs                            ′tsünt-naa-dəl-gə-vey*r*s
 zündquelle                                  ′tsünt-kve-lə
 zündquellen                                 ′tsünt-kve-lən
 zündschloss                                 ′tsünch-laws
@@ -19159,8 +19159,8 @@ złotys                                      ′zuw-aw-tis
 ägrierendes                                 e-′griy-rən-dəs
 ägrierest                                   e-′griy-rəst
 ägrieret                                    e-′griy-rət
-ägrierst                                    e-′griy-*r*st
-ägriert                                     e-′griy-*r*t
+ägrierst                                    e-′griy*r*st
+ägriert                                     e-′griy*r*t
 ägrierte                                    e-′griy*r*-tə
 ägriertem                                   e-′griy*r*-təm
 ägrierten                                   e-′griy*r*-tən
@@ -19213,7 +19213,7 @@ złotys                                      ′zuw-aw-tis
 ägäischen                                   e-′geh-i-shən
 ägäischen meer                              e-′geh-i-shən-′mey*r*
 ägäischen meeres                            e-′geh-i-shən-′mey-rəs
-ägäischen meers                             e-′geh-i-shən-′mey-*r*s
+ägäischen meers                             e-′geh-i-shən-′mey*r*s
 ägäischer                                   e-′geh-i-sh*r*
 ägäisches                                   e-′geh-i-shəs
 ägäisches meer                              e-′geh-i-shə-′smey*r*
@@ -19598,8 +19598,8 @@ złotys                                      ′zuw-aw-tis
 äquatorialguineer                           e-kva-toh-′riy-aal-giy-ney*r*
 äquatorialguineerin                         e-kva-toh-′riy-aal-giy-ney-ə-rin
 äquatorialguineerinnen                      e-kva-toh-′riy-aal-giy-ney-ə-ri-nən
-äquatorialguineern                          e-kva-toh-′riy-aal-giy-ney-*r*n
-äquatorialguineers                          e-kva-toh-′riy-aal-giy-ney-*r*s
+äquatorialguineern                          e-kva-toh-′riy-aal-giy-ney*r*n
+äquatorialguineers                          e-kva-toh-′riy-aal-giy-ney*r*s
 äquatorialguineisch                         e-kva-toh-′riy-aal-giy-ney-ish
 äquatorialguineische                        e-kva-toh-′riy-aal-giy-ney-i-shə
 äquatorialguineischem                       e-kva-toh-′riy-aal-giy-ney-i-shəm
@@ -19624,7 +19624,7 @@ złotys                                      ′zuw-aw-tis
 äquatornäheren                              e-′kvaa-toh*r*-neh-ə-rən
 äquatornäherer                              e-′kvaa-toh*r*-neh-ə-r*r*
 äquatornäheres                              e-′kvaa-toh*r*-neh-ə-rəs
-äquators                                    e-′kvaa-toh-*r*s
+äquators                                    e-′kvaa-toh*r*s
 äquatorwärts                                e-′kvaa-toh*r*-verts
 äquer                                       ′eh-kv*r*
 äquern                                      ′eh-kv*r*n
@@ -19694,7 +19694,7 @@ złotys                                      ′zuw-aw-tis
 ärarischen                                  e-′raa-ri-shən
 ärarischer                                  e-′raa-ri-sh*r*
 ärarisches                                  e-′raa-ri-shəs
-ärars                                       e-′raa-*r*s
+ärars                                       e-′raa*r*s
 ären                                        ′eh-rən
 ärger                                       ′er-g*r*
 ärger ab                                    er-g*r*-′ap
@@ -19828,52 +19828,52 @@ złotys                                      ′zuw-aw-tis
 ärmsten                                     ′erm-stən
 ärmster                                     ′erm-st*r*
 ärmstes                                     ′erm-stəs
-ärsch                                       eh-*r*sh
+ärsch                                       eh*r*sh
 ärsche                                      ′eh*r*-shə  |  ′er-shə
 ärschen                                     ′eh*r*-shən  |  ′er-shən
 ärschend                                    ′eh*r*-shənt
 ärschest                                    ′eh*r*-shəst
 ärschet                                     ′eh*r*-shət
-ärschst                                     eh-*r*shst
-ärscht                                      eh-*r*sht
+ärschst                                     eh*r*shst
+ärscht                                      eh*r*sht
 ärschte                                     ′eh*r*-shtə
 ärschten                                    ′eh*r*-shtən
 ärschtest                                   ′eh*r*-shtəst
 ärschtet                                    ′eh*r*-shtət
-ärzte                                       ′erts-tə  |  ′eh-*r*ts-tə
-ärztehaus                                   ′erts-tə-haus  |  ′eh-*r*ts-tə-haus
-ärztehause                                  ′erts-tə-hau-zə  |  ′eh-*r*ts-tə-hau-zə
-ärztehauses                                 ′erts-tə-hau-zəs  |  ′eh-*r*ts-tə-hau-zəs
-ärztehäuser                                 ′erts-tə-hoy-z*r*  |  ′eh-*r*ts-tə-hoy-z*r*
-ärztehäusern                                ′erts-tə-hoy-z*r*n  |  ′eh-*r*ts-tə-hoy-z*r*n
-ärztekammer                                 ′erts-tə-ka-m*r*  |  ′eh-*r*ts-tə-ka-m*r*
-ärztekammern                                ′erts-tə-ka-m*r*n  |  ′eh-*r*ts-tə-ka-m*r*n
-ärztekongress                               ′erts-tə-kawn-gres  |  ′erts-tə-kawng-gres  |  ′eh-*r*ts-tə-kawn-gres  |  ′eh-*r*ts-tə-kawng-gres
-ärztekongresse                              ′erts-tə-kawn-gre-sə  |  ′erts-tə-kawng-gre-sə  |  ′eh-*r*ts-tə-kawn-gre-sə  |  ′eh-*r*ts-tə-kawng-gre-sə
-ärztekongressen                             ′erts-tə-kawn-gre-sən  |  ′erts-tə-kawng-gre-sən  |  ′eh-*r*ts-tə-kawn-gre-sən  |  ′eh-*r*ts-tə-kawng-gre-sən
-ärztekongresses                             ′erts-tə-kawn-gre-səs  |  ′erts-tə-kawng-gre-səs  |  ′eh-*r*ts-tə-kawn-gre-səs  |  ′eh-*r*ts-tə-kawng-gre-səs
-ärztemangel                                 ′erts-tə-ma-ngəl  |  ′eh-*r*ts-tə-ma-ngəl
-ärztemangels                                ′erts-tə-ma-ngəls  |  ′eh-*r*ts-tə-ma-ngəls
-ärzten                                      ′erts-tən  |  ′eh-*r*ts-tən
-ärztepräsident                              ′erts-tə-pre-ziy-dent  |  ′eh-*r*ts-tə-pre-ziy-dent
-ärztepräsidenten                            ′erts-tə-pre-ziy-den-tən  |  ′eh-*r*ts-tə-pre-ziy-den-tən
-ärzteschaft                                 ′erts-tə-shaft  |  ′eh-*r*ts-tə-shaft
-ärzteschaften                               ′erts-tə-shaf-tən  |  ′eh-*r*ts-tə-shaf-tən
-ärzteschwemme                               ′erts-tə-shve-mə  |  ′eh-*r*ts-tə-shve-mə
-ärzteschwemmen                              ′erts-tə-shve-mən  |  ′eh-*r*ts-tə-shve-mən
-ärztetasche                                 ′erts-tə-ta-shə  |  ′eh-*r*ts-tə-ta-shə
-ärztetaschen                                ′erts-tə-ta-shən  |  ′eh-*r*ts-tə-ta-shən
-ärzteteam                                   ′erts-tə-tiym  |  ′eh-*r*ts-tə-tiym
-ärzteteams                                  ′erts-tə-tiyms  |  ′eh-*r*ts-tə-tiyms
-ärztin                                      ′eh-*r*ts-tin
-ärztinnen                                   ′eh-*r*ts-ti-nən
-ärztlich                                    ′ertst-li*ch*  |  ′eh-*r*tst-li*ch*
-ärztliche                                   ′eh-*r*tst-li-*ch*ə
-ärztlichem                                  ′eh-*r*tst-li-*ch*əm
-ärztlichen                                  ′eh-*r*tst-li-*ch*ən
-ärztlicher                                  ′eh-*r*tst-li-*ch**r*
-ärztlicherseits                             ′ertst-li-*ch**r*-zights  |  ′eh-*r*tst-li-*ch**r*-zights
-ärztliches                                  ′eh-*r*tst-li-*ch*əs
+ärzte                                       ′erts-tə  |  ′eh*r*ts-tə
+ärztehaus                                   ′erts-tə-haus  |  ′eh*r*ts-tə-haus
+ärztehause                                  ′erts-tə-hau-zə  |  ′eh*r*ts-tə-hau-zə
+ärztehauses                                 ′erts-tə-hau-zəs  |  ′eh*r*ts-tə-hau-zəs
+ärztehäuser                                 ′erts-tə-hoy-z*r*  |  ′eh*r*ts-tə-hoy-z*r*
+ärztehäusern                                ′erts-tə-hoy-z*r*n  |  ′eh*r*ts-tə-hoy-z*r*n
+ärztekammer                                 ′erts-tə-ka-m*r*  |  ′eh*r*ts-tə-ka-m*r*
+ärztekammern                                ′erts-tə-ka-m*r*n  |  ′eh*r*ts-tə-ka-m*r*n
+ärztekongress                               ′erts-tə-kawn-gres  |  ′erts-tə-kawng-gres  |  ′eh*r*ts-tə-kawn-gres  |  ′eh*r*ts-tə-kawng-gres
+ärztekongresse                              ′erts-tə-kawn-gre-sə  |  ′erts-tə-kawng-gre-sə  |  ′eh*r*ts-tə-kawn-gre-sə  |  ′eh*r*ts-tə-kawng-gre-sə
+ärztekongressen                             ′erts-tə-kawn-gre-sən  |  ′erts-tə-kawng-gre-sən  |  ′eh*r*ts-tə-kawn-gre-sən  |  ′eh*r*ts-tə-kawng-gre-sən
+ärztekongresses                             ′erts-tə-kawn-gre-səs  |  ′erts-tə-kawng-gre-səs  |  ′eh*r*ts-tə-kawn-gre-səs  |  ′eh*r*ts-tə-kawng-gre-səs
+ärztemangel                                 ′erts-tə-ma-ngəl  |  ′eh*r*ts-tə-ma-ngəl
+ärztemangels                                ′erts-tə-ma-ngəls  |  ′eh*r*ts-tə-ma-ngəls
+ärzten                                      ′erts-tən  |  ′eh*r*ts-tən
+ärztepräsident                              ′erts-tə-pre-ziy-dent  |  ′eh*r*ts-tə-pre-ziy-dent
+ärztepräsidenten                            ′erts-tə-pre-ziy-den-tən  |  ′eh*r*ts-tə-pre-ziy-den-tən
+ärzteschaft                                 ′erts-tə-shaft  |  ′eh*r*ts-tə-shaft
+ärzteschaften                               ′erts-tə-shaf-tən  |  ′eh*r*ts-tə-shaf-tən
+ärzteschwemme                               ′erts-tə-shve-mə  |  ′eh*r*ts-tə-shve-mə
+ärzteschwemmen                              ′erts-tə-shve-mən  |  ′eh*r*ts-tə-shve-mən
+ärztetasche                                 ′erts-tə-ta-shə  |  ′eh*r*ts-tə-ta-shə
+ärztetaschen                                ′erts-tə-ta-shən  |  ′eh*r*ts-tə-ta-shən
+ärzteteam                                   ′erts-tə-tiym  |  ′eh*r*ts-tə-tiym
+ärzteteams                                  ′erts-tə-tiyms  |  ′eh*r*ts-tə-tiyms
+ärztin                                      ′eh*r*ts-tin
+ärztinnen                                   ′eh*r*ts-ti-nən
+ärztlich                                    ′ertst-li*ch*  |  ′eh*r*tst-li*ch*
+ärztliche                                   ′eh*r*tst-li-*ch*ə
+ärztlichem                                  ′eh*r*tst-li-*ch*əm
+ärztlichen                                  ′eh*r*tst-li-*ch*ən
+ärztlicher                                  ′eh*r*tst-li-*ch**r*
+ärztlicherseits                             ′ertst-li-*ch**r*-zights  |  ′eh*r*tst-li-*ch**r*-zights
+ärztliches                                  ′eh*r*tst-li-*ch*əs
 äs ab                                       eh-′sap
 äsche                                       ′e-shə
 äschen                                      e-shən
@@ -20012,8 +20012,8 @@ złotys                                      ′zuw-aw-tis
 ästhetisierendes                            e-stey-tiy-′ziy-rən-dəs
 ästhetisierest                              e-stey-tiy-′ziy-rəst
 ästhetisieret                               e-stey-tiy-′ziy-rət
-ästhetisierst                               e-stey-tiy-′ziy-*r*st
-ästhetisiert                                e-stey-tiy-′ziy-*r*t
+ästhetisierst                               e-stey-tiy-′ziy*r*st
+ästhetisiert                                e-stey-tiy-′ziy*r*t
 ästhetisierte                               e-stey-tiy-′ziy*r*-tə
 ästhetisiertem                              e-stey-tiy-′ziy*r*-təm
 ästhetisierten                              e-stey-tiy-′ziy*r*-tən
@@ -20023,14 +20023,14 @@ złotys                                      ′zuw-aw-tis
 ästhetisiertet                              e-stey-tiy-′ziy*r*-tət
 ästhetisierung                              e-stey-tiy-′ziy-ruung
 ästhetisierungen                            e-stey-tiy-′ziy-ruu-ngən
-ästige stachelbart                          e-sti-gə-′shta-khəl-baa-*r*t
+ästige stachelbart                          e-sti-gə-′shta-khəl-baa*r*t
 ästige stachelbärte                         e-sti-gə-′shta-khəl-beh*r*-tə
-ästigem stachelbart                         e-sti-gəm-′shta-khəl-baa-*r*t
-ästigen stachelbart                         e-sti-gən-′shta-khəl-baa-*r*t
-ästigen stachelbarts                        e-sti-gən-′shta-khəl-baa-*r*ts
+ästigem stachelbart                         e-sti-gəm-′shta-khəl-baa*r*t
+ästigen stachelbart                         e-sti-gən-′shta-khəl-baa*r*t
+ästigen stachelbarts                        e-sti-gən-′shta-khəl-baa*r*ts
 ästigen stachelbärte                        e-sti-gən-′shta-khəl-beh*r*-tə
 ästigen stachelbärten                       e-sti-gən-′shta-khəl-beh*r*-tən
-ästiger stachelbart                         e-sti-g*r*-′shta-khəl-baa-*r*t
+ästiger stachelbart                         e-sti-g*r*-′shta-khəl-baa*r*t
 ästiger stachelbärte                        e-sti-g*r*-′shta-khəl-beh*r*-tə
 ästimier                                    e-stiy-′miy*r*
 ästimiere                                   e-stiy-′miy-rə
@@ -20043,8 +20043,8 @@ złotys                                      ′zuw-aw-tis
 ästimierendes                               e-stiy-′miy-rən-dəs
 ästimierest                                 e-stiy-′miy-rəst
 ästimieret                                  e-stiy-′miy-rət
-ästimierst                                  e-stiy-′miy-*r*st
-ästimiert                                   e-stiy-′miy-*r*t
+ästimierst                                  e-stiy-′miy*r*st
+ästimiert                                   e-stiy-′miy*r*t
 ästimierte                                  e-stiy-′miy*r*-tə
 ästimiertem                                 e-stiy-′miy*r*-təm
 ästimierten                                 e-stiy-′miy*r*-tən
@@ -20058,7 +20058,7 @@ złotys                                      ′zuw-aw-tis
 ästuare                                     e-stuw-′aa-rə  |  e-stuw.′aa-rə
 ästuaren                                    e-stuw-′aa-rən  |  e-stuw.′aa-rən
 ästuarien                                   e-stuw-′aa-riy-ən
-ästuars                                     e-stuw-′aa-*r*s  |  e-stuw.′aa-*r*s
+ästuars                                     e-stuw-′aa*r*s  |  e-stuw.′aa*r*s
 äsung                                       ′eh-zuung
 äsungen                                     ′eh-zuu-ngən
 äthan                                       e-′taan
@@ -20101,8 +20101,8 @@ złotys                                      ′zuw-aw-tis
 ätherisierendes                             e-tə-riy-′ziy-rən-dəs
 ätherisierest                               e-tə-riy-′ziy-rəst
 ätherisieret                                e-tə-riy-′ziy-rət
-ätherisierst                                e-tə-riy-′ziy-*r*st
-ätherisiert                                 e-tə-riy-′ziy-*r*t
+ätherisierst                                e-tə-riy-′ziy*r*st
+ätherisiert                                 e-tə-riy-′ziy*r*t
 ätherisierte                                e-tə-riy-′ziy*r*-tə
 ätherisiertem                               e-tə-riy-′ziy*r*-təm
 ätherisierten                               e-tə-riy-′ziy*r*-tən
@@ -20131,8 +20131,8 @@ złotys                                      ′zuw-aw-tis
 äthiopier                                   e-′tiy-oh-piy*r*
 äthiopierin                                 e-′tiy-oh-piy-ə-rin
 äthiopierinnen                              e-′tiy-oh-piy-ə-ri-nən
-äthiopiern                                  e-′tiy-oh-piy-*r*n
-äthiopiers                                  e-′tiy-oh-piy-*r*s
+äthiopiern                                  e-′tiy-oh-piy*r*n
+äthiopiers                                  e-′tiy-oh-piy*r*s
 äthiopisch                                  e-′tiy-oh-pish
 äthiopische                                 e-′tiy-oh-pi-shə
 äthiopischem                                e-′tiy-oh-pi-shəm
@@ -20548,7 +20548,7 @@ złotys                                      ′zuw-aw-tis
 öffentlichen gütern                         ′ö-fənt-li-*ch*ən-′güh-t*r*n
 öffentlichen personennahverkehr             ö-fənt-li-*ch*ən-per-zoh-nən-′naa-fe*r*-key*r*
 öffentlichen personennahverkehres           ö-fənt-li-*ch*ən-per-zoh-nən-′naa-fe*r*-key-rəs
-öffentlichen personennahverkehrs            ö-fənt-li-*ch*ən-per-zoh-nən-′naa-fe*r*-key-*r*s
+öffentlichen personennahverkehrs            ö-fənt-li-*ch*ən-per-zoh-nən-′naa-fe*r*-key*r*s
 öffentlichen recht                          ö-fənt-li-*ch*ən-′re*ch*t
 öffentlichen rechtes                        ö-fənt-li-*ch*ən-′re*ch*-təs
 öffentlichen rechts                         ö-fənt-li-*ch*ən-′re*ch*ts
@@ -20644,11 +20644,11 @@ złotys                                      ′zuw-aw-tis
 öhres                                       ′öh-rəs
 öhringen                                    ′öh-ri-ngən
 öhringens                                   ′öh-ri-ngəns
-öhrn                                        öh-*r*n
+öhrn                                        öh*r*n
 öhrne                                       ′öh*r*-nə
 öhrnen                                      ′öh*r*-nən
-öhrns                                       öh-*r*ns
-öhrs                                        öh-*r*s
+öhrns                                       öh*r*ns
+öhrs                                        öh*r*s
 öko                                         ′öh-koh
 öko-                                        öh-koh
 ökobilanz                                   ′öh-koh-biy-lants
@@ -20697,7 +20697,7 @@ złotys                                      ′zuw-aw-tis
 ökonomieprofessoren                         öh-koh-noh-′miy-proh-fe-soh-rən
 ökonomieprofessorin                         öh-koh-noh-′miy-proh-fe-soh-rin
 ökonomieprofessorinnen                      öh-koh-noh-′miy-proh-fe-soh-ri-nən
-ökonomieprofessors                          öh-koh-noh-′miy-proh-fe-soh-*r*s
+ökonomieprofessors                          öh-koh-noh-′miy-proh-fe-soh*r*s
 ökonomiestudien                             öh-koh-noh-′miy-shtuw-diy-ən
 ökonomiestudium                             öh-koh-noh-′miy-shtuw-diy-uum
 ökonomiestudiums                            öh-koh-noh-′miy-shtuw-diy-uums
@@ -20737,8 +20737,8 @@ złotys                                      ′zuw-aw-tis
 ökonomisierendes                            öh-koh-noh-miy-′ziy-rən-dəs
 ökonomisierest                              öh-koh-noh-miy-′ziy-rəst
 ökonomisieret                               öh-koh-noh-miy-′ziy-rət
-ökonomisierst                               öh-koh-noh-miy-′ziy-*r*st
-ökonomisiert                                öh-koh-noh-miy-′ziy-*r*t
+ökonomisierst                               öh-koh-noh-miy-′ziy*r*st
+ökonomisiert                                öh-koh-noh-miy-′ziy*r*t
 ökonomisierte                               öh-koh-noh-miy-′ziy*r*-tə
 ökonomisiertem                              öh-koh-noh-miy-′ziy*r*-təm
 ökonomisierten                              öh-koh-noh-miy-′ziy*r*-tən
@@ -21002,7 +21002,7 @@ złotys                                      ′zuw-aw-tis
 ölpapiere                                   ′öhl-pa-piy-rə
 ölpapieren                                  ′öhl-pa-piy-rən
 ölpapieres                                  ′öhl-pa-piy-rəs
-ölpapiers                                   ′öhl-pa-piy-*r*s
+ölpapiers                                   ′öhl-pa-piy*r*s
 ölpflanze                                   ′öhlpf-lan-tsə
 ölpflanzen                                  ′öhlpf-lan-tsən
 ölpipeline                                  ′öhl-pigh-plighn
@@ -21341,7 +21341,7 @@ złotys                                      ′zuw-aw-tis
 ü-30-partys                                 üh-′drigh-sik-paa*r*-tiys  |  üh-′drigh-si*ch*-paa*r*-tiys
 ü-ei                                        ′üh.igh
 ü-eier                                      ′üh.igh*r*
-ü-eiern                                     ′üh.igh-*r*n
+ü-eiern                                     ′üh.igh*r*n
 ü-eis                                       ′üh.ighs
 ü-laut                                      ′üh-laut
 ü-laute                                     ′üh-lau-tə
@@ -21780,7 +21780,7 @@ złotys                                      ′zuw-aw-tis
 überbetriebliches                           ′üh-b*r*-bə-triy-pli-*ch*əs
 überbevölkerung                             ′üh-b*r*-bə-föl-kə-ruung
 überbevölkerungen                           ′üh-b*r*-bə-föl-kə-ruu-ngən
-überbewert                                  ′üh-b*r*-bə-vey-*r*t
+überbewert                                  ′üh-b*r*-bə-vey*r*t
 überbewerte                                 ′üh-b*r*-bə-vey*r*-tə
 überbewerten                                ′üh-b*r*-bə-vey*r*-tən
 überbewertend                               ′üh-b*r*-bə-vey*r*-tənt
@@ -22156,15 +22156,15 @@ złotys                                      ′zuw-aw-tis
 überdauere                                  üh-b*r*-′dau-ə-rə
 überdauerest                                üh-b*r*-′dau-ə-rəst
 überdaueret                                 üh-b*r*-′dau-ə-rət
-überdauern                                  üh-b*r*-′dau-*r*n
-überdauernd                                 üh-b*r*-′dau-*r*nt
-überdauernde                                üh-b*r*-′dau-*r*n-də
-überdauerndem                               üh-b*r*-′dau-*r*n-dəm
-überdauernden                               üh-b*r*-′dau-*r*n-dən
-überdauernder                               üh-b*r*-′dau-*r*n-d*r*
-überdauerndes                               üh-b*r*-′dau-*r*n-dəs
-überdauerst                                 üh-b*r*-′dau-*r*st
-überdauert                                  üh-b*r*-′dau-*r*t
+überdauern                                  üh-b*r*-′dau*r*n
+überdauernd                                 üh-b*r*-′dau*r*nt
+überdauernde                                üh-b*r*-′dau*r*n-də
+überdauerndem                               üh-b*r*-′dau*r*n-dəm
+überdauernden                               üh-b*r*-′dau*r*n-dən
+überdauernder                               üh-b*r*-′dau*r*n-d*r*
+überdauerndes                               üh-b*r*-′dau*r*n-dəs
+überdauerst                                 üh-b*r*-′dau*r*st
+überdauert                                  üh-b*r*-′dau*r*t
 überdauerte                                 üh-b*r*-′dau*r*-tə
 überdauertem                                üh-b*r*-′dau*r*-təm
 überdauerten                                üh-b*r*-′dau*r*-tən
@@ -22262,8 +22262,8 @@ złotys                                      ′zuw-aw-tis
 überdimensionierendes                       ′üh-b*r*-diy-men-ziy-oh-niy-rən-dəs
 überdimensionierest                         ′üh-b*r*-diy-men-ziy-oh-niy-rəst
 überdimensionieret                          ′üh-b*r*-diy-men-ziy-oh-niy-rət
-überdimensionierst                          ′üh-b*r*-diy-men-ziy-oh-niy-*r*st
-überdimensioniert                           ′üh-b*r*-diy-men-ziy-oh-niy-*r*t
+überdimensionierst                          ′üh-b*r*-diy-men-ziy-oh-niy*r*st
+überdimensioniert                           ′üh-b*r*-diy-men-ziy-oh-niy*r*t
 überdimensionierte                          ′üh-b*r*-diy-men-ziy-oh-niy*r*-tə
 überdimensioniertem                         ′üh-b*r*-diy-men-ziy-oh-niy*r*-təm
 überdimensionierten                         ′üh-b*r*-diy-men-ziy-oh-niy*r*-tən
@@ -22284,8 +22284,8 @@ złotys                                      ′zuw-aw-tis
 überdosierendes                             ′üh-b*r*-doh-ziy-rən-dəs
 überdosierest                               ′üh-b*r*-doh-ziy-rəst
 überdosieret                                ′üh-b*r*-doh-ziy-rət
-überdosierst                                ′üh-b*r*-doh-ziy-*r*st
-überdosiert                                 ′üh-b*r*-doh-ziy-*r*t
+überdosierst                                ′üh-b*r*-doh-ziy*r*st
+überdosiert                                 ′üh-b*r*-doh-ziy*r*t
 überdosierte                                ′üh-b*r*-doh-ziy*r*-tə
 überdosiertem                               ′üh-b*r*-doh-ziy*r*-təm
 überdosierten                               ′üh-b*r*-doh-ziy*r*-tən
@@ -22668,7 +22668,7 @@ złotys                                      ′zuw-aw-tis
 überfahrenes                                üh-b*r*-′faa-rə-nəs
 überfahrest                                 üh-b*r*-′faa-rəst
 überfahret                                  üh-b*r*-′faa-rət
-überfahrt                                   ′üh-b*r*-faa-*r*t  |  üh-b*r*-′faa-*r*t
+überfahrt                                   ′üh-b*r*-faa*r*t  |  üh-b*r*-′faa*r*t
 überfahrten                                 ′üh-b*r*-faa*r*-tən
 überfall                                    ′üh-b*r*-fal  |  üh-b*r*-′fal
 überfallartig                               ′üh-b*r*-fal.aa*r*-tik  |  ′üh-b*r*-fal.aa*r*-ti*ch*
@@ -22923,8 +22923,8 @@ złotys                                      ′zuw-aw-tis
 überfrankierendes                           ′üh-b*r*-fran-kiy-rən-dəs
 überfrankierest                             ′üh-b*r*-fran-kiy-rəst
 überfrankieret                              ′üh-b*r*-fran-kiy-rət
-überfrankierst                              ′üh-b*r*-fran-kiy-*r*st
-überfrankiert                               ′üh-b*r*-fran-kiy-*r*t
+überfrankierst                              ′üh-b*r*-fran-kiy*r*st
+überfrankiert                               ′üh-b*r*-fran-kiy*r*t
 überfrankierte                              ′üh-b*r*-fran-kiy*r*-tə
 überfrankiertem                             ′üh-b*r*-fran-kiy*r*-təm
 überfrankierten                             ′üh-b*r*-fran-kiy*r*-tən
@@ -22986,8 +22986,8 @@ złotys                                      ′zuw-aw-tis
 überfrierendes                              üh-b*r*-′friy-rən-dəs
 überfrierest                                üh-b*r*-′friy-rəst
 überfrieret                                 üh-b*r*-′friy-rət
-überfrierst                                 üh-b*r*-′friy-*r*st
-überfriert                                  üh-b*r*-′friy-*r*t
+überfrierst                                 üh-b*r*-′friy*r*st
+überfriert                                  üh-b*r*-′friy*r*t
 überfriss                                   üh-b*r*-′fris
 überfrisst                                  üh-b*r*-′frist
 überfror                                    üh-b*r*-′froh*r*
@@ -22997,8 +22997,8 @@ złotys                                      ′zuw-aw-tis
 überfrorenen                                üh-b*r*-′froh-rə-nən
 überfrorener                                üh-b*r*-′froh-rə-n*r*
 überfrorenes                                üh-b*r*-′froh-rə-nəs
-überfrorst                                  üh-b*r*-′froh-*r*st
-überfrort                                   üh-b*r*-′froh-*r*t
+überfrorst                                  üh-b*r*-′froh*r*st
+überfrort                                   üh-b*r*-′froh*r*t
 überfräße                                   üh-b*r*-′freh-sə
 überfräßen                                  üh-b*r*-′freh-sən
 überfräßest                                 üh-b*r*-′freh-səst
@@ -23007,14 +23007,14 @@ złotys                                      ′zuw-aw-tis
 überfrören                                  üh-b*r*-′fröh-rən
 überfrörest                                 üh-b*r*-′fröh-rəst
 überfröret                                  üh-b*r*-′fröh-rət
-überfrörst                                  üh-b*r*-′fröh-*r*st
-überfrört                                   üh-b*r*-′fröh-*r*t
+überfrörst                                  üh-b*r*-′fröh*r*st
+überfrört                                   üh-b*r*-′fröh*r*t
 überfuhr                                    ′üh-b*r*-fuw*r*  |  üh-b*r*-′fuw*r*
 überfuhren                                  ′üh-b*r*-fuw-rən  |  üh-b*r*-′fuw-rən
-überfuhrst                                  ′üh-b*r*-fuw-*r*st  |  üh-b*r*-′fuw-*r*st
-überfuhrt                                   üh-b*r*-′fuw-*r*t  |  ′üh-b*r*-fuw-*r*t
-überfährst                                  ′üh-b*r*-feh-*r*st  |  üh-b*r*-′feh-*r*st
-überfährt                                   üh-b*r*-′feh-*r*t  |  ′üh-b*r*-feh-*r*t
+überfuhrst                                  ′üh-b*r*-fuw*r*st  |  üh-b*r*-′fuw*r*st
+überfuhrt                                   üh-b*r*-′fuw*r*t  |  ′üh-b*r*-fuw*r*t
+überfährst                                  ′üh-b*r*-feh*r*st  |  üh-b*r*-′feh*r*st
+überfährt                                   üh-b*r*-′feh*r*t  |  ′üh-b*r*-feh*r*t
 überfälle                                   ′üh-b*r*-fe-lə
 überfällen                                  ′üh-b*r*-fe-lən
 überfällig                                  ′üh-b*r*-fe-lik  |  ′üh-b*r*-fe-li*ch*
@@ -23060,8 +23060,8 @@ złotys                                      ′zuw-aw-tis
 überführendes                               ′üh-b*r*-füh-rən-dəs  |  üh-b*r*-′füh-rən-dəs
 überführest                                 üh-b*r*-′füh-rəst  |  ′üh-b*r*-füh-rəst
 überführet                                  üh-b*r*-′füh-rət  |  ′üh-b*r*-füh-rət
-überführst                                  üh-b*r*-′füh-*r*st  |  ′üh-b*r*-füh-*r*st
-überführt                                   üh-b*r*-′füh-*r*t  |  ′üh-b*r*-füh-*r*t
+überführst                                  üh-b*r*-′füh*r*st  |  ′üh-b*r*-füh*r*st
+überführt                                   üh-b*r*-′füh*r*t  |  ′üh-b*r*-füh*r*t
 überführte                                  ′üh-b*r*-füh*r*-tə  |  üh-b*r*-′füh*r*-tə
 überführtem                                 üh-b*r*-′füh*r*-təm
 überführten                                 ′üh-b*r*-füh*r*-tən  |  üh-b*r*-′füh*r*-tən
@@ -23242,7 +23242,7 @@ złotys                                      ′zuw-aw-tis
 übergefärbten                               ′üh-b*r*-gə-ferp-tən
 übergefärbter                               ′üh-b*r*-gə-ferp-t*r*
 übergefärbtes                               ′üh-b*r*-gə-ferp-təs
-übergeführt                                 ′üh-b*r*-gə-füh-*r*t
+übergeführt                                 ′üh-b*r*-gə-füh*r*t
 übergeführte                                ′üh-b*r*-gə-füh*r*-tə
 übergeführtem                               ′üh-b*r*-gə-füh*r*-təm
 übergeführten                               ′üh-b*r*-gə-füh*r*-tən
@@ -23305,7 +23305,7 @@ złotys                                      ′zuw-aw-tis
 übergehängten                               ′üh-b*r*-gə-heng-tən
 übergehängter                               ′üh-b*r*-gə-heng-t*r*
 übergehängtes                               ′üh-b*r*-gə-heng-təs
-übergehört                                  ′üh-b*r*-gə-höh-*r*t
+übergehört                                  ′üh-b*r*-gə-höh*r*t
 übergehörte                                 ′üh-b*r*-gə-höh*r*-tə
 übergehörtem                                ′üh-b*r*-gə-höh*r*-təm
 übergehörten                                ′üh-b*r*-gə-höh*r*-tən
@@ -23867,7 +23867,7 @@ złotys                                      ′zuw-aw-tis
 überhorizontradar                           üh-b*r*-hoh-riy-′tsawn-tra-daa*r*
 überhorizontradare                          üh-b*r*-hoh-riy-′tsawn-tra-daa-rə
 überhorizontradaren                         üh-b*r*-hoh-riy-′tsawn-tra-daa-rən
-überhorizontradars                          üh-b*r*-hoh-riy-′tsawn-tra-daa-*r*s
+überhorizontradars                          üh-b*r*-hoh-riy-′tsawn-tra-daa*r*s
 überhälfe                                   ′üh-b*r*-hel-fə  |  üh-b*r*-′hel-fə
 überhälfen                                  ′üh-b*r*-hel-fən  |  üh-b*r*-′hel-fən
 überhälfest                                 ′üh-b*r*-hel-fəst  |  üh-b*r*-′hel-fəst
@@ -23933,8 +23933,8 @@ złotys                                      ′zuw-aw-tis
 überhörendes                                üh-b*r*-′höh-rən-dəs  |  ′üh-b*r*-höh-rən-dəs
 überhörest                                  üh-b*r*-′höh-rəst  |  ′üh-b*r*-höh-rəst
 überhöret                                   üh-b*r*-′höh-rət  |  ′üh-b*r*-höh-rət
-überhörst                                   üh-b*r*-′höh-*r*st  |  ′üh-b*r*-höh-*r*st
-überhört                                    üh-b*r*-′höh-*r*t  |  ′üh-b*r*-höh-*r*t
+überhörst                                   üh-b*r*-′höh*r*st  |  ′üh-b*r*-höh*r*st
+überhört                                    üh-b*r*-′höh*r*t  |  ′üh-b*r*-höh*r*t
 überhörte                                   üh-b*r*-′höh*r*-tə  |  ′üh-b*r*-höh*r*-tə
 überhörtem                                  üh-b*r*-′höh*r*-təm
 überhörten                                  üh-b*r*-′höh*r*-tən  |  ′üh-b*r*-höh*r*-tən
@@ -24823,7 +24823,7 @@ złotys                                      ′zuw-aw-tis
 überpünktlichen                             ′üh-b*r*-püngkt-li-*ch*ən
 überpünktlicher                             ′üh-b*r*-püngkt-li-*ch**r*
 überpünktliches                             ′üh-b*r*-püngkt-li-*ch*əs
-überqualifiziert                            ′üh-b*r*-kva-liy-fiy-tsiy-*r*t
+überqualifiziert                            ′üh-b*r*-kva-liy-fiy-tsiy*r*t
 überqualifizierte                           ′üh-b*r*-kva-liy-fiy-tsiy*r*-tə
 überqualifiziertem                          ′üh-b*r*-kva-liy-fiy-tsiy*r*-təm
 überqualifizierten                          ′üh-b*r*-kva-liy-fiy-tsiy*r*-tən
@@ -24861,8 +24861,8 @@ złotys                                      ′zuw-aw-tis
 überquerendes                               üh-b*r*-′kvey-rən-dəs
 überquerest                                 üh-b*r*-′kvey-rəst
 überqueret                                  üh-b*r*-′kvey-rət
-überquerst                                  üh-b*r*-′kvey-*r*st
-überquert                                   üh-b*r*-′kvey-*r*t
+überquerst                                  üh-b*r*-′kvey*r*st
+überquert                                   üh-b*r*-′kvey*r*t
 überquerte                                  üh-b*r*-′kvey*r*-tə
 überquertem                                 üh-b*r*-′kvey*r*-təm
 überquerten                                 üh-b*r*-′kvey*r*-tən
@@ -24981,7 +24981,7 @@ złotys                                      ′zuw-aw-tis
 überraschungseffekts                        üh-b*r*-′ra-shuungs.e-fekts
 überraschungsei                             üh-b*r*-′ra-shuungs.igh
 überraschungseier                           üh-b*r*-′ra-shuungs.igh*r*
-überraschungseiern                          üh-b*r*-′ra-shuungs.igh-*r*n
+überraschungseiern                          üh-b*r*-′ra-shuungs.igh*r*n
 überraschungseies                           üh-b*r*-′ra-shuungs.igh-əs
 überraschungseis                            üh-b*r*-′ra-shuungs.ighs
 überraschungsgast                           üh-b*r*-′ra-shuungs-gast
@@ -25030,8 +25030,8 @@ złotys                                      ′zuw-aw-tis
 überreagierendes                            ′üh-b*r*-rey-a-giy-rən-dəs
 überreagierest                              ′üh-b*r*-rey-a-giy-rəst
 überreagieret                               ′üh-b*r*-rey-a-giy-rət
-überreagierst                               ′üh-b*r*-rey-a-giy-*r*st
-überreagiert                                ′üh-b*r*-rey-a-giy-*r*t
+überreagierst                               ′üh-b*r*-rey-a-giy*r*st
+überreagiert                                ′üh-b*r*-rey-a-giy*r*t
 überreagierte                               ′üh-b*r*-rey-a-giy*r*-tə
 überreagierten                              ′üh-b*r*-rey-a-giy*r*-tən
 überreagiertest                             ′üh-b*r*-rey-a-giy*r*-təst
@@ -26211,15 +26211,15 @@ złotys                                      ′zuw-aw-tis
 übersterblichkeiten                         ′üh-b*r*-shter-pli*ch*-kigh-tən
 übersteuer                                  üh-b*r*-′shtoy*r*
 übersteuere                                 üh-b*r*-′shtoy-ə-rə
-übersteuern                                 üh-b*r*-′shtoy-*r*n
-übersteuernd                                üh-b*r*-′shtoy-*r*nt
-übersteuernde                               üh-b*r*-′shtoy-*r*n-də
-übersteuerndem                              üh-b*r*-′shtoy-*r*n-dəm
-übersteuernden                              üh-b*r*-′shtoy-*r*n-dən
-übersteuernder                              üh-b*r*-′shtoy-*r*n-d*r*
-übersteuerndes                              üh-b*r*-′shtoy-*r*n-dəs
-übersteuerst                                üh-b*r*-′shtoy-*r*st
-übersteuert                                 üh-b*r*-′shtoy-*r*t
+übersteuern                                 üh-b*r*-′shtoy*r*n
+übersteuernd                                üh-b*r*-′shtoy*r*nt
+übersteuernde                               üh-b*r*-′shtoy*r*n-də
+übersteuerndem                              üh-b*r*-′shtoy*r*n-dəm
+übersteuernden                              üh-b*r*-′shtoy*r*n-dən
+übersteuernder                              üh-b*r*-′shtoy*r*n-d*r*
+übersteuerndes                              üh-b*r*-′shtoy*r*n-dəs
+übersteuerst                                üh-b*r*-′shtoy*r*st
+übersteuert                                 üh-b*r*-′shtoy*r*t
 übersteuerte                                üh-b*r*-′shtoy*r*-tə
 übersteuertem                               üh-b*r*-′shtoy*r*-təm
 übersteuerten                               üh-b*r*-′shtoy*r*-tən
@@ -26300,8 +26300,8 @@ złotys                                      ′zuw-aw-tis
 überstrapazierendes                         ′üh-b*r*sh-tra-pa-tsiy-rən-dəs
 überstrapazierest                           ′üh-b*r*sh-tra-pa-tsiy-rəst
 überstrapazieret                            ′üh-b*r*sh-tra-pa-tsiy-rət
-überstrapazierst                            ′üh-b*r*sh-tra-pa-tsiy-*r*st
-überstrapaziert                             ′üh-b*r*sh-tra-pa-tsiy-*r*t
+überstrapazierst                            ′üh-b*r*sh-tra-pa-tsiy*r*st
+überstrapaziert                             ′üh-b*r*sh-tra-pa-tsiy*r*t
 überstrapazierte                            ′üh-b*r*sh-tra-pa-tsiy*r*-tə
 überstrapaziertem                           ′üh-b*r*sh-tra-pa-tsiy*r*-təm
 überstrapazierten                           ′üh-b*r*sh-tra-pa-tsiy*r*-tən
@@ -26489,15 +26489,15 @@ złotys                                      ′zuw-aw-tis
 übersättigtet                               üh-b*r*-′ze-tik-tət  |  üh-b*r*-′ze-ti*ch*-tət
 übersäuer                                   üh-b*r*-′zoy*r*
 übersäuere                                  üh-b*r*-′zoy-ə-rə
-übersäuern                                  üh-b*r*-′zoy-*r*n
-übersäuernd                                 üh-b*r*-′zoy-*r*nt
-übersäuernde                                üh-b*r*-′zoy-*r*n-də
-übersäuerndem                               üh-b*r*-′zoy-*r*n-dəm
-übersäuernden                               üh-b*r*-′zoy-*r*n-dən
-übersäuernder                               üh-b*r*-′zoy-*r*n-d*r*
-übersäuerndes                               üh-b*r*-′zoy-*r*n-dəs
-übersäuerst                                 üh-b*r*-′zoy-*r*st
-übersäuert                                  üh-b*r*-′zoy-*r*t
+übersäuern                                  üh-b*r*-′zoy*r*n
+übersäuernd                                 üh-b*r*-′zoy*r*nt
+übersäuernde                                üh-b*r*-′zoy*r*n-də
+übersäuerndem                               üh-b*r*-′zoy*r*n-dəm
+übersäuernden                               üh-b*r*-′zoy*r*n-dən
+übersäuernder                               üh-b*r*-′zoy*r*n-d*r*
+übersäuerndes                               üh-b*r*-′zoy*r*n-dəs
+übersäuerst                                 üh-b*r*-′zoy*r*st
+übersäuert                                  üh-b*r*-′zoy*r*t
 übersäuerte                                 üh-b*r*-′zoy*r*-tə
 übersäuertem                                üh-b*r*-′zoy*r*-təm
 übersäuerten                                üh-b*r*-′zoy*r*-tən
@@ -26561,7 +26561,7 @@ złotys                                      ′zuw-aw-tis
 übertragung                                 ′üh-b*r*-traa-guung  |  üh-b*r*-′traa-guung
 übertragungen                               üh-b*r*-′traa-guu-ngən
 übertragungsdauer                           üh-b*r*-′traa-guungs-dau*r*
-übertragungsdauern                          üh-b*r*-′traa-guungs-dau-*r*n
+übertragungsdauern                          üh-b*r*-′traa-guungs-dau*r*n
 übertragungsfehler                          üh-b*r*-′traa-guungs-fey-l*r*
 übertragungsfehlern                         üh-b*r*-′traa-guungs-fey-l*r*n
 übertragungsfehlers                         üh-b*r*-′traa-guungs-fey-l*r*s
@@ -26863,7 +26863,7 @@ złotys                                      ′zuw-aw-tis
 überwachungsmonitor                         üh-b*r*-′va-khuung-smoh-niy-toh*r*
 überwachungsmonitore                        üh-b*r*-′va-khuung-smoh-niy-toh-rə
 überwachungsmonitoren                       üh-b*r*-′va-khuung-smoh-niy-toh-rən
-überwachungsmonitors                        üh-b*r*-′va-khuung-smoh-niy-toh-*r*s
+überwachungsmonitors                        üh-b*r*-′va-khuung-smoh-niy-toh*r*s
 überwachungsstaat                           üh-b*r*-′va-khuungs-shtaat
 überwachungsstaate                          üh-b*r*-′va-khuungs-shtaa-tə
 überwachungsstaaten                         üh-b*r*-′va-khuungs-shtaa-tən
@@ -26900,7 +26900,7 @@ złotys                                      ′zuw-aw-tis
 überwarfen                                  ′üh-b*r*-var-fən  |  üh-b*r*-′var-fən
 überwarfst                                  ′üh-b*r*-varfst  |  üh-b*r*-′varfst
 überwarft                                   ′üh-b*r*-varft  |  üh-b*r*-′varft
-überwasserfahrt                             üh-b*r*-′va-s*r*-faa-*r*t
+überwasserfahrt                             üh-b*r*-′va-s*r*-faa*r*t
 überwasserfahrten                           üh-b*r*-′va-s*r*-faa*r*-tən
 überwechsel                                 ′üh-b*r*-vek-səl
 überwechsele                                ′üh-b*r*-vek-sə-lə
@@ -27280,8 +27280,8 @@ złotys                                      ′zuw-aw-tis
 überziehender                               ′üh-b*r*-tsiy-ən-d*r*  |  üh-b*r*-′tsiy-ən-d*r*
 überziehendes                               ′üh-b*r*-tsiy-ən-dəs  |  üh-b*r*-′tsiy-ən-dəs
 überzieher                                  ′üh-b*r*-tsiy*r*
-überziehern                                 ′üh-b*r*-tsiy-*r*n
-überziehers                                 ′üh-b*r*-tsiy-*r*s
+überziehern                                 ′üh-b*r*-tsiy*r*n
+überziehers                                 ′üh-b*r*-tsiy*r*s
 überziehest                                 ′üh-b*r*-tsiy-əst  |  üh-b*r*-′tsiy-əst
 überziehet                                  ′üh-b*r*-tsiy-ət  |  üh-b*r*-′tsiy-ət
 überziehst                                  ′üh-b*r*-tsiyst  |  üh-b*r*-′tsiyst
