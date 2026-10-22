@@ -1214,18 +1214,13 @@
       ingestLines(text, dictionaries.UK);
       progressBar.style.width = '35%';
 
-      // French — prefer plain hyphen exports; fall back to bracket files
+      // French — plain hyphen exports only (never bracket files)
       const frNames = [
         'all_fr_respellings_001.txt',
         'all_fr_respellings_002.txt',
         'all_fr_respellings_003.txt',
         'all_fr_respellings_004.txt',
         'all_fr_respellings_005.txt',
-        'all_fr_respellings_bracket_001.txt',
-        'all_fr_respellings_bracket_002.txt',
-        'all_fr_respellings_bracket_003.txt',
-        'all_fr_respellings_bracket_004.txt',
-        'all_fr_respellings_bracket_005.txt',
       ];
       for (let i = 0; i < frNames.length; i++) {
         let t = await loadTextFile(frNames[i]) || await loadTextFile('./' + frNames[i]);
