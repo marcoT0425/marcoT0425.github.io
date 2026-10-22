@@ -253,6 +253,7 @@
       <button id="btnUK" class="btn-region" onclick="switchRegion('UK')">UK English</button>
       <button id="btnFR" class="btn-region" onclick="switchRegion('French')">French</button>
       <button id="btnDE" class="btn-region" onclick="switchRegion('German')">German</button>
+      <button id="btnES" class="btn-region" onclick="switchRegion('Spanish')">Spanish</button>
       <button id="btnYUE" class="btn-region" onclick="switchRegion('Cantonese')">Cantonese</button>
     </div>
     
@@ -264,6 +265,7 @@
         <option value="UK">English (UK)</option>
         <option value="DE">Deutsch</option>
         <option value="FR">Français</option>
+        <option value="ES">Español</option>
         <option value="YUE">廣東話 / 繁體中文</option>
       </select>
 
@@ -391,6 +393,8 @@
       frAccent: "French Pronunciation",
       deAccent: "German Pronunciation",
       yueAccent: "Cantonese Pronunciation",
+      esAccent: "Spanish Pronunciation",
+      esRegion: "Spanish",
       phoneticTranscription: "Phonetic Transcription",
       fetchingDicts: "Fetching dictionaries...",
       capNote: "* Capitalized syllables indicate primary stress.",
@@ -786,7 +790,7 @@
   /* ==========================================================================
      DICTIONARIES & SPEECH ENGINE
      ========================================================================== */
-  const dictionaries = { US: new Map(), UK: new Map(), French: new Map(), German: new Map(), Cantonese: new Map() };
+  const dictionaries = { US: new Map(), UK: new Map(), French: new Map(), German: new Map(), Spanish: new Map(), Cantonese: new Map() };
   let currentRegion = 'US';
   let currentTokens = [];
 
@@ -830,6 +834,7 @@
     const label = document.getElementById('accentDisplayLabel');
     if (currentRegion === 'French') label.textContent = t.frAccent;
     else if (currentRegion === 'German') label.textContent = t.deAccent;
+    else if (currentRegion === 'Spanish') label.textContent = t.esAccent || 'Spanish Pronunciation';
     else if (currentRegion === 'Cantonese') label.textContent = t.yueAccent;
     else if (currentRegion === 'UK') label.textContent = t.ukAccent;
     else label.textContent = t.usAccent;
@@ -1047,6 +1052,42 @@
           <tr><td>weight 700 / 300</td><td>Stressed / unstressed (no prime, no markdown, no pills)</td></tr>
         </table>
       `;
+    } else if (region === 'Spanish') {
+      return `
+        <div class="phoneme-section-title">Spanish ${t.vowels} (A–Z)</div>
+        <table class="phoneme-table">
+          <tr><th>Glyph</th><th>${t.ipa}</th><th>${t.example}</th></tr>
+          <tr><td>a</td><td>a</td><td>paso</td></tr>
+          <tr><td>e</td><td>e</td><td>peso</td></tr>
+          <tr><td>i</td><td>i</td><td>piso</td></tr>
+          <tr><td>o</td><td>o</td><td>poso</td></tr>
+          <tr><td>u</td><td>u</td><td>puso</td></tr>
+          <tr><td>y / w</td><td>j / w</td><td>cielo / cuadro (glides)</td></tr>
+        </table>
+        <div class="phoneme-section-title">Spanish ${t.consonants} (A–Z)</div>
+        <table class="phoneme-table">
+          <tr><th>Glyph</th><th>${t.ipa}</th><th>${t.example}</th></tr>
+          <tr><td>b / <em>b</em></td><td>b / β</td><td>bebé (hard / soft)</td></tr>
+          <tr><td>ch</td><td>tʃ</td><td>chico</td></tr>
+          <tr><td>d / dh</td><td>d / ð</td><td>dedo (hard / soft)</td></tr>
+          <tr><td>f</td><td>f</td><td>faro</td></tr>
+          <tr><td>g / gh</td><td>g / ɣ</td><td>galgo / haga</td></tr>
+          <tr><td><em>h</em></td><td>x</td><td>jarra (loch)</td></tr>
+          <tr><td>k</td><td>k</td><td>caso</td></tr>
+          <tr><td>l</td><td>l</td><td>luna</td></tr>
+          <tr><td>m / n / ng</td><td>m / n / ŋ</td><td>meta / ni / tengo</td></tr>
+          <tr><td><em>ny</em></td><td>ɲ</td><td>ñu</td></tr>
+          <tr><td>p / t</td><td>p / t</td><td>pato / tamiz</td></tr>
+          <tr><td>rr / r</td><td>r / ɾ</td><td>río (rolled) / brío (flap)</td></tr>
+          <tr><td>s / sh / th</td><td>s / ʃ / θ</td><td>saco / show / cera</td></tr>
+          <tr><td>y / <em>y</em></td><td>ʎ / ʝ</td><td>lluvia / ya</td></tr>
+        </table>
+        <div class="phoneme-section-title">Stress / syllables</div>
+        <table class="phoneme-table">
+          <tr><td>weight 700 / 300</td><td>Stressed / unstressed (IPA ˈ or RAE rules)</td></tr>
+          <tr><td>hyphen -</td><td>Spanish syllable boundary</td></tr>
+        </table>
+      `;
     } else if (region === 'Cantonese') {
       return `
         <div class="phoneme-section-title">Cantonese ${t.initials} (A–Z)</div>
@@ -1113,6 +1154,7 @@
     if (region === 'UK') return t.ukRegion;
     if (region === 'French') return t.frRegion;
     if (region === 'German') return t.deRegion;
+    if (region === 'Spanish') return t.esRegion || 'Spanish';
     if (region === 'Cantonese') return t.yueRegion;
     return t.usRegion;
   }
@@ -1127,6 +1169,7 @@
     if (currentRegion === 'UK') { targetLang = 'en-GB'; preferredKeyword = 'eddy'; }
     else if (currentRegion === 'French') { targetLang = 'fr-FR'; preferredKeyword = 'amelie'; }
     else if (currentRegion === 'German') { targetLang = 'de-DE'; preferredKeyword = 'marlene'; }
+    else if (currentRegion === 'Spanish') { targetLang = 'es-ES'; preferredKeyword = 'elena'; }
     else if (currentRegion === 'Cantonese') { targetLang = 'zh-HK'; preferredKeyword = 'sinji'; }
     const matchingVoices = voices.filter(v => v.lang.toLowerCase().startsWith(targetLang.substring(0, 2)));
     const targetList = matchingVoices.length > 0 ? matchingVoices : voices;
@@ -1152,6 +1195,8 @@
     document.getElementById('btnUK').classList.toggle('active', regionKey === 'UK');
     document.getElementById('btnFR').classList.toggle('active', regionKey === 'French');
     document.getElementById('btnDE').classList.toggle('active', regionKey === 'German');
+    const btnES = document.getElementById('btnES');
+    if (btnES) btnES.classList.toggle('active', regionKey === 'Spanish');
     const btnY = document.getElementById('btnYUE');
     if (btnY) btnY.classList.toggle('active', regionKey === 'Cantonese');
 
@@ -1160,6 +1205,8 @@
       searchInput.value = 'bonjour';
     } else if (regionKey === 'German') {
       searchInput.value = 'hallo';
+    } else if (regionKey === 'Spanish') {
+      searchInput.value = 'hola';
     } else if (regionKey === 'Cantonese') {
       searchInput.value = '你好';
     } else {
@@ -1257,6 +1304,15 @@
         progressBar.style.width = (55 + Math.round((i / 20) * 25)) + '%';
       }
 
+      // Spanish
+      for (let i = 1; i <= 20; i++) {
+        const padded = String(i).padStart(3, '0');
+        const name = 'all_es_respellings_' + padded + '.txt';
+        let txt = await loadTextFile(name) || await loadTextFile('./' + name);
+        ingestLines(txt, dictionaries.Spanish);
+        progressBar.style.width = (70 + Math.round((i / 20) * 10)) + '%';
+      }
+
       // Cantonese
       const yueNames = ['all_yue_respellings_001.txt', 'all_yue_respellings_002.txt'];
       for (let i = 0; i < yueNames.length; i++) {
@@ -1269,7 +1325,7 @@
 
       setTimeout(() => {
         progressContainer.style.display = 'none';
-        fileStatus.textContent = `Loaded (US: ${dictionaries.US.size}, UK: ${dictionaries.UK.size}, FR: ${dictionaries.French.size}, DE: ${dictionaries.German.size}, Yue: ${dictionaries.Cantonese.size})`;
+        fileStatus.textContent = `Loaded (US: ${dictionaries.US.size}, UK: ${dictionaries.UK.size}, FR: ${dictionaries.French.size}, DE: ${dictionaries.German.size}, ES: ${dictionaries.Spanish.size}, Yue: ${dictionaries.Cantonese.size})`;
         document.getElementById('searchInput').disabled = false;
         switchRegion('US');
       }, 300);
@@ -1403,6 +1459,9 @@
     } else if (currentRegion === 'German') {
       /* Hyphen / '.' syllables; stress = font-weight 700 (no ′ shown, no markdown) */
       appendGermanRespelling(container, primaryRaw, true);
+    } else if (currentRegion === 'Spanish') {
+      /* Same display as German: hyphens, weight 700/300, italic *…* */
+      appendGermanRespelling(container, primaryRaw, true);
     } else {
       const rawSyllables = primaryRaw.split('-');
       currentTokens = rawSyllables.map((syl, index) => ({
@@ -1446,7 +1505,12 @@
         }
         const row = document.createElement('span');
         row.style.fontSize = '15px';
-        appendGermanRespelling(row, v, false);
+        if (currentRegion === 'German' || currentRegion === 'Spanish') {
+          appendGermanRespelling(row, v, false);
+        } else {
+          row.style.fontWeight = '300';
+          row.textContent = v.replace(/[ˈ′*]/g, '');
+        }
         alternativesBox.appendChild(row);
       });
     }
@@ -1531,6 +1595,7 @@
     const utterance = new SpeechSynthesisUtterance(text);
     if (currentRegion === 'French') utterance.lang = 'fr-FR';
     else if (currentRegion === 'German') utterance.lang = 'de-DE';
+    else if (currentRegion === 'Spanish') utterance.lang = 'es-ES';
     else if (currentRegion === 'Cantonese') utterance.lang = 'zh-HK';
     else if (currentRegion === 'UK') utterance.lang = 'en-GB';
     else utterance.lang = 'en-US';
