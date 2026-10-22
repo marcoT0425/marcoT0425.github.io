@@ -949,43 +949,41 @@
         <table class="phoneme-table">
           <tr><th>${t.respelling}</th><th>${t.ipa}</th><th>${t.example}</th></tr>
           <tr><td>a</td><td>a</td><td>patte</td></tr>
-          <tr><td>aa</td><td>ɑ / aː</td><td>pâte</td></tr>
-          <tr><td>aaᴺ</td><td>ɑ̃</td><td>sans</td></tr>
-          <tr><td>aw</td><td>ɔ</td><td>sort</td></tr>
-          <tr><td>awᴺ</td><td>ɔ̃</td><td>son</td></tr>
-          <tr><td>e</td><td>e</td><td>clé</td></tr>
-          <tr><td>eh</td><td>ɛ</td><td>baie</td></tr>
-          <tr><td>ehᴺ</td><td>ɛ̃</td><td>vin</td></tr>
-          <tr><td>e͟h</td><td>ɛː</td><td>fête</td></tr>
-          <tr><td>ə</td><td>ə</td><td>reposer</td></tr>
+          <tr><td>ah</td><td>ɑ</td><td>pâte</td></tr>
+          <tr><td>aⁿ</td><td>ɑ̃</td><td>sans</td></tr>
+          <tr><td>aw</td><td>ɔ</td><td>sort (open o)</td></tr>
+          <tr><td>e</td><td>ɛ</td><td>baie / lait</td></tr>
+          <tr><td>ey</td><td>e</td><td>clé</td></tr>
+          <tr><td>eⁿ</td><td>ɛ̃</td><td>vin</td></tr>
+          <tr><td>ə</td><td>ə</td><td>le (schwa)</td></tr>
           <tr><td>i</td><td>i</td><td>si</td></tr>
-          <tr><td>o</td><td>o</td><td>saut</td></tr>
-          <tr><td>œ</td><td>œ</td><td>sœur</td></tr>
-          <tr><td>œᴺ</td><td>œ̃</td><td>un</td></tr>
-          <tr><td>ø</td><td>ø</td><td>ceux</td></tr>
+          <tr><td>o</td><td>o</td><td>saut (closed o)</td></tr>
+          <tr><td>oⁿ</td><td>ɔ̃</td><td>bon</td></tr>
+          <tr><td>ö</td><td>œ</td><td>sœur (lax + C)</td></tr>
+          <tr><td>öh</td><td>ø</td><td>peu (tense)</td></tr>
           <tr><td>u</td><td>u</td><td>coup</td></tr>
           <tr><td>ü</td><td>y</td><td>tu</td></tr>
+          <tr><td>uhⁿ</td><td>œ̃</td><td>brun</td></tr>
         </table>
-        <div class="phoneme-section-title">French ${t.consonants} (A–Z)</div>
+        <div class="phoneme-section-title">French ${t.consonants} &amp; Glides (A–Z)</div>
         <table class="phoneme-table">
           <tr><th>${t.respelling}</th><th>${t.ipa}</th><th>${t.example}</th></tr>
-          <tr><td>b</td><td>b</td><td>bon</td></tr>
-          <tr><td>d</td><td>d</td><td>deux</td></tr>
-          <tr><td>f</td><td>f</td><td>faire</td></tr>
+          <tr><td>b d f k l m n p s t v z</td><td>same</td><td>—</td></tr>
           <tr><td>g</td><td>ɡ</td><td>garçon</td></tr>
-          <tr><td>k</td><td>k</td><td>corps</td></tr>
-          <tr><td>l</td><td>l</td><td>laisser</td></tr>
-          <tr><td>m</td><td>m</td><td>même</td></tr>
-          <tr><td>n</td><td>n</td><td>nous</td></tr>
-          <tr><td>ñ</td><td>ɲ</td><td>gagner</td></tr>
-          <tr><td>p</td><td>p</td><td>père</td></tr>
-          <tr><td>ʀ</td><td>ʁ</td><td>regarder</td></tr>
-          <tr><td>s</td><td>s</td><td>sans</td></tr>
-          <tr><td>SH</td><td>ʃ</td><td>chance</td></tr>
-          <tr><td>t</td><td>t</td><td>tout</td></tr>
-          <tr><td>v</td><td>v</td><td>vous</td></tr>
-          <tr><td>z</td><td>z</td><td>zéro</td></tr>
-          <tr><td>ZH</td><td>ʒ</td><td>jamais</td></tr>
+          <tr><td>gn</td><td>ɲ</td><td>oignon</td></tr>
+          <tr><td>ng</td><td>ŋ</td><td>parking (loan)</td></tr>
+          <tr><td>r</td><td>ʁ</td><td>regarder</td></tr>
+          <tr><td>sh</td><td>ʃ</td><td>chance</td></tr>
+          <tr><td>zh</td><td>ʒ</td><td>jamais</td></tr>
+          <tr><td>y</td><td>j</td><td>yes-like glide</td></tr>
+          <tr><td>w</td><td>w</td><td>oui</td></tr>
+          <tr><td>ẅ</td><td>ɥ</td><td>huit / nuit</td></tr>
+        </table>
+        <div class="phoneme-section-title">Syllables</div>
+        <table class="phoneme-table">
+          <tr><th>Mark</th><th>Meaning</th></tr>
+          <tr><td>hyphen -</td><td>Syllable boundary only (not phoneme split)</td></tr>
+          <tr><td>No pills</td><td>Plain text syllables for readability</td></tr>
         </table>
       `;
     } else if (region === 'German') {
@@ -1216,8 +1214,13 @@
       ingestLines(text, dictionaries.UK);
       progressBar.style.width = '35%';
 
-      // French
+      // French — prefer plain hyphen exports; fall back to bracket files
       const frNames = [
+        'all_fr_respellings_001.txt',
+        'all_fr_respellings_002.txt',
+        'all_fr_respellings_003.txt',
+        'all_fr_respellings_004.txt',
+        'all_fr_respellings_005.txt',
         'all_fr_respellings_bracket_001.txt',
         'all_fr_respellings_bracket_002.txt',
         'all_fr_respellings_bracket_003.txt',
@@ -1327,7 +1330,7 @@
 
     const variants = rawRespellingStr.split('|').map(v => v.trim()).filter(Boolean);
     let chosenVariantIndex = 0;
-    if ((currentRegion === 'German' || currentRegion === 'French') && variants.length > 1) {
+    if (currentRegion === 'German' && variants.length > 1) {
       const hasConsonants = (str) => {
         const stripped = str
           .replace(/\[[^\]]+\]/g, '')
@@ -1348,7 +1351,25 @@
     const primaryRaw = variants[chosenVariantIndex].normalize('NFC');
     const alternativeVariants = variants.filter((_, idx) => idx !== chosenVariantIndex);
 
-    if (currentRegion === 'Cantonese') {
+    if (currentRegion === 'French') {
+      /* Hyphen = syllable separator; plain text only — no vowel pills */
+      let cleaned = primaryRaw.replace(/ˈ/g, '').replace(/[\[\]{}]/g, '');
+      const syllables = cleaned.split(/[-]+/).map(s => s.trim()).filter(Boolean);
+      syllables.forEach((syl, index) => {
+        if (index > 0) {
+          const sep = document.createElement('span');
+          sep.className = 'consonant-text';
+          sep.textContent = ' - ';
+          container.appendChild(sep);
+        }
+        const span = document.createElement('span');
+        span.className = 'consonant-text'; // never a pill
+        span.id = 'token-' + index;
+        span.textContent = syl;
+        container.appendChild(span);
+        currentTokens.push({ id: 'token-' + index, isVowel: true, content: syl });
+      });
+    } else if (currentRegion === 'Cantonese') {
       const syllables = primaryRaw.split(/\s+/).filter(Boolean);
       syllables.forEach((syl, index) => {
         if (index > 0) {
@@ -1364,7 +1385,7 @@
         container.appendChild(span);
         currentTokens.push({ id: 'token-' + index, isVowel: true, content: syl });
       });
-    } else if (currentRegion === 'German' || currentRegion === 'French') {
+    } else if (currentRegion === 'German') {
       const cleanPrimary = primaryRaw.replace(/ˈ/g, '');
       const regex = /(\[[^\]]+\])|(\{[^}]+\})|(‿)|(\|)|([^\[\]{}‿|]+)/gu;
       let match;
