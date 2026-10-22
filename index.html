@@ -1402,45 +1402,7 @@
       });
     } else if (currentRegion === 'German') {
       /* Hyphen / '.' syllables; stress = font-weight 700 (no ′ shown, no markdown) */
-      let cleaned = primaryRaw.replace(/[\[\]{}]/g, '');
-      cleaned = cleaned.replace(/\*\*/g, ''); // strip any legacy ** 
-      const chunks = cleaned.split(/([-.])/).filter(s => s.length);
-      let tokenIndex = 0;
-      chunks.forEach((chunk) => {
-        if (chunk === '-' || chunk === '.') {
-          const sep = document.createElement('span');
-          sep.className = 'consonant-text';
-          sep.style.fontWeight = '300';
-          sep.textContent = chunk === '.' ? ' . ' : ' - ';
-          container.appendChild(sep);
-          return;
-        }
-        let text = chunk;
-        let stressed = false;
-        if (text.startsWith('′') || text.startsWith("'") || text.startsWith('ˈ')) {
-          stressed = true;
-          text = text.replace(/^[′'ˈ]+/, '');
-        }
-        const span = document.createElement('span');
-        span.className = 'consonant-text';
-        span.id = 'token-' + tokenIndex;
-        span.style.fontWeight = stressed ? '700' : '300';
-        // *ch* / *r* → italic, no asterisks shown
-        const parts = text.split(/(\*[^*]+\*)/g);
-        parts.forEach(p => {
-          if (p.startsWith('*') && p.endsWith('*') && p.length > 2) {
-            const em = document.createElement('em');
-            em.style.fontWeight = stressed ? '700' : '300';
-            em.textContent = p.slice(1, -1);
-            span.appendChild(em);
-          } else if (p) {
-            span.appendChild(document.createTextNode(p));
-          }
-        });
-        container.appendChild(span);
-        currentTokens.push({ id: 'token-' + tokenIndex, isVowel: true, content: text });
-        tokenIndex++;
-      });
+      appendGermanRespelling(container, primaryRaw, true);
     } else {
       const rawSyllables = primaryRaw.split('-');
       currentTokens = rawSyllables.map((syl, index) => ({
@@ -1468,17 +1430,69 @@
     }
 
     if (alternativeVariants.length > 0) {
-      const cleanAlternatives = alternativeVariants.map(v =>
-        v.replace(/ˈ/g, '')
-         .replace(/′/g, '')
-         .replace(/\*\*/g, '')
-         .replace(/\*/g, '')
-      );
       alternativesBox.style.display = 'flex';
-      alternativesBox.innerHTML =
-        `<div class="alt-title">${t.altPron}</div>` +
-        '<div style="font-weight:300">' + cleanAlternatives.join(' &nbsp;|&nbsp; ') + '</div>';
+      alternativesBox.innerHTML = '';
+      const title = document.createElement('div');
+      title.className = 'alt-title';
+      title.textContent = t.altPron;
+      alternativesBox.appendChild(title);
+      alternativeVariants.forEach((v, i) => {
+        if (i > 0) {
+          const pipe = document.createElement('span');
+          pipe.style.fontWeight = '300';
+          pipe.style.margin = '0 8px';
+          pipe.textContent = '|';
+          alternativesBox.appendChild(pipe);
+        }
+        const row = document.createElement('span');
+        row.style.fontSize = '15px';
+        appendGermanRespelling(row, v, false);
+        alternativesBox.appendChild(row);
+      });
     }
+  }
+
+  /** German respelling → DOM: weight 700 stressed / 300 unstressed; no ′, no ** */
+  function appendGermanRespelling(container, raw, trackTokens) {
+    let cleaned = String(raw || '').replace(/[\[\]{}]/g, '').replace(/\*\*/g, '');
+    const chunks = cleaned.split(/([-.])/).filter(s => s.length);
+    let tokenIndex = 0;
+    chunks.forEach((chunk) => {
+      if (chunk === '-' || chunk === '.') {
+        const sep = document.createElement('span');
+        sep.className = 'consonant-text';
+        sep.style.fontWeight = '300';
+        sep.textContent = chunk === '.' ? ' . ' : ' - ';
+        container.appendChild(sep);
+        return;
+      }
+      let text = chunk;
+      let stressed = false;
+      if (/^[′'ˈ]/.test(text)) {
+        stressed = true;
+        text = text.replace(/^[′'ˈ]+/, '');
+      }
+      const span = document.createElement('span');
+      span.className = 'consonant-text';
+      span.style.fontWeight = stressed ? '700' : '300';
+      if (trackTokens) span.id = 'token-' + tokenIndex;
+      const parts = text.split(/(\*[^*]+\*)/g);
+      parts.forEach(p => {
+        if (p.startsWith('*') && p.endsWith('*') && p.length > 2) {
+          const em = document.createElement('em');
+          em.style.fontWeight = stressed ? '700' : '300';
+          em.textContent = p.slice(1, -1);
+          span.appendChild(em);
+        } else if (p) {
+          span.appendChild(document.createTextNode(p));
+        }
+      });
+      container.appendChild(span);
+      if (trackTokens) {
+        currentTokens.push({ id: 'token-' + tokenIndex, isVowel: true, content: text });
+        tokenIndex++;
+      }
+    });
   }
 
   function onSearchInput() {
