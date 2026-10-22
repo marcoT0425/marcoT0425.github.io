@@ -13,6 +13,8 @@ Create Mandarin Chinese, Japanese and Spanish.
 
 "œ̃" vs "ɛ̃" distinctions in French preferences, because many Parisian speakers have merged them, making "brin" and "brun" homophones, but this is retained in Southern France, Canada, Belgium etc.
 
+Spanish semivowel split improvement, like río as two syllables not one
+
 # Acknowledgements
 
 The data is collected with using:
