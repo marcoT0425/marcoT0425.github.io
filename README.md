@@ -38,3 +38,35 @@ Already built-in, like Google US English, Google español.
 The data is collected with using:
 
 1. https://github.com/open-dict-data/ipa-dict 's IPA databases of multiple languages, where transcriptions are done by me and AI tools (Gemini & Grok)
+
+# Py code, it's like (example of words)
+
+```Result for 'hello':
+  hello [UK]:
+    IPA            : /həlˈəʊ/
+    Respelling     : huh-LOH
+
+Result for 'rouge':
+  rouge [FR]:
+    IPA            : /ʁuʒ/
+    Respelling     : ruzh
+
+Result for 'lundi':
+  lundi [FR]:
+    IPA            : /lœ̃di/
+    Respelling     : luhⁿ-di
+
+Result for 'ich':
+  ich [DE] variant 1:
+    IPA            : /ɪç/
+    Respelling     : i_ch_
+    Respelling []  : i_ch_
+
+Result for '好':
+  好 [Yue] variant 1:
+    IPA            : /hou˧˥/
+    Respelling     : hou²
+  好 [Yue] variant 2:
+    IPA            : /hou˧/
+    Respelling     : hou³
+```
