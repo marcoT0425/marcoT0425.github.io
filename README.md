@@ -59,8 +59,8 @@ Result for 'lundi':
 Result for 'ich':
   ich [DE] variant 1:
     IPA            : /ɪç/
-    Respelling     : i_ch_
-    Respelling []  : i_ch_
+    Respelling     : i*ch*
+    Respelling []  : i*ch*
 
 Result for '好':
   好 [Yue] variant 1:
