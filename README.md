@@ -15,6 +15,8 @@ Create Mandarin Chinese, Japanese and Spanish.
 
 Spanish semivowel split improvement, like río as two syllables not one
 
+Note: the word “humble” in French is transcribed as uhⁿbl because many speakers pronounce it without a schwa, not not like a syllabic consonant. (one syllable)
+
 # Acknowledgements
 
 The data is collected with using:
