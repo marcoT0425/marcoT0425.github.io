@@ -19,6 +19,20 @@ Note: the word “humble” in French is transcribed as uhⁿbl because many spe
 
 Vowels vs semivowels, like the word “million” is often transcribed as MIL-yuhn over MIL-ee-uhn. The “u” in nuit is not counted as a syllable. In the word río it is counted as two sylllbles because the I is a full vowel.
 
+# TTS Models
+
+Microsoft
+
+https://support.microsoft.com/en-gb/accessibility/windows/narrator/appendix-a-supported-languages-and-voices
+
+Apple
+
+Go to settings for accessibility and voiceover. Includes Anna, Amélie, Mónica, Meijia, Daniel, Samantha etc.
+
+Google
+
+Already built-in, like Google US English, Google español.
+
 # Acknowledgements
 
 The data is collected with using:
