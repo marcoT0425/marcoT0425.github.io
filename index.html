@@ -6,7 +6,8 @@
   <title>Multilingual TTS Phonetic Dictionary</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Noto+Sans+HK:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Charis+SIL:ital,wght@0,400;0,700;1,400;1,700&family=Gentium+Plus:ital,wght@0,400;0,700;1,400;1,700&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Noto+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Noto+Sans+Arabic:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Sans+HK:wght@400;500;600;700&family=Noto+Sans+Hebrew:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;600;700&family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400&family=Open+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <!-- Google Sans is not on Google Fonts; listed as optional system/custom fallback -->
   <style>
     :root {
       --primary: #1a73e8;
@@ -23,8 +24,17 @@
       --radius: 16px;
       --star-active: #fbbc04;
       --danger: #d93025;
+      --font-ui: 'Noto Sans', 'Noto Sans HK', system-ui, sans-serif;
+      --font-phonetic: 'Noto Sans', 'Charis SIL', 'Gentium Plus', sans-serif;
+      --font-script: 'Noto Sans HK', 'Noto Sans SC', 'Noto Sans TC', 'Noto Sans JP', 'Noto Sans KR', 'Noto Sans Arabic', 'Noto Sans Hebrew', 'Noto Sans Devanagari', sans-serif;
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Noto Sans', 'Noto Sans HK', sans-serif; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: var(--font-ui); }
+    .respelling-display, .respelling-display *, .phoneme-table, .bookmark-respell, #alternativesBox {
+      font-family: var(--font-phonetic);
+    }
+    .word-title, .bookmark-word {
+      font-family: var(--font-script), var(--font-ui);
+    }
     body {
       background-color: var(--bg); color: var(--text);
       display: flex; flex-direction: column; align-items: center;
@@ -241,6 +251,28 @@
       border: 1px solid var(--border); padding: 8px 12px; text-align: left;
     }
     .phoneme-table th { background-color: #f1f3f4; font-weight: 600; }
+    .note-box {
+      background: #f8f9fa; border-left: 3px solid var(--primary); border-radius: 0 8px 8px 0;
+      padding: 10px 14px; margin: 10px 0 4px; font-size: 13px; line-height: 1.55; color: var(--text);
+    }
+    .note-box strong { color: var(--primary); }
+    .note-box ul { margin: 6px 0 0 18px; padding: 0; }
+    .note-box li { margin: 3px 0; }
+    .font-panel {
+      background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 14px 18px; display: none; flex-direction: column; gap: 12px; font-size: 13px;
+    }
+    .font-panel.open { display: flex; }
+    .font-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+    .font-row label { font-weight: 600; color: var(--text-muted); min-width: 110px; font-size: 12px; }
+    .font-row select, .font-row input[type="text"] {
+      border: 1px solid var(--border); background: #f8f9fa; border-radius: 8px;
+      padding: 6px 10px; font-size: 13px; outline: none; min-width: 180px; max-width: 100%;
+      font-family: var(--font-ui);
+    }
+    .font-row input[type="text"] { flex: 1; min-width: 200px; }
+    .font-hint { font-size: 11px; color: var(--text-muted); width: 100%; margin-top: -4px; }
+
   </style>
 </head>
 <body>
@@ -269,6 +301,10 @@
         <option value="YUE">廣東話 / 繁體中文</option>
       </select>
 
+      <button class="btn-action" onclick="toggleFontPanel()" id="btnFontSettings" title="Font settings">
+        <svg style="width:16px;height:16px;fill:currentColor" viewBox="0 0 24 24"><path d="M9.93 13.5h4.14L12 7.98 9.93 13.5zM12 3l7 18h-2.25l-1.54-4H8.79L7.25 21H5L12 3z"/></svg>
+        <span id="fontsBtnLabel">Fonts</span>
+      </button>
       <!-- Bookmark Drawer Toggle Button -->
       <button class="btn-action" onclick="toggleBookmarkDrawer(true)" id="btnOpenBookmarks">
         <svg style="width:16px; height:16px; fill:var(--star-active)" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
@@ -285,6 +321,57 @@
   <!-- Progress Bar -->
   <div id="progressContainer" style="display:none; background:#e0e0e0; height:4px; border-radius:2px; margin-top:-10px;">
     <div id="progressBar" class="progress-bar"></div>
+  </div>
+
+  <!-- Font Settings Panel -->
+  <div class="font-panel" id="fontPanel">
+    <div class="font-row">
+      <label for="uiFontSelect">Major UI</label>
+      <select id="uiFontSelect" onchange="onUiFontChange(this)">
+        <option value="'Noto Sans', system-ui, sans-serif">Noto Sans</option>
+        <option value="'Roboto', system-ui, sans-serif">Roboto</option>
+        <option value="'Google Sans', 'Product Sans', system-ui, sans-serif">Google Sans</option>
+        <option value="'Google Sans', 'Product Sans', system-ui, sans-serif" data-size="18">Google Sans 18px</option>
+        <option value="'Google Sans Flex', 'Google Sans', system-ui, sans-serif">Google Sans Flex</option>
+        <option value="'Open Sans', system-ui, sans-serif">Open Sans</option>
+        <option value="'Montserrat', system-ui, sans-serif">Montserrat</option>
+        <option value="'Inter', system-ui, sans-serif">Inter</option>
+        <option value="custom">Custom…</option>
+      </select>
+      <input type="text" id="uiFontCustom" placeholder='e.g. "Arial, sans-serif"' style="display:none"
+             onchange="applyCustomFont('ui', this.value)" onkeydown="if(event.key==='Enter')applyCustomFont('ui', this.value)">
+    </div>
+    <div class="font-row">
+      <label for="phoneticFontSelect">Phonetic script</label>
+      <select id="phoneticFontSelect" onchange="onPhoneticFontChange(this)">
+        <option value="'Noto Sans', sans-serif">Noto Sans</option>
+        <option value="'Charis SIL', 'Charis', serif">Charis SIL</option>
+        <option value="'Gentium Plus', 'Gentium', serif">Gentium Plus</option>
+        <option value="'Inter', sans-serif">Inter</option>
+        <option value="'Noto Serif', serif">Noto Serif</option>
+        <option value="custom">Custom…</option>
+      </select>
+      <input type="text" id="phoneticFontCustom" placeholder='e.g. "Doulos SIL, serif"' style="display:none"
+             onchange="applyCustomFont('phonetic', this.value)" onkeydown="if(event.key==='Enter')applyCustomFont('phonetic', this.value)">
+    </div>
+    <div class="font-row">
+      <label for="scriptFontSelect">CJK / other scripts</label>
+      <select id="scriptFontSelect" onchange="onScriptFontChange(this)">
+        <option value="'Noto Sans HK', 'Noto Sans SC', 'Noto Sans TC', 'Noto Sans JP', 'Noto Sans KR', sans-serif">Noto (safe default)</option>
+        <option value="'Noto Sans HK', sans-serif">Noto Sans HK (Cantonese / TC-HK)</option>
+        <option value="'Noto Sans TC', sans-serif">Noto Sans TC (Traditional)</option>
+        <option value="'Noto Sans SC', sans-serif">Noto Sans SC (Simplified)</option>
+        <option value="'Noto Sans JP', sans-serif">Noto Sans JP (Japanese)</option>
+        <option value="'Noto Sans KR', sans-serif">Noto Sans KR (Korean)</option>
+        <option value="'Noto Sans Arabic', sans-serif">Noto Sans Arabic</option>
+        <option value="'Noto Sans Hebrew', sans-serif">Noto Sans Hebrew</option>
+        <option value="'Noto Sans Devanagari', sans-serif">Noto Sans Devanagari</option>
+        <option value="custom">Custom…</option>
+      </select>
+      <input type="text" id="scriptFontCustom" placeholder='e.g. "Noto Sans Thai, sans-serif"' style="display:none"
+             onchange="applyCustomFont('script', this.value)" onkeydown="if(event.key==='Enter')applyCustomFont('script', this.value)">
+    </div>
+    <div class="font-hint">Two-name stacks are OK (e.g. <code>Arial, sans-serif</code>). Google Sans is used when installed locally; otherwise the next fallback applies. Defaults favour Noto for CJK / Arabic / Hebrew / Indic.</div>
   </div>
 
   <!-- Search Card -->
@@ -854,290 +941,179 @@
           <tr><td>aʊ</td><td>ow</td><td>now</td></tr>
           <tr><td>ɛ</td><td>e</td><td>bed</td></tr>
           <tr><td>eɪ</td><td>ay</td><td>day</td></tr>
-          <tr><td>ɜː</td><td>ur</td><td>nurse</td></tr>
+          <tr><td>ɜː / ɝ</td><td>ur</td><td>nurse</td></tr>
           <tr><td>iː / i</td><td>ee</td><td>feet / happy</td></tr>
           <tr><td>ɪ</td><td>i</td><td>bit</td></tr>
           <tr><td>ɔː</td><td>aw</td><td>law</td></tr>
           <tr><td>ɔɪ</td><td>oy</td><td>boy</td></tr>
-          <tr><td>oʊ / əʊ</td><td>oh</td><td>go</td></tr>
+          <tr><td>oʊ</td><td>oh</td><td>go</td></tr>
           <tr><td>ʊ</td><td>uu</td><td>book</td></tr>
           <tr><td>uː</td><td>oo</td><td>too</td></tr>
-          <tr><td>ʌ / ə / ɐ</td><td>uh</td><td>cup / about</td></tr>
+          <tr><td>ʌ / ə</td><td>uh</td><td>cup / about</td></tr>
         </table>
         <div class="phoneme-section-title">${t.consonants} (A–Z)</div>
         <table class="phoneme-table">
           <tr><th>${t.ipa}</th><th>${t.respelling}</th><th>${t.example}</th></tr>
-          <tr><td>b</td><td>b</td><td>bad</td></tr>
-          <tr><td>d</td><td>d</td><td>dog</td></tr>
-          <tr><td>ð</td><td>dh</td><td>this</td></tr>
-          <tr><td>dʒ</td><td>j</td><td>joy</td></tr>
-          <tr><td>f</td><td>f</td><td>fox</td></tr>
-          <tr><td>ɡ</td><td>g</td><td>go</td></tr>
-          <tr><td>h</td><td>h</td><td>hat</td></tr>
-          <tr><td>hw</td><td>hw</td><td>whine</td></tr>
-          <tr><td>j</td><td>y</td><td>yes</td></tr>
-          <tr><td>k</td><td>k</td><td>kit</td></tr>
-          <tr><td>l</td><td>l</td><td>lip</td></tr>
-          <tr><td>m</td><td>m</td><td>man</td></tr>
-          <tr><td>n</td><td>n</td><td>net</td></tr>
-          <tr><td>ŋ</td><td>ng</td><td>sing</td></tr>
-          <tr><td>p</td><td>p</td><td>pen</td></tr>
-          <tr><td>ɹ</td><td>r</td><td>run</td></tr>
-          <tr><td>s</td><td>s</td><td>sun</td></tr>
-          <tr><td>ʃ</td><td>sh</td><td>ship</td></tr>
-          <tr><td>t</td><td>t</td><td>top</td></tr>
-          <tr><td>tʃ</td><td>ch</td><td>chat</td></tr>
-          <tr><td>θ</td><td>th</td><td>think</td></tr>
-          <tr><td>v</td><td>v</td><td>van</td></tr>
-          <tr><td>w</td><td>w</td><td>win</td></tr>
-          <tr><td>z</td><td>z</td><td>zoo</td></tr>
-          <tr><td>ʒ</td><td>zh</td><td>vision</td></tr>
+          <tr><td>b d ð dʒ f ɡ h</td><td>b d dh j f g h</td><td>bad dog this joy fox go hat</td></tr>
+          <tr><td>hw j k l m n ŋ</td><td>hw y k l m n ng</td><td>whine yes kit lip man net sing</td></tr>
+          <tr><td>p ɹ s ʃ t tʃ θ v w z ʒ</td><td>p r s sh t ch th v w z zh</td><td>pen run sun ship top chat think van win zoo vision</td></tr>
         </table>
+        <div class="note-box"><strong>Notes</strong>
+          <ul>
+            <li><strong>Rhotic:</strong> /r/ is pronounced in all positions (car, hard).</li>
+            <li><strong>Flap:</strong> /t d/ between vowels often sound like a soft “d” (better, ladder).</li>
+            <li><strong>Cot–caught:</strong> many speakers merge aw and short o.</li>
+            <li><strong>Spelling:</strong> stress shown by CAPITAL letters in respelling; syllable dots · separate beats.</li>
+            <li><strong>Loanwords:</strong> keep source-like sounds when common (genre → zh).</li>
+          </ul>
+        </div>
       `;
     } else if (region === 'UK') {
       return `
         <div class="phoneme-section-title">${t.vowels} (A–Z)</div>
         <table class="phoneme-table">
           <tr><th>${t.ipa}</th><th>${t.respelling}</th><th>${t.example}</th></tr>
-          <tr><td>ɑː</td><td>aa</td><td>father</td></tr>
-          <tr><td>æ</td><td>a</td><td>cat</td></tr>
-          <tr><td>aɪ</td><td>igh</td><td>high</td></tr>
-          <tr><td>aʊ</td><td>ow</td><td>now</td></tr>
-          <tr><td>ɒ</td><td>o</td><td>lot</td></tr>
-          <tr><td>ɛ</td><td>e</td><td>bed</td></tr>
-          <tr><td>eə</td><td>air</td><td>square</td></tr>
-          <tr><td>eɪ</td><td>ay</td><td>day</td></tr>
-          <tr><td>ɜː</td><td>ur</td><td>nurse</td></tr>
-          <tr><td>əʊ</td><td>oh</td><td>go</td></tr>
-          <tr><td>iː / i</td><td>ee</td><td>feet / happy</td></tr>
-          <tr><td>ɪ</td><td>i</td><td>bit</td></tr>
-          <tr><td>ɪə</td><td>eer</td><td>near</td></tr>
-          <tr><td>ɔː</td><td>aw</td><td>thought</td></tr>
-          <tr><td>ɔɪ</td><td>oy</td><td>boy</td></tr>
-          <tr><td>ʊ</td><td>uu</td><td>book</td></tr>
-          <tr><td>uː</td><td>oo</td><td>too</td></tr>
-          <tr><td>ʌ / ə / ɐ</td><td>uh</td><td>cup / about</td></tr>
+          <tr><td>ɑː æ aɪ aʊ ɒ</td><td>aa a igh ow o</td><td>father cat high now lot</td></tr>
+          <tr><td>ɛ eə eɪ ɜː əʊ</td><td>e air ay ur oh</td><td>bed square day nurse go</td></tr>
+          <tr><td>iː ɪ ɪə ɔː ɔɪ</td><td>ee i eer aw oy</td><td>feet bit near thought boy</td></tr>
+          <tr><td>ʊ uː ʌ ə</td><td>uu oo uh uh</td><td>book too cup about</td></tr>
         </table>
         <div class="phoneme-section-title">${t.consonants} (A–Z)</div>
         <table class="phoneme-table">
           <tr><th>${t.ipa}</th><th>${t.respelling}</th><th>${t.example}</th></tr>
-          <tr><td>b</td><td>b</td><td>bad</td></tr>
-          <tr><td>d</td><td>d</td><td>dog</td></tr>
-          <tr><td>ð</td><td>dh</td><td>this</td></tr>
-          <tr><td>dʒ</td><td>j</td><td>joy</td></tr>
-          <tr><td>f</td><td>f</td><td>fox</td></tr>
-          <tr><td>ɡ</td><td>g</td><td>go</td></tr>
-          <tr><td>h</td><td>h</td><td>hat</td></tr>
-          <tr><td>j</td><td>y</td><td>yes</td></tr>
-          <tr><td>k</td><td>k</td><td>kit</td></tr>
-          <tr><td>l</td><td>l</td><td>lip</td></tr>
-          <tr><td>m</td><td>m</td><td>man</td></tr>
-          <tr><td>n</td><td>n</td><td>net</td></tr>
-          <tr><td>ŋ</td><td>ng</td><td>sing</td></tr>
-          <tr><td>p</td><td>p</td><td>pen</td></tr>
-          <tr><td>ɹ</td><td>r</td><td>run</td></tr>
-          <tr><td>s</td><td>s</td><td>sun</td></tr>
-          <tr><td>ʃ</td><td>sh</td><td>ship</td></tr>
-          <tr><td>t</td><td>t</td><td>top</td></tr>
-          <tr><td>tʃ</td><td>ch</td><td>chat</td></tr>
-          <tr><td>θ</td><td>th</td><td>think</td></tr>
-          <tr><td>v</td><td>v</td><td>van</td></tr>
-          <tr><td>w</td><td>w</td><td>win</td></tr>
-          <tr><td>x</td><td>kh</td><td>loch</td></tr>
-          <tr><td>z</td><td>z</td><td>zoo</td></tr>
-          <tr><td>ʒ</td><td>zh</td><td>vision</td></tr>
+          <tr><td>Same core set as US</td><td>b d dh j … zh</td><td>Non-rhotic; linking r appears before vowels</td></tr>
         </table>
+        <div class="note-box"><strong>Notes</strong>
+          <ul>
+            <li><strong>Non-rhotic:</strong> /r/ only before a vowel (car /kaa/, car is /kaar iz/).</li>
+            <li><strong>Bath vowel:</strong> many southern speakers use aa in bath, dance (not a).</li>
+            <li><strong>Centring diphthongs:</strong> near, square, cure (eer, air) are typical RP; some merge toward long vowels.</li>
+            <li><strong>Spelling:</strong> CAPS = stress; · = syllable break.</li>
+            <li><strong>Trap–bath / lot–cloth:</strong> regional; this set follows broad RP-style values.</li>
+          </ul>
+        </div>
       `;
     } else if (region === 'French') {
       return `
-        <div class="phoneme-section-title">French ${t.vowels} (A–Z)</div>
+        <div class="phoneme-section-title">${t.vowels} (A–Z)</div>
         <table class="phoneme-table">
-          <tr><th>${t.respelling}</th><th>${t.ipa}</th><th>${t.example}</th></tr>
-          <tr><td>a</td><td>a</td><td>patte</td></tr>
-          <tr><td>ah</td><td>ɑ</td><td>pâte</td></tr>
-          <tr><td>aⁿ</td><td>ɑ̃</td><td>sans</td></tr>
-          <tr><td>aw</td><td>ɔ</td><td>sort (open o)</td></tr>
-          <tr><td>e</td><td>ɛ</td><td>baie / lait</td></tr>
-          <tr><td>ey</td><td>e</td><td>clé</td></tr>
-          <tr><td>eⁿ</td><td>ɛ̃</td><td>vin</td></tr>
-          <tr><td>ə</td><td>ə</td><td>le (schwa)</td></tr>
-          <tr><td>i</td><td>i</td><td>si</td></tr>
-          <tr><td>o</td><td>o</td><td>saut (closed o)</td></tr>
-          <tr><td>oⁿ</td><td>ɔ̃</td><td>bon</td></tr>
-          <tr><td>ö</td><td>œ</td><td>sœur (lax + C)</td></tr>
-          <tr><td>öh</td><td>ø</td><td>peu (tense)</td></tr>
-          <tr><td>u</td><td>u</td><td>coup</td></tr>
-          <tr><td>ü</td><td>y</td><td>tu</td></tr>
-          <tr><td>uhⁿ</td><td>œ̃</td><td>brun</td></tr>
+          <tr><th>Glyph</th><th>${t.ipa}</th><th>${t.example}</th></tr>
+          <tr><td>i ey e a ah</td><td>i e ɛ a ɑ</td><td>si / clé / baie / patte / pâte</td></tr>
+          <tr><td>o aw u ü</td><td>o ɔ u y</td><td>saut / sort / coup / tu</td></tr>
+          <tr><td>öh ö ə</td><td>ø œ ə</td><td>peu / sœur / (e) caduc</td></tr>
+          <tr><td>aⁿ eⁿ oⁿ uhⁿ</td><td>ɑ̃ ɛ̃ ɔ̃ œ̃</td><td>sans / vin / bon / brun</td></tr>
         </table>
-        <div class="phoneme-section-title">French ${t.consonants} &amp; Glides (A–Z)</div>
+        <div class="phoneme-section-title">${t.consonants} (A–Z)</div>
         <table class="phoneme-table">
-          <tr><th>${t.respelling}</th><th>${t.ipa}</th><th>${t.example}</th></tr>
-          <tr><td>b d f k l m n p s t v z</td><td>same</td><td>—</td></tr>
-          <tr><td>g</td><td>ɡ</td><td>garçon</td></tr>
-          <tr><td>gn</td><td>ɲ</td><td>oignon</td></tr>
-          <tr><td>ng</td><td>ŋ</td><td>parking (loan)</td></tr>
-          <tr><td>r</td><td>ʁ</td><td>regarder</td></tr>
-          <tr><td>sh</td><td>ʃ</td><td>chance</td></tr>
-          <tr><td>zh</td><td>ʒ</td><td>jamais</td></tr>
-          <tr><td>y</td><td>j</td><td>yes-like glide</td></tr>
-          <tr><td>w</td><td>w</td><td>oui</td></tr>
-          <tr><td>ẅ</td><td>ɥ</td><td>huit / nuit</td></tr>
+          <tr><th>Glyph</th><th>${t.ipa}</th><th>${t.example}</th></tr>
+          <tr><td>b d f g k l m n</td><td>same</td><td>bon deux faire …</td></tr>
+          <tr><td>gn ng p r s sh t</td><td>ɲ ŋ p ʁ s ʃ t</td><td>oignon / parking / père / regarder / sans / chance / tout</td></tr>
+          <tr><td>v z zh y w ẅ</td><td>v z ʒ j w ɥ</td><td>vous / zéro / jamais / yeux / oui / huit</td></tr>
         </table>
-        <div class="phoneme-section-title">Syllables</div>
-        <table class="phoneme-table">
-          <tr><th>Mark</th><th>Meaning</th></tr>
-          <tr><td>hyphen -</td><td>Syllable boundary only (not phoneme split)</td></tr>
-          <tr><td>No pills</td><td>Plain text syllables for readability</td></tr>
-        </table>
+        <div class="note-box"><strong>Notes</strong>
+          <ul>
+            <li><strong>Nasals:</strong> Parisian speech often merges œ̃ (brun) with ɛ̃ (brin); Canadian French keeps them apart. Toggle PARMER in the Python tool if regenerating data.</li>
+            <li><strong>e caduc (ə):</strong> may drop in casual speech (fenêtre ≈ f’nêtre).</li>
+            <li><strong>Liaison / enchaînement:</strong> final consonants can link before a vowel (les‿amis).</li>
+            <li><strong>r:</strong> usually uvular [ʁ], not an English approximant.</li>
+            <li><strong>Spelling patterns:</strong> -tion → syoⁿ; oi → wa; au/eau → o; gn → ɲ. Hyphens mark syllables only.</li>
+            <li><strong>Loanwords:</strong> parking, week-end keep foreign shapes (ng, w).</li>
+          </ul>
+        </div>
       `;
     } else if (region === 'German') {
       return `
         <div class="phoneme-section-title">German ${t.vowels} (A–Z)</div>
         <table class="phoneme-table">
           <tr><th>Glyph</th><th>${t.ipa}</th><th>${t.example}</th></tr>
-          <tr><td>a</td><td>a</td><td>alles</td></tr>
-          <tr><td>aa</td><td>aː</td><td>aber</td></tr>
-          <tr><td>aaⁿ</td><td>ɑ̃</td><td>Restaurant</td></tr>
-          <tr><td>au</td><td>aʊ</td><td>auf</td></tr>
-          <tr><td>aw</td><td>ɔ</td><td>kommen</td></tr>
-          <tr><td>e</td><td>ɛ</td><td>Ende</td></tr>
-          <tr><td>eh</td><td>ɛː</td><td>spät</td></tr>
-          <tr><td>ey</td><td>eː</td><td>eben</td></tr>
-          <tr><td>ə</td><td>ə</td><td>Name</td></tr>
-          <tr><td>i</td><td>ɪ</td><td>ist</td></tr>
-          <tr><td>iy</td><td>iː</td><td>Liebe</td></tr>
-          <tr><td>igh</td><td>aɪ</td><td>ein</td></tr>
-          <tr><td>oh</td><td>oː</td><td>oder</td></tr>
-          <tr><td>oy</td><td>ɔʏ</td><td>Euro</td></tr>
-          <tr><td>ö</td><td>œ</td><td>Köln</td></tr>
-          <tr><td>öh</td><td>øː</td><td>Österreich</td></tr>
-          <tr><td>uu</td><td>ʊ</td><td>und</td></tr>
-          <tr><td>uw</td><td>uː</td><td>Hut</td></tr>
-          <tr><td>ü</td><td>ʏ</td><td>fünf</td></tr>
-          <tr><td>üh</td><td>yː</td><td>über</td></tr>
-          <tr><td><em>r</em></td><td>ɐ</td><td>immer (italic)</td></tr>
+          <tr><td>a aa e eh ey</td><td>a aː ɛ ɛː eː</td><td>alles / aber / Ende / spät / eben</td></tr>
+          <tr><td>i iy igh oh aw</td><td>ɪ iː aɪ oː ɔ</td><td>ist / Liebe / ein / oder / kommen</td></tr>
+          <tr><td>ö öh uu uw ü üh</td><td>œ øː ʊ uː ʏ yː</td><td>Köln / Österreich / und / Hut / fünf / über</td></tr>
+          <tr><td>au oy ə <em>r</em></td><td>aʊ ɔʏ ə ɐ</td><td>auf / Euro / Name / immer (vocalic r)</td></tr>
         </table>
         <div class="phoneme-section-title">German ${t.consonants} (A–Z)</div>
         <table class="phoneme-table">
           <tr><th>Glyph</th><th>${t.ipa}</th><th>${t.example}</th></tr>
-          <tr><td>b</td><td>b</td><td>bei</td></tr>
-          <tr><td>ch</td><td>tʃ</td><td>Matsch</td></tr>
-          <tr><td><em>ch</em></td><td>ç</td><td>ich (italic)</td></tr>
-          <tr><td>d</td><td>d</td><td>dann</td></tr>
-          <tr><td>f</td><td>f</td><td>für</td></tr>
-          <tr><td>g</td><td>ɡ</td><td>gut</td></tr>
-          <tr><td>h</td><td>h</td><td>hat</td></tr>
-          <tr><td>j</td><td>dʒ</td><td>Jeff (loan)</td></tr>
-          <tr><td>k</td><td>k</td><td>kann</td></tr>
-          <tr><td>kh</td><td>x</td><td>nach</td></tr>
-          <tr><td>l / əl</td><td>l / l̩</td><td>leben / Mantel</td></tr>
-          <tr><td>m / əm</td><td>m / m̩</td><td>Mann / großem</td></tr>
-          <tr><td>n / ən</td><td>n / n̩</td><td>Name / beiden</td></tr>
-          <tr><td>ng</td><td>ŋ</td><td>lang</td></tr>
-          <tr><td>p / pf</td><td>p / pf</td><td>Person / Pfeffer</td></tr>
-          <tr><td>r</td><td>ʁ</td><td>reden</td></tr>
-          <tr><td>s / sh / ts</td><td>s / ʃ / ts</td><td>lassen / schon / Zeit</td></tr>
-          <tr><td>t</td><td>t</td><td>Tag</td></tr>
-          <tr><td>v</td><td>v</td><td>was</td></tr>
-          <tr><td>w</td><td>w</td><td>Whiskey (loan)</td></tr>
-          <tr><td>y</td><td>j</td><td>Jahr</td></tr>
-          <tr><td>z / zh</td><td>z / ʒ</td><td>Sie / Genie</td></tr>
+          <tr><td>b ch <em>ch</em> d f g h</td><td>b tʃ ç d f ɡ h</td><td>bei / Matsch / ich / dann / für / gut / hat</td></tr>
+          <tr><td>k kh l m n ng</td><td>k x l m n ŋ</td><td>kann / nach / leben / Mann / Name / lang</td></tr>
+          <tr><td>p pf r s sh t ts</td><td>p pf ʁ s ʃ t ts</td><td>Person / Pfeffer / reden / lassen / schon / Tag / Zeit</td></tr>
+          <tr><td>v y z zh j w</td><td>v j z ʒ dʒ w</td><td>was / Jahr / Sie / Genie / Jeff / Whiskey (loans)</td></tr>
+          <tr><td>əl əm ən</td><td>l̩ m̩ n̩</td><td>Mantel / großem / beiden (syllabic)</td></tr>
         </table>
-        <div class="phoneme-section-title">Syllables / stress</div>
-        <table class="phoneme-table">
-          <tr><th>Mark</th><th>Meaning</th></tr>
-          <tr><td>hyphen -</td><td>Syllable boundary</td></tr>
-          <tr><td>dot .</td><td>Glottal-stop boundary</td></tr>
-          <tr><td>weight 700 / 300</td><td>Stressed / unstressed (no prime, no markdown, no pills)</td></tr>
-        </table>
+        <div class="note-box"><strong>Notes</strong>
+          <ul>
+            <li><strong>ich-Laut / ach-Laut:</strong> <em>ch</em> [ç] after front vowels; kh [x] after back vowels (ich vs. nach).</li>
+            <li><strong>Vocalic r:</strong> final -er → italic <em>r</em> [ɐ], attached as a coda (not its own syllable): Liter → liyt<em>r</em>.</li>
+            <li><strong>Final fortition:</strong> b d g often devoice at word end (Tag ≈ tak).</li>
+            <li><strong>Glottal stop:</strong> shown as . between syllables (often before stressed vowel onset).</li>
+            <li><strong>Spelling:</strong> ei/ai → igh; eu/äu → oy; sp-/st- → shp-/sht- at word start; z → ts; v often f.</li>
+            <li><strong>Stress:</strong> weight 700 vs 300 (no CAPS). Loan j/w/zh kept for Jeff, Whiskey, Genie.</li>
+          </ul>
+        </div>
       `;
     } else if (region === 'Spanish') {
       return `
         <div class="phoneme-section-title">Spanish ${t.vowels} (A–Z)</div>
         <table class="phoneme-table">
           <tr><th>Glyph</th><th>${t.ipa}</th><th>${t.example}</th></tr>
-          <tr><td>a</td><td>a</td><td>paso</td></tr>
-          <tr><td>e</td><td>e</td><td>peso</td></tr>
-          <tr><td>i</td><td>i</td><td>piso</td></tr>
-          <tr><td>o</td><td>o</td><td>poso</td></tr>
-          <tr><td>u</td><td>u</td><td>puso</td></tr>
-          <tr><td>y / w</td><td>j / w</td><td>cielo / cuadro (glides)</td></tr>
+          <tr><td>a e i o u</td><td>a e i o u</td><td>paso peso piso poso puso</td></tr>
+          <tr><td>y w</td><td>j w</td><td>cielo / cuadro (glides only — not syllable peaks)</td></tr>
         </table>
         <div class="phoneme-section-title">Spanish ${t.consonants} (A–Z)</div>
         <table class="phoneme-table">
           <tr><th>Glyph</th><th>${t.ipa}</th><th>${t.example}</th></tr>
-          <tr><td>b / <em>b</em></td><td>b / β</td><td>bebé (hard / soft)</td></tr>
-          <tr><td>ch</td><td>tʃ</td><td>chico</td></tr>
-          <tr><td>d / dh</td><td>d / ð</td><td>dedo (hard / soft)</td></tr>
-          <tr><td>f</td><td>f</td><td>faro</td></tr>
+          <tr><td>b / <em>b</em></td><td>b / β</td><td>bebé (stop / soft approximant)</td></tr>
+          <tr><td>d / dh</td><td>d / ð</td><td>dedo</td></tr>
           <tr><td>g / gh</td><td>g / ɣ</td><td>galgo / haga</td></tr>
-          <tr><td><em>h</em></td><td>x</td><td>jarra (loch)</td></tr>
-          <tr><td>k</td><td>k</td><td>caso</td></tr>
-          <tr><td>l</td><td>l</td><td>luna</td></tr>
-          <tr><td>m / n / ng</td><td>m / n / ŋ</td><td>meta / ni / tengo</td></tr>
-          <tr><td><em>ny</em></td><td>ɲ</td><td>ñu</td></tr>
-          <tr><td>p / t</td><td>p / t</td><td>pato / tamiz</td></tr>
-          <tr><td>rr / r</td><td>r / ɾ</td><td>río (rolled) / brío (flap)</td></tr>
-          <tr><td>s / sh / th</td><td>s / ʃ / θ</td><td>saco / show / cera</td></tr>
+          <tr><td>ch f <em>h</em> k l</td><td>tʃ f x k l</td><td>chico faro jarra (loch) caso luna</td></tr>
+          <tr><td>m n <em>ny</em> ng</td><td>m n ɲ ŋ</td><td>meta ni ñu tengo</td></tr>
+          <tr><td>p rr r s sh t th</td><td>p r ɾ s ʃ t θ</td><td>pato río brío saco show tamiz cera</td></tr>
           <tr><td>y / <em>y</em></td><td>ʎ / ʝ</td><td>lluvia / ya</td></tr>
         </table>
-        <div class="phoneme-section-title">Stress / syllables</div>
-        <table class="phoneme-table">
-          <tr><td>weight 700 / 300</td><td>Stressed / unstressed (IPA ˈ or RAE rules)</td></tr>
-          <tr><td>hyphen -</td><td>Spanish syllable boundary</td></tr>
-        </table>
+        <div class="note-box"><strong>Notes</strong>
+          <ul>
+            <li><strong>Vowels vs glides:</strong> plain i/u in the data are full vowels; j/w are semivowels only (cielo, cuadro).</li>
+            <li><strong>Hiatus:</strong> stressed weak vowel breaks a diphthong (río, María, país, baúl).</li>
+            <li><strong>seseo / ceceo / distinción:</strong> this set uses th for /θ/ (distinción, northern/central Spain). Latin America typically uses s for c/z.</li>
+            <li><strong>yeísmo:</strong> many speakers merge ll and y; both may sound like <em>y</em>.</li>
+            <li><strong>Soft b/d/g:</strong> between vowels → approximants (<em>b</em>, dh, gh).</li>
+            <li><strong>r / rr:</strong> flap r (pero) vs rolled rr (perro); word-initial r is rolled.</li>
+            <li><strong>Stress (RAE):</strong> from IPA ˈ when present; else penultimate if ends in vowel/n/s, else final. Weight 700/300.</li>
+            <li><strong>Spelling:</strong> c+e/i → th (or s); g+e/i → <em>h</em>; qu/c → k; ll → y; ñ → <em>ny</em>; h silent.</li>
+          </ul>
+        </div>
       `;
     } else if (region === 'Cantonese') {
       return `
-        <div class="phoneme-section-title">Cantonese ${t.initials} (A–Z)</div>
+        <div class="phoneme-section-title">Cantonese ${t.initials || 'Initials'} (A–Z)</div>
         <table class="phoneme-table">
-          <tr><th>${t.respelling}</th><th>${t.ipa}</th><th>${t.note}</th></tr>
-          <tr><td>b</td><td>p</td><td>unaspirated</td></tr>
-          <tr><td>p</td><td>pʰ</td><td>aspirated</td></tr>
-          <tr><td>m</td><td>m</td><td>labial nasal</td></tr>
-          <tr><td>f</td><td>f</td><td>labiodental</td></tr>
-          <tr><td>d</td><td>t</td><td>unaspirated</td></tr>
-          <tr><td>t</td><td>tʰ</td><td>aspirated</td></tr>
-          <tr><td>n</td><td>n</td><td>alveolar nasal</td></tr>
-          <tr><td>l</td><td>l</td><td>lateral</td></tr>
-          <tr><td>g</td><td>k</td><td>unaspirated</td></tr>
-          <tr><td>k</td><td>kʰ</td><td>aspirated</td></tr>
-          <tr><td>ng</td><td>ŋ</td><td>velar nasal</td></tr>
-          <tr><td>h</td><td>h</td><td>glottal</td></tr>
-          <tr><td>gw</td><td>kʷ</td><td>labialized g</td></tr>
-          <tr><td>kw</td><td>kʷʰ</td><td>labialized k</td></tr>
-          <tr><td>w</td><td>w</td><td>labial glide</td></tr>
-          <tr><td>dz</td><td>ts</td><td>unaspirated affricate</td></tr>
-          <tr><td>ts</td><td>tsʰ</td><td>aspirated affricate</td></tr>
-          <tr><td>s</td><td>s</td><td>fricative</td></tr>
-          <tr><td>y</td><td>j</td><td>palatal glide</td></tr>
+          <tr><th>${t.respelling}</th><th>${t.ipa}</th><th>${t.note || 'Note'}</th></tr>
+          <tr><td>b p m f</td><td>p pʰ m f</td><td>unaspirated / aspirated</td></tr>
+          <tr><td>d t n l</td><td>t tʰ n l</td><td></td></tr>
+          <tr><td>g k ng h</td><td>k kʰ ŋ h</td><td></td></tr>
+          <tr><td>gw kw w</td><td>kʷ kʷʰ w</td><td></td></tr>
+          <tr><td>dz ts s y</td><td>ts tsʰ s j</td><td>y = IPA j</td></tr>
         </table>
-        <div class="phoneme-section-title">Cantonese ${t.finals} (A–Z)</div>
+        <div class="phoneme-section-title">Vowels / finals / tones</div>
         <table class="phoneme-table">
-          <tr><th>${t.respelling}</th><th>${t.ipa}</th><th>${t.example}</th></tr>
-          <tr><td>ā / a</td><td>aː / ɐ</td><td>巴 / 百</td></tr>
-          <tr><td>āi / ai</td><td>aːi / ɐi</td><td>擺 / 矮</td></tr>
-          <tr><td>āu / au</td><td>aːu / ɐu</td><td>包 / 歐</td></tr>
-          <tr><td>e / ei</td><td>ɛː / ei</td><td>輋 / 避</td></tr>
-          <tr><td>i</td><td>iː / i</td><td>詩</td></tr>
-          <tr><td>o / oi / ou</td><td>ɔː / ɔːi / ou</td><td>波 / 海 / 澳</td></tr>
-          <tr><td>ö / øi</td><td>œː / ɵy</td><td>靴 / 居</td></tr>
-          <tr><td>u / ui</td><td>uː / ui</td><td>夫 / 灰</td></tr>
-          <tr><td>ü</td><td>yː / y</td><td>書</td></tr>
+          <tr><td>aa a e ö o i ü u</td><td>aː ɐ ɛː œː ɔː iː yː uː</td><td>length often marked with ː</td></tr>
+          <tr><td>aai ai aau au ei oi ui</td><td>diphthongs</td><td></td></tr>
+          <tr><td>øi ou</td><td>ɵy ou</td><td></td></tr>
+          <tr><td>Tones ¹–⁶</td><td>˥ ˧˥ ˧ ˨˩ ˩˧ ˨</td><td>superscript digits</td></tr>
+          <tr><td>Syllabic</td><td>ʹm ʹng ʹhm ʹhng</td><td>nasal syllabics</td></tr>
         </table>
-        <div class="phoneme-section-title">Cantonese ${t.tones} (1-6)</div>
-        <table class="phoneme-table">
-          <tr><th>Mark</th><th>Contour</th><th>Description</th></tr>
-          <tr><td>¹</td><td>˥ (55/51)</td><td>High Level / Falling (陰平)</td></tr>
-          <tr><td>²</td><td>˧˥ (35)</td><td>High Rising (陰上)</td></tr>
-          <tr><td>³</td><td>˧ (33)</td><td>Mid Level (陰去)</td></tr>
-          <tr><td>⁴</td><td>˨˩ (11/21)</td><td>Low Falling (陽平)</td></tr>
-          <tr><td>⁵</td><td>˨˧ (23)</td><td>Low Rising (陽上)</td></tr>
-          <tr><td>⁶</td><td>˨ (22)</td><td>Low Level (陽去)</td></tr>
-        </table>
+        <div class="note-box"><strong>Notes</strong>
+          <ul>
+            <li><strong>Aspiration:</strong> p/t/k/ts are aspirated; b/d/g/dz are not (no English “voicing” contrast).</li>
+            <li><strong>Tones:</strong> six-tone system in superscript; wrong tone changes meaning.</li>
+            <li><strong>Checked syllables:</strong> final -p -t -k are unreleased stops.</li>
+            <li><strong>Lexical items:</strong> multi-character words are kept whole (not split into letters).</li>
+            <li>No Latin-style spelling-to-sound table — characters map via dictionary entries.</li>
+          </ul>
+        </div>
       `;
     }
+    return '';
   }
 
   function updateReferenceGuide() {
@@ -1355,26 +1331,66 @@
     return matrix[a.length][b.length];
   }
 
+  /** Strip combining marks so pais ≈ país (minor), but ano ≠ año still differs by base letter ñ→n only after NFD */
+  function foldDiacritics(s) {
+    return s.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  }
+
   function searchDictionary(query) {
     const raw = query.trim();
     if (!raw) return null;
     const currentDict = getActiveDictionary();
+    // exact (case-sensitive key as stored)
     if (currentDict.has(raw)) return { word: raw, respelling: currentDict.get(raw), exact: true };
     const q = raw.toLowerCase();
     if (q !== raw && currentDict.has(q)) return { word: q, respelling: currentDict.get(q), exact: true };
+
+    // diacritic-insensitive exact: pais → país, garcon → garçon
+    const qFold = foldDiacritics(q);
+    let diacriticHit = null;
+    for (const word of currentDict.keys()) {
+      if (foldDiacritics(word) === qFold) {
+        // prefer the dictionary form that adds/keeps diacritics matching length closely
+        if (!diacriticHit) diacriticHit = word;
+        // prefer word with same length as query when multiple (rare)
+        if (word.length === q.length) { diacriticHit = word; break; }
+      }
+    }
+    if (diacriticHit) {
+      return { word: diacriticHit, respelling: currentDict.get(diacriticHit), exact: false };
+    }
+
     if (currentRegion === 'Cantonese') return null;
 
+    // fuzzy: distance on folded forms so missing accents cost 0; real letter changes still cost
     let closestWord = null, minDistance = Infinity;
-    const qLen = q.length;
-    for (let word of currentDict.keys()) {
-      const wLen = word.length;
-      if (Math.abs(wLen - qLen) > 3) continue;
-      const dist = levenshtein(q, word);
-      if (dist < minDistance && dist <= 3) {
+    const qLen = qFold.length;
+    for (const word of currentDict.keys()) {
+      const wFold = foldDiacritics(word);
+      const wLen = wFold.length;
+      if (Math.abs(wLen - qLen) > 2) continue;
+      const dist = levenshtein(qFold, wFold);
+      // require fairly close; avoid garcon → gardon (dist would be 1 on d/c — still possible)
+      // prefer candidates that share a long common prefix after fold
+      if (dist < minDistance && dist <= 2) {
         minDistance = dist;
         closestWord = word;
-        if (dist === 1) break;
+        if (dist === 0) break;
       }
+    }
+    // tie-break: if several at same distance, prefer shared prefix with original query
+    if (closestWord && minDistance >= 1) {
+      let best = closestWord;
+      let bestPrefix = 0;
+      for (const word of currentDict.keys()) {
+        const wFold = foldDiacritics(word);
+        if (Math.abs(wFold.length - qLen) > 2) continue;
+        if (levenshtein(qFold, wFold) !== minDistance) continue;
+        let pref = 0;
+        while (pref < qFold.length && pref < wFold.length && qFold[pref] === wFold[pref]) pref++;
+        if (pref > bestPrefix) { bestPrefix = pref; best = word; }
+      }
+      closestWord = best;
     }
     if (closestWord) return { word: closestWord, respelling: currentDict.get(closestWord), exact: false };
     return null;
@@ -1645,7 +1661,115 @@
       .forEach(el => el.classList.remove('active'));
   }
 
+  /* ===== Font settings (persisted) ===== */
+  const FONT_STORAGE_KEY = 'phoneticDict.fonts.v1';
+  let fontPrefs = {
+    ui: "'Noto Sans', system-ui, sans-serif",
+    uiSize: '',
+    phonetic: "'Noto Sans', sans-serif",
+    script: "'Noto Sans HK', 'Noto Sans SC', 'Noto Sans TC', 'Noto Sans JP', 'Noto Sans KR', sans-serif",
+  };
+
+  function loadFontPrefs() {
+    try {
+      const raw = localStorage.getItem(FONT_STORAGE_KEY);
+      if (raw) fontPrefs = { ...fontPrefs, ...JSON.parse(raw) };
+    } catch (e) {}
+  }
+
+  function saveFontPrefs() {
+    try { localStorage.setItem(FONT_STORAGE_KEY, JSON.stringify(fontPrefs)); } catch (e) {}
+  }
+
+  function applyFontsToDOM() {
+    const root = document.documentElement;
+    root.style.setProperty('--font-ui', fontPrefs.ui);
+    root.style.setProperty('--font-phonetic', fontPrefs.phonetic);
+    root.style.setProperty('--font-script', fontPrefs.script);
+    if (fontPrefs.uiSize) document.body.style.fontSize = fontPrefs.uiSize;
+    else document.body.style.fontSize = '';
+  }
+
+  function toggleFontPanel() {
+    document.getElementById('fontPanel').classList.toggle('open');
+  }
+
+  function onUiFontChange(sel) {
+    const opt = sel.options[sel.selectedIndex];
+    const custom = document.getElementById('uiFontCustom');
+    if (sel.value === 'custom') {
+      custom.style.display = '';
+      custom.focus();
+      return;
+    }
+    custom.style.display = 'none';
+    fontPrefs.ui = sel.value;
+    fontPrefs.uiSize = opt.dataset.size ? (opt.dataset.size + 'px') : '';
+    saveFontPrefs();
+    applyFontsToDOM();
+  }
+
+  function onPhoneticFontChange(sel) {
+    const custom = document.getElementById('phoneticFontCustom');
+    if (sel.value === 'custom') {
+      custom.style.display = '';
+      custom.focus();
+      return;
+    }
+    custom.style.display = 'none';
+    fontPrefs.phonetic = sel.value;
+    saveFontPrefs();
+    applyFontsToDOM();
+  }
+
+  function onScriptFontChange(sel) {
+    const custom = document.getElementById('scriptFontCustom');
+    if (sel.value === 'custom') {
+      custom.style.display = '';
+      custom.focus();
+      return;
+    }
+    custom.style.display = 'none';
+    fontPrefs.script = sel.value;
+    saveFontPrefs();
+    applyFontsToDOM();
+  }
+
+  function applyCustomFont(kind, value) {
+    const v = (value || '').trim();
+    if (!v) return;
+    // allow users to type: Arial, sans-serif  or  "Arial", sans-serif
+    if (kind === 'ui') { fontPrefs.ui = v; fontPrefs.uiSize = ''; }
+    else if (kind === 'phonetic') fontPrefs.phonetic = v;
+    else if (kind === 'script') fontPrefs.script = v;
+    saveFontPrefs();
+    applyFontsToDOM();
+  }
+
+  function syncFontSelects() {
+    const matchSelect = (id, val) => {
+      const sel = document.getElementById(id);
+      if (!sel) return;
+      let found = false;
+      for (const opt of sel.options) {
+        if (opt.value === val) { sel.value = val; found = true; break; }
+      }
+      if (!found) {
+        sel.value = 'custom';
+        const customId = id.replace('Select', 'Custom');
+        const inp = document.getElementById(customId);
+        if (inp) { inp.style.display = ''; inp.value = val; }
+      }
+    };
+    matchSelect('uiFontSelect', fontPrefs.ui);
+    matchSelect('phoneticFontSelect', fontPrefs.phonetic);
+    matchSelect('scriptFontSelect', fontPrefs.script);
+  }
+
   // Initialize
+  loadFontPrefs();
+  applyFontsToDOM();
+  syncFontSelects();
   changeUILanguage(currentUILang);
   saveBookmarksToStorage();
   loadAllGitHubFiles();
