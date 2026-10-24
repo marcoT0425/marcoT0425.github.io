@@ -391,6 +391,7 @@
       deRegion: "German",
       yueRegion: "Cantonese",
       jaRegion: "Japanese",
+      jaAccent: "Japanese Pronunciation",
       interfaceLang: "Interface:",
       bookmarks: "Bookmarks",
       savedBookmarks: "Saved Bookmarks",
@@ -441,6 +442,7 @@
       deRegion: "German",
       yueRegion: "Cantonese",
       jaRegion: "Japanese",
+      jaAccent: "Japanese Pronunciation",
       interfaceLang: "Interface:",
       bookmarks: "Bookmarks",
       savedBookmarks: "Saved Bookmarks",
@@ -1154,7 +1156,25 @@
           <tr><td>⁶</td><td>˨ (22)</td><td>Low Level (陽去)</td></tr>
         </table>
       `;
+    } else if (region === 'Japanese') {
+      return `
+        <div class="phoneme-section-title">Japanese (romaji-style)</div>
+        <table class="phoneme-table">
+          <tr><th>Glyph</th><th>IPA</th><th>Note</th></tr>
+          <tr><td>a i u e o</td><td>a i ɯ e o</td><td>pure vowels</td></tr>
+          <tr><td>ā ī ū ē ō</td><td>long</td><td>macron (ou/oɯ → ō)</td></tr>
+          <tr><td>k g s z t d n h b p m y r w</td><td>—</td><td>z not dz</td></tr>
+          <tr><td>sh ch j</td><td>ɕ tɕ ʑ</td><td>palatals</td></tr>
+          <tr><td>ky gy …</td><td>Cʲ</td><td>no ʲ mark</td></tr>
+          <tr><td>n coda</td><td>ɴ ɰ̃</td><td>kon- not ko-n-</td></tr>
+          <tr><td>f r</td><td>ɸ ɾ</td><td>f before u; tap r</td></tr>
+        </table>
+        <p style="font-size:13px;color:var(--text-muted);margin-top:8px;">
+          Hyphens = mora groups. ̚ unused. Font: Noto Sans + Noto Sans JP.
+        </p>
+      `;
     }
+    return '';
   }
 
   function updateReferenceGuide() {
@@ -1163,7 +1183,7 @@
     const t = translations[currentUILang] || translations.US;
     
     title.textContent = `${t.refGuideTitle}: ${getRegionDisplayName(currentRegion)}`;
-    content.innerHTML = getPhonemeReferencesHTML(currentRegion);
+    content.innerHTML = getPhonemeReferencesHTML(currentRegion) || '';
   }
 
   function getRegionDisplayName(region) {
@@ -1189,6 +1209,7 @@
     else if (currentRegion === 'German') { targetLang = 'de-DE'; preferredKeyword = 'marlene'; }
     else if (currentRegion === 'Spanish') { targetLang = 'es-ES'; preferredKeyword = 'elena'; }
     else if (currentRegion === 'Cantonese') { targetLang = 'zh-HK'; preferredKeyword = 'sinji'; }
+    else if (currentRegion === 'Japanese') { targetLang = 'ja-JP'; preferredKeyword = 'kyoko'; }
     const matchingVoices = voices.filter(v => v.lang.toLowerCase().startsWith(targetLang.substring(0, 2)));
     const targetList = matchingVoices.length > 0 ? matchingVoices : voices;
     let selectedVoice = targetList.find(v => v.name.toLowerCase().includes(preferredKeyword));
@@ -1233,7 +1254,7 @@
     } else if (regionKey === 'Cantonese') {
       searchInput.value = '你好';
     } else if (regionKey === 'Japanese') {
-      searchInput.value = 'こんにちは';
+      searchInput.value = '東京';
     } else {
       searchInput.value = 'hello';
     }
@@ -1463,7 +1484,12 @@
     capitalizationNote.style.display = 'none';
     currentTokens = [];
 
-    const variants = rawRespellingStr.split('|').map(v => v.trim()).filter(Boolean);
+    if (rawRespellingStr == null || rawRespellingStr === undefined) rawRespellingStr = '';
+    const variants = String(rawRespellingStr).split('|').map(v => v.trim()).filter(Boolean);
+    if (variants.length === 0) {
+      container.textContent = '';
+      return;
+    }
     let chosenVariantIndex = 0;
     if (currentRegion === 'German' && variants.length > 1) {
       const hasConsonants = (str) => {
