@@ -9,7 +9,7 @@ German improved loanword support
 
 # Plans (✅ = done)
 
-Create Mandarin Chinese, Japanese.
+Create Mandarin Chinese, Japanese. Japanese in progress about the controversy of some transcriptions wip
 
 "œ̃" vs "ɛ̃" distinctions in French preferences, because many Parisian speakers have merged them, making "brin" and "brun" homophones, but this is retained in Southern France, Canada, Belgium etc. ✅ added note
 
