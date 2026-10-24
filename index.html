@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -101,20 +101,15 @@
       font-size: 32px; display: flex; align-items: center; flex-wrap: wrap;
       gap: 2px; line-height: 1.5;
     }
-    .vowel-pill {
-      background-color: var(--vowel-bg); color: var(--vowel-text);
-      padding: 2px 8px; border-radius: 8px; font-weight: 600;
-      display: inline-block; margin: 0 2px;
-      transition: background-color 0.15s ease, color 0.15s ease;
+    /* Pills removed for every language — plain inline text only */
+    .vowel-pill, .vowel-pill-stressed {
+      background: transparent; color: inherit;
+      padding: 0; border-radius: 0; font-weight: inherit;
+      display: inline; margin: 0;
     }
-    .vowel-pill.active { background-color: var(--primary); color: #ffffff; }
-    .vowel-pill-stressed {
-      background-color: var(--vowel-stressed-bg); color: var(--vowel-stressed-text);
-      padding: 2px 8px; border-radius: 8px; font-weight: 700;
-      display: inline-block; margin: 0 2px;
-      transition: background-color 0.15s ease, color 0.15s ease;
+    .vowel-pill.active, .vowel-pill-stressed.active {
+      background: transparent; color: inherit;
     }
-    .vowel-pill-stressed.active { background-color: #0d47a1; color: #ffffff; }
     .consonant-text {
       background: transparent; color: var(--text); padding: 0 2px;
       font-weight: 600; font-size: 32px; display: inline-block;
@@ -862,322 +857,397 @@
   /* ========== Phoneme Reference Generator with i18n Headers ========== */
   function getPhonemeReferencesHTML(region) {
     const t = translations[currentUILang] || translations.US;
+    const th = (a,b,c) => `<tr><th>${a}</th><th>${b}</th><th>${c}</th></tr>`;
+    const row = (a,b,c) => `<tr><td>${a}</td><td>${b}</td><td>${c}</td></tr>`;
+
     if (region === 'US') {
       return `
-        <div class="phoneme-section-title">${t.vowels} (A–Z)</div>
+        <div class="phoneme-section-title">${t.vowels}</div>
         <table class="phoneme-table">
-          <tr><th>${t.ipa}</th><th>${t.respelling}</th><th>${t.example}</th></tr>
-          <tr><td>ɑː</td><td>aa</td><td>father</td></tr>
-          <tr><td>æ</td><td>a</td><td>cat</td></tr>
-          <tr><td>aɪ</td><td>igh</td><td>high</td></tr>
-          <tr><td>aʊ</td><td>ow</td><td>now</td></tr>
-          <tr><td>ɛ</td><td>e</td><td>bed</td></tr>
-          <tr><td>eɪ</td><td>ay</td><td>day</td></tr>
-          <tr><td>ɜː</td><td>ur</td><td>nurse</td></tr>
-          <tr><td>iː / i</td><td>ee</td><td>feet / happy</td></tr>
-          <tr><td>ɪ</td><td>i</td><td>bit</td></tr>
-          <tr><td>ɔː</td><td>aw</td><td>law</td></tr>
-          <tr><td>ɔɪ</td><td>oy</td><td>boy</td></tr>
-          <tr><td>oʊ / əʊ</td><td>oh</td><td>go</td></tr>
-          <tr><td>ʊ</td><td>uu</td><td>book</td></tr>
-          <tr><td>uː</td><td>oo</td><td>too</td></tr>
-          <tr><td>ʌ / ə / ɐ</td><td>uh</td><td>cup / about</td></tr>
+          ${th(t.ipa, t.respelling, t.example)}
+          ${row('ɑː','aa','father')}
+          ${row('æ','a','cat')}
+          ${row('aɪ','igh','high')}
+          ${row('aʊ','au','now')}
+          ${row('ɛ','e','bed')}
+          ${row('eɪ','ay','day')}
+          ${row('ɜː / ɝ','ur','nurse')}
+          ${row('iː','ee','feet')}
+          ${row('i','ee','happy')}
+          ${row('ɪ','i','bit')}
+          ${row('ɔː','aw','law')}
+          ${row('ɔɪ','oy','boy')}
+          ${row('oʊ','oh','go')}
+          ${row('ʊ','uu','book')}
+          ${row('uː','oo','too')}
+          ${row('ʌ','uh','cup')}
+          ${row('ə','uh','about')}
+          ${row('ɚ','er','letter')}
+          ${row('ɛər','air','bear')}
+          ${row('ɑːr','ar','start')}
+          ${row('ær','arr','marry')}
+          ${row('ɪər','eer','near')}
+          ${row('aɪər','ire','fire')}
+          ${row('ʊər','oor','poor')}
+          ${row('ɔːr','or','horse')}
+          ${row('aʊər','our','hour')}
+          ${row('juː','ew','cute')}
         </table>
-        <div class="phoneme-section-title">${t.consonants} (A–Z)</div>
+        <div class="phoneme-section-title">${t.consonants}</div>
         <table class="phoneme-table">
-          <tr><th>${t.ipa}</th><th>${t.respelling}</th><th>${t.example}</th></tr>
-          <tr><td>b</td><td>b</td><td>bad</td></tr>
-          <tr><td>d</td><td>d</td><td>dog</td></tr>
-          <tr><td>ð</td><td>dh</td><td>this</td></tr>
-          <tr><td>dʒ</td><td>j</td><td>joy</td></tr>
-          <tr><td>f</td><td>f</td><td>fox</td></tr>
-          <tr><td>ɡ</td><td>g</td><td>go</td></tr>
-          <tr><td>h</td><td>h</td><td>hat</td></tr>
-          <tr><td>hw</td><td>hw</td><td>whine</td></tr>
-          <tr><td>j</td><td>y</td><td>yes</td></tr>
-          <tr><td>k</td><td>k</td><td>kit</td></tr>
-          <tr><td>l</td><td>l</td><td>lip</td></tr>
-          <tr><td>m</td><td>m</td><td>man</td></tr>
-          <tr><td>n</td><td>n</td><td>net</td></tr>
-          <tr><td>ŋ</td><td>ng</td><td>sing</td></tr>
-          <tr><td>p</td><td>p</td><td>pen</td></tr>
-          <tr><td>ɹ</td><td>r</td><td>run</td></tr>
-          <tr><td>s</td><td>s</td><td>sun</td></tr>
-          <tr><td>ʃ</td><td>sh</td><td>ship</td></tr>
-          <tr><td>t</td><td>t</td><td>top</td></tr>
-          <tr><td>tʃ</td><td>ch</td><td>chat</td></tr>
-          <tr><td>θ</td><td>th</td><td>think</td></tr>
-          <tr><td>v</td><td>v</td><td>van</td></tr>
-          <tr><td>w</td><td>w</td><td>win</td></tr>
-          <tr><td>z</td><td>z</td><td>zoo</td></tr>
-          <tr><td>ʒ</td><td>zh</td><td>vision</td></tr>
+          ${th(t.ipa, t.respelling, t.example)}
+          ${row('b','b','bad')}
+          ${row('d','d','dog')}
+          ${row('ð','dh','this')}
+          ${row('dʒ','j','joy')}
+          ${row('f','f','fox')}
+          ${row('ɡ','g','go')}
+          ${row('h','h','hat')}
+          ${row('hw','wh','whine')}
+          ${row('j','y','yes')}
+          ${row('k','k','kit')}
+          ${row('l','l','lip')}
+          ${row('m','m','man')}
+          ${row('n','n','net')}
+          ${row('ŋ','ng','sing')}
+          ${row('p','p','pen')}
+          ${row('ɹ','r','run')}
+          ${row('s','s','sun')}
+          ${row('ʃ','sh','ship')}
+          ${row('t','t','top')}
+          ${row('tʃ','ch','chip')}
+          ${row('θ','th','thin')}
+          ${row('v','v','van')}
+          ${row('w','w','wet')}
+          ${row('z','z','zoo')}
+          ${row('ʒ','zh','measure')}
+          ${row('x','kh','loch')}
+          ${row('ʔ',"'",'uh-oh')}
         </table>
       `;
     } else if (region === 'UK') {
       return `
-        <div class="phoneme-section-title">${t.vowels} (A–Z)</div>
+        <div class="phoneme-section-title">${t.vowels}</div>
         <table class="phoneme-table">
-          <tr><th>${t.ipa}</th><th>${t.respelling}</th><th>${t.example}</th></tr>
-          <tr><td>ɑː</td><td>aa</td><td>father</td></tr>
-          <tr><td>æ</td><td>a</td><td>cat</td></tr>
-          <tr><td>aɪ</td><td>igh</td><td>high</td></tr>
-          <tr><td>aʊ</td><td>ow</td><td>now</td></tr>
-          <tr><td>ɒ</td><td>o</td><td>lot</td></tr>
-          <tr><td>ɛ</td><td>e</td><td>bed</td></tr>
-          <tr><td>eə</td><td>air</td><td>square</td></tr>
-          <tr><td>eɪ</td><td>ay</td><td>day</td></tr>
-          <tr><td>ɜː</td><td>ur</td><td>nurse</td></tr>
-          <tr><td>əʊ</td><td>oh</td><td>go</td></tr>
-          <tr><td>iː / i</td><td>ee</td><td>feet / happy</td></tr>
-          <tr><td>ɪ</td><td>i</td><td>bit</td></tr>
-          <tr><td>ɪə</td><td>eer</td><td>near</td></tr>
-          <tr><td>ɔː</td><td>aw</td><td>thought</td></tr>
-          <tr><td>ɔɪ</td><td>oy</td><td>boy</td></tr>
-          <tr><td>ʊ</td><td>uu</td><td>book</td></tr>
-          <tr><td>uː</td><td>oo</td><td>too</td></tr>
-          <tr><td>ʌ / ə / ɐ</td><td>uh</td><td>cup / about</td></tr>
+          ${th(t.ipa, t.respelling, t.example)}
+          ${row('ɑː','aa','father')}
+          ${row('æ','a','cat')}
+          ${row('aɪ','igh','high')}
+          ${row('aʊ','au','now')}
+          ${row('ɛ','e','bed')}
+          ${row('eɪ','ay','day')}
+          ${row('ɜː','ur','nurse')}
+          ${row('iː','ee','feet')}
+          ${row('i','ee','happy')}
+          ${row('ɪ','i','bit')}
+          ${row('ɒ','o','lot')}
+          ${row('ɔː','aw','law')}
+          ${row('ɔɪ','oy','boy')}
+          ${row('əʊ','oh','go')}
+          ${row('ʊ','uu','book')}
+          ${row('uː','oo','too')}
+          ${row('ʌ','uh','cup')}
+          ${row('ə','uh','about')}
+          ${row('eə','air','square')}
+          ${row('ɪə','eer','near')}
+          ${row('ʊə','oor','poor')}
         </table>
-        <div class="phoneme-section-title">${t.consonants} (A–Z)</div>
+        <div class="phoneme-section-title">${t.consonants}</div>
         <table class="phoneme-table">
-          <tr><th>${t.ipa}</th><th>${t.respelling}</th><th>${t.example}</th></tr>
-          <tr><td>b</td><td>b</td><td>bad</td></tr>
-          <tr><td>d</td><td>d</td><td>dog</td></tr>
-          <tr><td>ð</td><td>dh</td><td>this</td></tr>
-          <tr><td>dʒ</td><td>j</td><td>joy</td></tr>
-          <tr><td>f</td><td>f</td><td>fox</td></tr>
-          <tr><td>ɡ</td><td>g</td><td>go</td></tr>
-          <tr><td>h</td><td>h</td><td>hat</td></tr>
-          <tr><td>j</td><td>y</td><td>yes</td></tr>
-          <tr><td>k</td><td>k</td><td>kit</td></tr>
-          <tr><td>l</td><td>l</td><td>lip</td></tr>
-          <tr><td>m</td><td>m</td><td>man</td></tr>
-          <tr><td>n</td><td>n</td><td>net</td></tr>
-          <tr><td>ŋ</td><td>ng</td><td>sing</td></tr>
-          <tr><td>p</td><td>p</td><td>pen</td></tr>
-          <tr><td>ɹ</td><td>r</td><td>run</td></tr>
-          <tr><td>s</td><td>s</td><td>sun</td></tr>
-          <tr><td>ʃ</td><td>sh</td><td>ship</td></tr>
-          <tr><td>t</td><td>t</td><td>top</td></tr>
-          <tr><td>tʃ</td><td>ch</td><td>chat</td></tr>
-          <tr><td>θ</td><td>th</td><td>think</td></tr>
-          <tr><td>v</td><td>v</td><td>van</td></tr>
-          <tr><td>w</td><td>w</td><td>win</td></tr>
-          <tr><td>x</td><td>kh</td><td>loch</td></tr>
-          <tr><td>z</td><td>z</td><td>zoo</td></tr>
-          <tr><td>ʒ</td><td>zh</td><td>vision</td></tr>
+          ${th(t.ipa, t.respelling, t.example)}
+          ${row('b','b','bad')}
+          ${row('d','d','dog')}
+          ${row('ð','dh','this')}
+          ${row('dʒ','j','joy')}
+          ${row('f','f','fox')}
+          ${row('ɡ','g','go')}
+          ${row('h','h','hat')}
+          ${row('j','y','yes')}
+          ${row('k','k','kit')}
+          ${row('l','l','lip')}
+          ${row('m','m','man')}
+          ${row('n','n','net')}
+          ${row('ŋ','ng','sing')}
+          ${row('p','p','pen')}
+          ${row('ɹ / r','r','run')}
+          ${row('s','s','sun')}
+          ${row('ʃ','sh','ship')}
+          ${row('t','t','top')}
+          ${row('tʃ','ch','chip')}
+          ${row('θ','th','thin')}
+          ${row('v','v','van')}
+          ${row('w','w','wet')}
+          ${row('z','z','zoo')}
+          ${row('ʒ','zh','measure')}
+          ${row('x','kh','loch')}
+          ${row('ʔ',"'",'glottal')}
         </table>
       `;
     } else if (region === 'French') {
       return `
-        <div class="phoneme-section-title">French ${t.vowels} (A–Z)</div>
+        <div class="phoneme-section-title">${t.vowels}</div>
         <table class="phoneme-table">
-          <tr><th>${t.respelling}</th><th>${t.ipa}</th><th>${t.example}</th></tr>
-          <tr><td>a</td><td>a</td><td>patte</td></tr>
-          <tr><td>ah</td><td>ɑ</td><td>pâte</td></tr>
-          <tr><td>aⁿ</td><td>ɑ̃</td><td>sans</td></tr>
-          <tr><td>aw</td><td>ɔ</td><td>sort (open o)</td></tr>
-          <tr><td>e</td><td>ɛ</td><td>baie / lait</td></tr>
-          <tr><td>ey</td><td>e</td><td>clé</td></tr>
-          <tr><td>eⁿ</td><td>ɛ̃</td><td>vin</td></tr>
-          <tr><td>ə</td><td>ə</td><td>le (schwa)</td></tr>
-          <tr><td>i</td><td>i</td><td>si</td></tr>
-          <tr><td>o</td><td>o</td><td>saut (closed o)</td></tr>
-          <tr><td>oⁿ</td><td>ɔ̃</td><td>bon</td></tr>
-          <tr><td>ö</td><td>œ</td><td>sœur (lax + C)</td></tr>
-          <tr><td>öh</td><td>ø</td><td>peu (tense)</td></tr>
-          <tr><td>u</td><td>u</td><td>coup</td></tr>
-          <tr><td>ü</td><td>y</td><td>tu</td></tr>
-          <tr><td>uhⁿ</td><td>œ̃</td><td>brun</td></tr>
+          ${th(t.respelling, t.ipa, t.example)}
+          ${row('i','/i/','si')}
+          ${row('ey','/e/','clé')}
+          ${row('e','/ɛ/','baie')}
+          ${row('a','/a/','patte')}
+          ${row('ah','/ɑ/','pâte')}
+          ${row('o','/o/','saut')}
+          ${row('aw','/ɔ/','sort')}
+          ${row('u','/u/','coup')}
+          ${row('ü','/y/','tu')}
+          ${row('öh','/ø/','peu')}
+          ${row('ö','/œ/','sœur')}
+          ${row('ə','/ə/','(e) caduc')}
+          ${row('aⁿ','/ɑ̃/','sans')}
+          ${row('eⁿ','/ɛ̃/','vin')}
+          ${row('oⁿ','/ɔ̃/','bon')}
+          ${row('uhⁿ','/œ̃/','brun')}
         </table>
-        <div class="phoneme-section-title">French ${t.consonants} &amp; Glides (A–Z)</div>
+        <div class="phoneme-section-title">${t.consonants}</div>
         <table class="phoneme-table">
-          <tr><th>${t.respelling}</th><th>${t.ipa}</th><th>${t.example}</th></tr>
-          <tr><td>b d f k l m n p s t v z</td><td>same</td><td>—</td></tr>
-          <tr><td>g</td><td>ɡ</td><td>garçon</td></tr>
-          <tr><td>gn</td><td>ɲ</td><td>oignon</td></tr>
-          <tr><td>ng</td><td>ŋ</td><td>parking (loan)</td></tr>
-          <tr><td>r</td><td>ʁ</td><td>regarder</td></tr>
-          <tr><td>sh</td><td>ʃ</td><td>chance</td></tr>
-          <tr><td>zh</td><td>ʒ</td><td>jamais</td></tr>
-          <tr><td>y</td><td>j</td><td>yes-like glide</td></tr>
-          <tr><td>w</td><td>w</td><td>oui</td></tr>
-          <tr><td>ẅ</td><td>ɥ</td><td>huit / nuit</td></tr>
-        </table>
-        <div class="phoneme-section-title">Syllables</div>
-        <table class="phoneme-table">
-          <tr><th>Mark</th><th>Meaning</th></tr>
-          <tr><td>hyphen -</td><td>Syllable boundary only (not phoneme split)</td></tr>
-          <tr><td>No pills</td><td>Plain text syllables for readability</td></tr>
+          ${th(t.respelling, t.ipa, t.example)}
+          ${row('b','/b/','bon')}
+          ${row('d','/d/','deux')}
+          ${row('f','/f/','faire')}
+          ${row('g','/ɡ/','garçon')}
+          ${row('k','/k/','corps')}
+          ${row('l','/l/','laisser')}
+          ${row('m','/m/','même')}
+          ${row('n','/n/','nous')}
+          ${row('gn','/ɲ/','gagner')}
+          ${row('ng','/ŋ/','parking')}
+          ${row('p','/p/','père')}
+          ${row('r','/ʁ/','regarder')}
+          ${row('s','/s/','sans')}
+          ${row('sh','/ʃ/','chance')}
+          ${row('t','/t/','tout')}
+          ${row('v','/v/','vous')}
+          ${row('z','/z/','zéro')}
+          ${row('zh','/ʒ/','jamais')}
+          ${row('y','/j/','yeux')}
+          ${row('w','/w/','oui')}
+          ${row('ẅ','/ɥ/','huit')}
         </table>
       `;
     } else if (region === 'German') {
       return `
-        <div class="phoneme-section-title">German ${t.vowels} (A–Z)</div>
+        <div class="phoneme-section-title">${t.vowels}</div>
         <table class="phoneme-table">
-          <tr><th>Glyph</th><th>${t.ipa}</th><th>${t.example}</th></tr>
-          <tr><td>a</td><td>a</td><td>alles</td></tr>
-          <tr><td>aa</td><td>aː</td><td>aber</td></tr>
-          <tr><td>aaⁿ</td><td>ɑ̃</td><td>Restaurant</td></tr>
-          <tr><td>au</td><td>aʊ</td><td>auf</td></tr>
-          <tr><td>aw</td><td>ɔ</td><td>kommen</td></tr>
-          <tr><td>e</td><td>ɛ</td><td>Ende</td></tr>
-          <tr><td>eh</td><td>ɛː</td><td>spät</td></tr>
-          <tr><td>ey</td><td>eː</td><td>eben</td></tr>
-          <tr><td>ə</td><td>ə</td><td>Name</td></tr>
-          <tr><td>i</td><td>ɪ</td><td>ist</td></tr>
-          <tr><td>iy</td><td>iː</td><td>Liebe</td></tr>
-          <tr><td>igh</td><td>aɪ</td><td>ein</td></tr>
-          <tr><td>oh</td><td>oː</td><td>oder</td></tr>
-          <tr><td>oy</td><td>ɔʏ</td><td>Euro</td></tr>
-          <tr><td>ö</td><td>œ</td><td>Köln</td></tr>
-          <tr><td>öh</td><td>øː</td><td>Österreich</td></tr>
-          <tr><td>uu</td><td>ʊ</td><td>und</td></tr>
-          <tr><td>uw</td><td>uː</td><td>Hut</td></tr>
-          <tr><td>ü</td><td>ʏ</td><td>fünf</td></tr>
-          <tr><td>üh</td><td>yː</td><td>über</td></tr>
-          <tr><td><em>r</em></td><td>ɐ</td><td>immer (italic)</td></tr>
+          ${th(t.respelling, t.ipa, t.example)}
+          ${row('a','/a/','alles')}
+          ${row('aa','/aː/','aber')}
+          ${row('e','/ɛ/','Ende')}
+          ${row('eh','/ɛː/','spät')}
+          ${row('ey','/eː/','eben')}
+          ${row('i','/ɪ/','ist')}
+          ${row('iy','/iː/','Liebe')}
+          ${row('igh','/aɪ/','ein')}
+          ${row('oh','/oː/','oder')}
+          ${row('aw','/ɔ/','kommen')}
+          ${row('öh','/øː/','Österreich')}
+          ${row('ö','/œ/','Köln')}
+          ${row('uu','/ʊ/','und')}
+          ${row('uw','/uː/','Hut')}
+          ${row('ü','/ʏ/','fünf')}
+          ${row('üh','/yː/','über')}
+          ${row('au','/aʊ/','auf')}
+          ${row('oy','/ɔʏ/','Euro')}
+          ${row('ə','/ə/','Name')}
+          ${row('aaⁿ','/ɑ̃/','Restaurant')}
         </table>
-        <div class="phoneme-section-title">German ${t.consonants} (A–Z)</div>
+        <div class="phoneme-section-title">${t.consonants}</div>
         <table class="phoneme-table">
-          <tr><th>Glyph</th><th>${t.ipa}</th><th>${t.example}</th></tr>
-          <tr><td>b</td><td>b</td><td>bei</td></tr>
-          <tr><td>ch</td><td>tʃ</td><td>Matsch</td></tr>
-          <tr><td><em>ch</em></td><td>ç</td><td>ich (italic)</td></tr>
-          <tr><td>d</td><td>d</td><td>dann</td></tr>
-          <tr><td>f</td><td>f</td><td>für</td></tr>
-          <tr><td>g</td><td>ɡ</td><td>gut</td></tr>
-          <tr><td>h</td><td>h</td><td>hat</td></tr>
-          <tr><td>j</td><td>dʒ</td><td>Jeff (loan)</td></tr>
-          <tr><td>k</td><td>k</td><td>kann</td></tr>
-          <tr><td>kh</td><td>x</td><td>nach</td></tr>
-          <tr><td>l / əl</td><td>l / l̩</td><td>leben / Mantel</td></tr>
-          <tr><td>m / əm</td><td>m / m̩</td><td>Mann / großem</td></tr>
-          <tr><td>n / ən</td><td>n / n̩</td><td>Name / beiden</td></tr>
-          <tr><td>ng</td><td>ŋ</td><td>lang</td></tr>
-          <tr><td>p / pf</td><td>p / pf</td><td>Person / Pfeffer</td></tr>
-          <tr><td>r</td><td>ʁ</td><td>reden</td></tr>
-          <tr><td>s / sh / ts</td><td>s / ʃ / ts</td><td>lassen / schon / Zeit</td></tr>
-          <tr><td>t</td><td>t</td><td>Tag</td></tr>
-          <tr><td>v</td><td>v</td><td>was</td></tr>
-          <tr><td>w</td><td>w</td><td>Whiskey (loan)</td></tr>
-          <tr><td>y</td><td>j</td><td>Jahr</td></tr>
-          <tr><td>z / zh</td><td>z / ʒ</td><td>Sie / Genie</td></tr>
-        </table>
-        <div class="phoneme-section-title">Syllables / stress</div>
-        <table class="phoneme-table">
-          <tr><th>Mark</th><th>Meaning</th></tr>
-          <tr><td>hyphen -</td><td>Syllable boundary</td></tr>
-          <tr><td>dot .</td><td>Glottal-stop boundary</td></tr>
-          <tr><td>weight 700 / 300</td><td>Stressed / unstressed (no prime, no markdown, no pills)</td></tr>
+          ${th(t.respelling, t.ipa, t.example)}
+          ${row('b','/b/','bei')}
+          ${row('ch','/tʃ/','Matsch')}
+          ${row('<em>ch</em>','/ç/','ich')}
+          ${row('d','/d/','dann')}
+          ${row('f','/f/','für')}
+          ${row('g','/ɡ/','gut')}
+          ${row('h','/h/','hat')}
+          ${row('y','/j/','Jahr')}
+          ${row('k','/k/','kann')}
+          ${row('kh','/x/','nach')}
+          ${row('l','/l/','leben')}
+          ${row('əl','/l̩/','Mantel')}
+          ${row('m','/m/','Mann')}
+          ${row('əm','/m̩/','großem')}
+          ${row('n','/n/','Name')}
+          ${row('ən','/n̩/','beiden')}
+          ${row('ng','/ŋ/','lang')}
+          ${row('p','/p/','Person')}
+          ${row('pf','/pf/','Pfeffer')}
+          ${row('r','/ʁ/','reden')}
+          ${row('<em>r</em>','/ɐ/','immer (vocalic)')}
+          ${row('s','/s/','lassen')}
+          ${row('sh','/ʃ/','schon')}
+          ${row('t','/t/','Tag')}
+          ${row('ts','/ts/','Zeit')}
+          ${row('v','/v/','was')}
+          ${row('z','/z/','Sie')}
+          ${row('j','/dʒ/','Jeff (loan)')}
+          ${row('w','/w/','Whiskey (loan)')}
+          ${row('zh','/ʒ/','Genie (loan)')}
+          ${row('.','ʔ','glottal break')}
         </table>
       `;
     } else if (region === 'Spanish') {
       return `
-        <div class="phoneme-section-title">Spanish ${t.vowels} (A–Z)</div>
+        <div class="phoneme-section-title">${t.vowels}</div>
         <table class="phoneme-table">
-          <tr><th>Glyph</th><th>${t.ipa}</th><th>${t.example}</th></tr>
-          <tr><td>a</td><td>a</td><td>paso</td></tr>
-          <tr><td>e</td><td>e</td><td>peso</td></tr>
-          <tr><td>i</td><td>i</td><td>piso</td></tr>
-          <tr><td>o</td><td>o</td><td>poso</td></tr>
-          <tr><td>u</td><td>u</td><td>puso</td></tr>
-          <tr><td>y / w</td><td>j / w</td><td>cielo / cuadro (glides)</td></tr>
+          ${th(t.respelling, t.ipa, t.example)}
+          ${row('a','/a/','paso')}
+          ${row('e','/e/','peso')}
+          ${row('i','/i/','piso')}
+          ${row('o','/o/','poso')}
+          ${row('u','/u/','puso')}
+          ${row('y','/j/','cielo (glide)')}
+          ${row('w','/w/','cuadro (glide)')}
         </table>
-        <div class="phoneme-section-title">Spanish ${t.consonants} (A–Z)</div>
+        <div class="phoneme-section-title">${t.consonants}</div>
         <table class="phoneme-table">
-          <tr><th>Glyph</th><th>${t.ipa}</th><th>${t.example}</th></tr>
-          <tr><td>b / <em>b</em></td><td>b / β</td><td>bebé (hard / soft)</td></tr>
-          <tr><td>ch</td><td>tʃ</td><td>chico</td></tr>
-          <tr><td>d / dh</td><td>d / ð</td><td>dedo (hard / soft)</td></tr>
-          <tr><td>f</td><td>f</td><td>faro</td></tr>
-          <tr><td>g / gh</td><td>g / ɣ</td><td>galgo / haga</td></tr>
-          <tr><td><em>h</em></td><td>x</td><td>jarra (loch)</td></tr>
-          <tr><td>k</td><td>k</td><td>caso</td></tr>
-          <tr><td>l</td><td>l</td><td>luna</td></tr>
-          <tr><td>m / n / ng</td><td>m / n / ŋ</td><td>meta / ni / tengo</td></tr>
-          <tr><td><em>ny</em></td><td>ɲ</td><td>ñu</td></tr>
-          <tr><td>p / t</td><td>p / t</td><td>pato / tamiz</td></tr>
-          <tr><td>rr / r</td><td>r / ɾ</td><td>río (rolled) / brío (flap)</td></tr>
-          <tr><td>s / sh / th</td><td>s / ʃ / θ</td><td>saco / show / cera</td></tr>
-          <tr><td>y / <em>y</em></td><td>ʎ / ʝ</td><td>lluvia / ya</td></tr>
-        </table>
-        <div class="phoneme-section-title">Stress / syllables</div>
-        <table class="phoneme-table">
-          <tr><td>weight 700 / 300</td><td>Stressed / unstressed (IPA ˈ or RAE rules)</td></tr>
-          <tr><td>hyphen -</td><td>Spanish syllable boundary</td></tr>
+          ${th(t.respelling, t.ipa, t.example)}
+          ${row('b','/b/','bebé (stop)')}
+          ${row('<em>b</em>','/β/','bebé (soft)')}
+          ${row('ch','/tʃ/','chico')}
+          ${row('d','/d/','dedo (stop)')}
+          ${row('dh','/ð/','dedo (soft)')}
+          ${row('f','/f/','faro')}
+          ${row('g','/ɡ/','galgo')}
+          ${row('gh','/ɣ/','haga')}
+          ${row('<em>h</em>','/x/','jarra')}
+          ${row('k','/k/','caso')}
+          ${row('l','/l/','luna')}
+          ${row('m','/m/','meta')}
+          ${row('n','/n/','ni')}
+          ${row('<em>ny</em>','/ɲ/','ñu')}
+          ${row('ng','/ŋ/','tengo')}
+          ${row('p','/p/','pato')}
+          ${row('r','/ɾ/','pero (tap)')}
+          ${row('rr','/r/','perro (trill)')}
+          ${row('s','/s/','saco')}
+          ${row('sh','/ʃ/','show (loan)')}
+          ${row('t','/t/','tamiz')}
+          ${row('th','/θ/','cera (N. Spain)')}
+          ${row('y','/ʎ/','lluvia')}
+          ${row('<em>y</em>','/ʝ/','ya')}
         </table>
       `;
     } else if (region === 'Cantonese') {
       return `
-        <div class="phoneme-section-title">Cantonese ${t.initials} (A–Z)</div>
+        <div class="phoneme-section-title">Cantonese ${t.initials || 'initials'}</div>
         <table class="phoneme-table">
-          <tr><th>${t.respelling}</th><th>${t.ipa}</th><th>${t.note}</th></tr>
-          <tr><td>b</td><td>p</td><td>unaspirated</td></tr>
-          <tr><td>p</td><td>pʰ</td><td>aspirated</td></tr>
-          <tr><td>m</td><td>m</td><td>labial nasal</td></tr>
-          <tr><td>f</td><td>f</td><td>labiodental</td></tr>
-          <tr><td>d</td><td>t</td><td>unaspirated</td></tr>
-          <tr><td>t</td><td>tʰ</td><td>aspirated</td></tr>
-          <tr><td>n</td><td>n</td><td>alveolar nasal</td></tr>
-          <tr><td>l</td><td>l</td><td>lateral</td></tr>
-          <tr><td>g</td><td>k</td><td>unaspirated</td></tr>
-          <tr><td>k</td><td>kʰ</td><td>aspirated</td></tr>
-          <tr><td>ng</td><td>ŋ</td><td>velar nasal</td></tr>
-          <tr><td>h</td><td>h</td><td>glottal</td></tr>
-          <tr><td>gw</td><td>kʷ</td><td>labialized g</td></tr>
-          <tr><td>kw</td><td>kʷʰ</td><td>labialized k</td></tr>
-          <tr><td>w</td><td>w</td><td>labial glide</td></tr>
-          <tr><td>dz</td><td>ts</td><td>unaspirated affricate</td></tr>
-          <tr><td>ts</td><td>tsʰ</td><td>aspirated affricate</td></tr>
-          <tr><td>s</td><td>s</td><td>fricative</td></tr>
-          <tr><td>y</td><td>j</td><td>palatal glide</td></tr>
+          ${th(t.respelling, t.ipa, t.note || t.example)}
+          ${row('b','p','unaspirated')}
+          ${row('p','pʰ','aspirated')}
+          ${row('m','m','labial nasal')}
+          ${row('f','f','labiodental')}
+          ${row('d','t','unaspirated')}
+          ${row('t','tʰ','aspirated')}
+          ${row('n','n','alveolar nasal')}
+          ${row('l','l','lateral')}
+          ${row('g','k','unaspirated')}
+          ${row('k','kʰ','aspirated')}
+          ${row('ng','ŋ','velar nasal')}
+          ${row('h','h','glottal')}
+          ${row('gw','kʷ','labialized')}
+          ${row('kw','kʷʰ','labialized aspirated')}
+          ${row('w','w','labial glide')}
+          ${row('dz','ts','unaspirated affricate')}
+          ${row('ts','tsʰ','aspirated affricate')}
+          ${row('s','s','fricative')}
+          ${row('y','j','palatal glide')}
         </table>
-        <div class="phoneme-section-title">Cantonese ${t.finals} (A–Z)</div>
+        <div class="phoneme-section-title">Cantonese ${t.finals || 'finals'}</div>
         <table class="phoneme-table">
-          <tr><th>${t.respelling}</th><th>${t.ipa}</th><th>${t.example}</th></tr>
-          <tr><td>ā / a</td><td>aː / ɐ</td><td>巴 / 百</td></tr>
-          <tr><td>āi / ai</td><td>aːi / ɐi</td><td>擺 / 矮</td></tr>
-          <tr><td>āu / au</td><td>aːu / ɐu</td><td>包 / 歐</td></tr>
-          <tr><td>e / ei</td><td>ɛː / ei</td><td>輋 / 避</td></tr>
-          <tr><td>i</td><td>iː / i</td><td>詩</td></tr>
-          <tr><td>o / oi / ou</td><td>ɔː / ɔːi / ou</td><td>波 / 海 / 澳</td></tr>
-          <tr><td>ö / øi</td><td>œː / ɵy</td><td>靴 / 居</td></tr>
-          <tr><td>u / ui</td><td>uː / ui</td><td>夫 / 灰</td></tr>
-          <tr><td>ü</td><td>yː / y</td><td>書</td></tr>
+          ${th(t.respelling, t.ipa, t.example)}
+          ${row('ā','aː','long a')}
+          ${row('a','ɐ','short a')}
+          ${row('āi','aːi','')}
+          ${row('ai','ɐi','')}
+          ${row('āu','aːu','')}
+          ${row('au','ɐu','')}
+          ${row('e','ɛː','')}
+          ${row('ei','ei','')}
+          ${row('i','iː / i','')}
+          ${row('o','ɔː','')}
+          ${row('oi','ɔːi','')}
+          ${row('ou','ou','')}
+          ${row('ö','œː','')}
+          ${row('øi','ɵy','')}
+          ${row('u','uː / u','')}
+          ${row('ui','ui','')}
+          ${row('ü','yː / y','')}
+          ${row("ʹm",'m̩','syllabic')}
+          ${row("ʹng",'ŋ̩','syllabic')}
         </table>
-        <div class="phoneme-section-title">Cantonese ${t.tones} (1-6)</div>
+        <div class="phoneme-section-title">Cantonese ${t.tones || 'tones'}</div>
         <table class="phoneme-table">
-          <tr><th>Mark</th><th>Contour</th><th>Description</th></tr>
-          <tr><td>¹</td><td>˥ (55/51)</td><td>High Level / Falling (陰平)</td></tr>
-          <tr><td>²</td><td>˧˥ (35)</td><td>High Rising (陰上)</td></tr>
-          <tr><td>³</td><td>˧ (33)</td><td>Mid Level (陰去)</td></tr>
-          <tr><td>⁴</td><td>˨˩ (11/21)</td><td>Low Falling (陽平)</td></tr>
-          <tr><td>⁵</td><td>˨˧ (23)</td><td>Low Rising (陽上)</td></tr>
-          <tr><td>⁶</td><td>˨ (22)</td><td>Low Level (陽去)</td></tr>
+          ${th('Mark', 'Contour', 'Description')}
+          ${row('¹','˥','High level / falling')}
+          ${row('²','˧˥','High rising')}
+          ${row('³','˧','Mid level')}
+          ${row('⁴','˨˩','Low falling')}
+          ${row('⁵','˨˧','Low rising')}
+          ${row('⁶','˨','Low level')}
         </table>
       `;
     } else if (region === 'Japanese') {
       return `
-        <div class="phoneme-section-title">Japanese (romaji-style)</div>
+        <div class="phoneme-section-title">Japanese vowels</div>
         <table class="phoneme-table">
-          <tr><th>Glyph</th><th>IPA</th><th>Note</th></tr>
-          <tr><td>a i u e o</td><td>a i ɯ e o</td><td>pure vowels</td></tr>
-          <tr><td>ā ī ū ē ō</td><td>long</td><td>macron (ou/oɯ → ō)</td></tr>
-          <tr><td>k g s z t d n h b p m y r w</td><td>—</td><td>z not dz</td></tr>
-          <tr><td>sh ch j</td><td>ɕ tɕ ʑ</td><td>palatals</td></tr>
-          <tr><td>ky gy …</td><td>Cʲ</td><td>no ʲ mark</td></tr>
-          <tr><td>n coda</td><td>ɴ ɰ̃</td><td>kon- not ko-n-</td></tr>
-          <tr><td>f r</td><td>ɸ ɾ</td><td>f before u; tap r</td></tr>
+          ${th('Glyph', 'IPA', 'Note')}
+          ${row('a','a','pure')}
+          ${row('i','i','pure')}
+          ${row('u','ɯ / u','unrounded')}
+          ${row('e','e','pure')}
+          ${row('o','o','pure')}
+          ${row('ā','aː','long')}
+          ${row('ī','iː','long')}
+          ${row('ū','uː / uu','long')}
+          ${row('ē','eː / ei','long')}
+          ${row('ō','oː / ou / oɯ','long')}
         </table>
-        <p style="font-size:13px;color:var(--text-muted);margin-top:8px;">
-          Hyphens = mora groups. ̚ unused. Font: Noto Sans + Noto Sans JP.
-        </p>
+        <div class="phoneme-section-title">Japanese consonants</div>
+        <table class="phoneme-table">
+          ${th('Glyph', 'IPA', 'Note')}
+          ${row('k','k','')}
+          ${row('g','ɡ','')}
+          ${row('s','s','')}
+          ${row('z','z','(dz → z)')}
+          ${row('t','t','')}
+          ${row('d','d','')}
+          ${row('n','n','')}
+          ${row('h','h / ç','')}
+          ${row('b','b','')}
+          ${row('p','p','')}
+          ${row('m','m','')}
+          ${row('y','j','')}
+          ${row('r','ɾ','tap')}
+          ${row('w','w / ɰ','')}
+          ${row('f','ɸ','before u')}
+          ${row('sh','ɕ','')}
+          ${row('ch','tɕ / ʨ','')}
+          ${row('j','dʑ / ʑ','')}
+          ${row('ts','ts','')}
+          ${row('ky','kʲ','palatal')}
+          ${row('gy','ɡʲ','palatal')}
+          ${row('ny','nʲ / ɲ','palatal')}
+          ${row('hy','hʲ','palatal')}
+          ${row('by','bʲ','palatal')}
+          ${row('py','pʲ','palatal')}
+          ${row('my','mʲ','palatal')}
+          ${row('ry','ɾʲ','palatal')}
+          ${row('n (coda)','ɴ / ɰ̃','kon- not ko-n-')}
+        </table>
       `;
     }
     return '';
   }
 
-  function updateReferenceGuide() {
+function updateReferenceGuide() {
     const title = document.getElementById('refTitle');
     const content = document.getElementById('refContent');
     const t = translations[currentUILang] || translations.US;
@@ -1496,7 +1566,7 @@
         const stripped = str
           .replace(/\[[^\]]+\]/g, '')
           .replace(/\{[^}]+\}/g, '')
-          .replace(/[ˈ|]/g, '')
+          .replace(/[ˈ|']/g, '')
           .trim();
         return stripped.length > 0;
       };
@@ -1512,26 +1582,9 @@
     const primaryRaw = variants[chosenVariantIndex].normalize('NFC');
     const alternativeVariants = variants.filter((_, idx) => idx !== chosenVariantIndex);
 
-    if (currentRegion === 'French') {
-      /* Hyphen = syllable separator; plain text only — no vowel pills */
-      let cleaned = primaryRaw.replace(/ˈ/g, '').replace(/[\[\]{}]/g, '');
-      const syllables = cleaned.split(/[-]+/).map(s => s.trim()).filter(Boolean);
-      syllables.forEach((syl, index) => {
-        if (index > 0) {
-          const sep = document.createElement('span');
-          sep.className = 'consonant-text';
-          sep.textContent = ' - ';
-          container.appendChild(sep);
-        }
-        const span = document.createElement('span');
-        span.className = 'consonant-text'; // never a pill
-        span.id = 'token-' + index;
-        span.textContent = syl;
-        container.appendChild(span);
-        currentTokens.push({ id: 'token-' + index, isVowel: true, content: syl });
-      });
-    } else if (currentRegion === 'Japanese') {
-      /* Hyphens; italic *…* for unreleased; macrons; no vowel pills */
+    /* No vowel pills for any language — plain text + weight for stress */
+    if (currentRegion === 'French' || currentRegion === 'Japanese' ||
+        currentRegion === 'German' || currentRegion === 'Spanish') {
       appendGermanRespelling(container, primaryRaw, true);
     } else if (currentRegion === 'Cantonese') {
       const syllables = primaryRaw.split(/\s+/).filter(Boolean);
@@ -1543,73 +1596,63 @@
           container.appendChild(gap);
         }
         const span = document.createElement('span');
-        span.className = 'vowel-pill';
+        span.className = 'consonant-text';
         span.id = 'token-' + index;
         span.textContent = syl;
         container.appendChild(span);
         currentTokens.push({ id: 'token-' + index, isVowel: true, content: syl });
       });
-    } else if (currentRegion === 'German') {
-      /* Hyphen / '.' syllables; stress = font-weight 700 (no ′ shown, no markdown) */
-      appendGermanRespelling(container, primaryRaw, true);
-    } else if (currentRegion === 'Spanish') {
-      /* Same display as German: hyphens, weight 700/300, italic *…* */
-      appendGermanRespelling(container, primaryRaw, true);
     } else {
-      const rawSyllables = primaryRaw.split('-');
-      currentTokens = rawSyllables.map((syl, index) => ({
-        id: 'token-' + index,
-        isVowel: true,
-        content: syl
-      }));
-      currentTokens.forEach((item, index) => {
+      /* US / UK English: CAPS = stress → font-weight 700, never pills */
+      const syllables = primaryRaw.split('-');
+      syllables.forEach((syl, index) => {
         if (index > 0) {
-          const dot = document.createElement('span');
-          dot.className = 'consonant-text';
-          dot.textContent = ' · ';
-          container.appendChild(dot);
+          const sep = document.createElement('span');
+          sep.className = 'consonant-text';
+          sep.textContent = '-';
+          container.appendChild(sep);
         }
+        const isStressed = /[A-ZĀĂÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝ]/.test(syl) &&
+          syl === syl.toUpperCase() && /[A-Za-z]/.test(syl);
         const span = document.createElement('span');
-        const isStressed = /[A-ZÀ-ÖØ-Þ]/.test(item.content);
-        span.className = isStressed ? 'vowel-pill-stressed' : 'consonant-text';
-        span.id = item.id;
-        span.textContent = item.content;
+        span.className = 'consonant-text';
+        span.id = 'token-' + index;
+        span.textContent = syl;
+        span.style.fontWeight = isStressed ? '700' : '300';
         container.appendChild(span);
+        currentTokens.push({ id: 'token-' + index, isVowel: true, content: syl });
       });
-      if (/[A-Z]/.test(primaryRaw)) {
-        capitalizationNote.style.display = 'block';
-      }
     }
 
     if (alternativeVariants.length > 0) {
-      alternativesBox.style.display = 'flex';
-      alternativesBox.innerHTML = '';
+      alternativesBox.style.display = 'block';
       const title = document.createElement('div');
       title.className = 'alt-title';
-      title.textContent = t.altPron;
+      title.textContent = t.alternatives || 'Alternatives';
       alternativesBox.appendChild(title);
-      alternativeVariants.forEach((v, i) => {
-        if (i > 0) {
-          const pipe = document.createElement('span');
-          pipe.style.fontWeight = '300';
-          pipe.style.margin = '0 8px';
-          pipe.textContent = '|';
-          alternativesBox.appendChild(pipe);
-        }
-        const row = document.createElement('span');
-        row.style.fontSize = '15px';
-        if (currentRegion === 'German' || currentRegion === 'Spanish' || currentRegion === 'Japanese') {
+      alternativeVariants.forEach((v) => {
+        const row = document.createElement('div');
+        row.style.marginTop = '6px';
+        if (currentRegion === 'German' || currentRegion === 'Spanish' ||
+            currentRegion === 'Japanese' || currentRegion === 'French') {
           appendGermanRespelling(row, v, false);
+        } else if (currentRegion === 'Cantonese') {
+          const span = document.createElement('span');
+          span.className = 'consonant-text';
+          span.textContent = v;
+          row.appendChild(span);
         } else {
-          row.style.fontWeight = '300';
-          row.textContent = v.replace(/[ˈ′*]/g, '');
+          const span = document.createElement('span');
+          span.className = 'consonant-text';
+          span.textContent = v;
+          span.style.fontWeight = '300';
+          row.appendChild(span);
         }
         alternativesBox.appendChild(row);
       });
     }
   }
 
-  /** German respelling → DOM: weight 700 stressed / 300 unstressed; no ′, no ** */
   function appendGermanRespelling(container, raw, trackTokens) {
     let cleaned = String(raw || '').replace(/[\[\]{}]/g, '').replace(/\*\*/g, '');
     const chunks = cleaned.split(/([-.])/).filter(s => s.length);
