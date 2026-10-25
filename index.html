@@ -259,7 +259,6 @@
       <button id="btnES" class="btn-region" onclick="switchRegion('Spanish')">Spanish</button>
       <button id="btnYUE" class="btn-region" onclick="switchRegion('Cantonese')">Cantonese</button>
       <button id="btnJA" class="btn-region" onclick="switchRegion('Japanese')">Japanese</button>
-      <button id="btnPT" class="btn-region" onclick="switchRegion('Portuguese')">Portuguese</button>
     </div>
     
     <div class="nav-actions">
@@ -388,8 +387,6 @@
       yueRegion: "Cantonese",
       jaRegion: "Japanese",
       jaAccent: "Japanese Pronunciation",
-      ptRegion: "Portuguese",
-      ptAccent: "Portuguese (Brazil) Pronunciation",
       interfaceLang: "Interface:",
       bookmarks: "Bookmarks",
       savedBookmarks: "Saved Bookmarks",
@@ -405,8 +402,6 @@
       yueAccent: "Cantonese Pronunciation",
       jaRegion: "Japanese",
       jaAccent: "Japanese Pronunciation",
-      ptRegion: "Portuguese",
-      ptAccent: "Portuguese (Brazil) Pronunciation",
       esAccent: "Spanish Pronunciation",
       esRegion: "Spanish",
       phoneticTranscription: "Phonetic Transcription",
@@ -443,8 +438,6 @@
       yueRegion: "Cantonese",
       jaRegion: "Japanese",
       jaAccent: "Japanese Pronunciation",
-      ptRegion: "Portuguese",
-      ptAccent: "Portuguese (Brazil) Pronunciation",
       interfaceLang: "Interface:",
       bookmarks: "Bookmarks",
       savedBookmarks: "Saved Bookmarks",
@@ -808,7 +801,7 @@
   /* ==========================================================================
      DICTIONARIES & SPEECH ENGINE
      ========================================================================== */
-  const dictionaries = { US: new Map(), UK: new Map(), French: new Map(), German: new Map(), Spanish: new Map(), Cantonese: new Map(), Japanese: new Map(), Portuguese: new Map() };
+  const dictionaries = { US: new Map(), UK: new Map(), French: new Map(), German: new Map(), Spanish: new Map(), Cantonese: new Map(), Japanese: new Map() };
   let currentRegion = 'US';
   let currentTokens = [];
 
@@ -827,8 +820,6 @@
     document.getElementById('btnYUE').textContent = t.yueRegion;
     const btnJA = document.getElementById('btnJA');
     if (btnJA) btnJA.textContent = t.jaRegion || 'Japanese';
-    const btnPT = document.getElementById('btnPT');
-    if (btnPT) btnPT.textContent = t.ptRegion || 'Portuguese';
     document.getElementById('uiLangLabel').textContent = t.interfaceLang;
     document.getElementById('bookmarksBtnLabel').textContent = t.bookmarks;
 
@@ -859,7 +850,6 @@
     else if (currentRegion === 'Spanish') label.textContent = t.esAccent || 'Spanish Pronunciation';
     else if (currentRegion === 'Cantonese') label.textContent = t.yueAccent;
     else if (currentRegion === 'Japanese') label.textContent = t.jaAccent || 'Japanese Pronunciation';
-    else if (currentRegion === 'Portuguese') label.textContent = t.ptAccent || 'Portuguese (Brazil) Pronunciation';
     else if (currentRegion === 'UK') label.textContent = t.ukAccent;
     else label.textContent = t.usAccent;
   }
@@ -1254,61 +1244,6 @@
         </table>
       `;
     }
-    } else if (region === 'Portuguese') {
-      const th = (a,b,c) => `<tr><th>${a}</th><th>${b}</th><th>${c}</th></tr>`;
-      const row = (a,b,c) => `<tr><td>${a}</td><td>${b}</td><td>${c}</td></tr>`;
-      return `
-        <div class="phoneme-section-title">Portuguese (Brazil) vowels</div>
-        <table class="phoneme-table">
-          ${th('Glyph','IPA','Example')}
-          ${row('i','i ɪ','ilha')}
-          ${row('u','u ʊ','ufanista')}
-          ${row('a','a','água')}
-          ${row('e','ɛ','ela')}
-          ${row('ē','e','elefante')}
-          ${row('o','ɔ','ora')}
-          ${row('ō','o','ortopedista')}
-          ${row('ə','ə','aqui')}
-          ${row('aⁿ','ã','anta')}
-          ${row('ēⁿ','ẽ','endorfina')}
-          ${row('ōⁿ','õ','ontologia')}
-          ${row('iⁿ','ĩ','intacto')}
-          ${row('uⁿ','ũ','uns')}
-          ${row('awⁿ','ãʊ̃ / ʊ̃','not aⁿwⁿ')}
-          ${row('yⁿ','ỹ','nasal y')}
-        </table>
-        <div class="phoneme-section-title">Portuguese (Brazil) consonants</div>
-        <table class="phoneme-table">
-          ${th('Glyph','IPA','Example')}
-          ${row('t','t','')}
-          ${row('n','n','')}
-          ${row('r','ɾ','para')}
-          ${row('<em>r</em>','x / ʁ','strong R')}
-          ${row('zh','ʒ','jaca')}
-          ${row('l','l','')}
-          ${row('k','k','')}
-          ${row('w','w','loan / vocalised')}
-          ${row('d','d','')}
-          ${row('gn','ɲ','')}
-          ${row('s','s','')}
-          ${row('p','p','')}
-          ${row('g','ɡ','')}
-          ${row('f','f','')}
-          ${row('z','z','')}
-          ${row('ch','tʃ','')}
-          ${row('y','j','y not j — ɾey')}
-          ${row('b','b','')}
-          ${row('m','m','')}
-          ${row('v','v','')}
-          ${row('sh','ʃ','')}
-          ${row('dʒ','dʒ','')}
-          ${row('<em>ly</em>','ʎ','')}
-        </table>
-        <p style="font-size:13px;color:var(--text-muted);margin-top:8px;">
-          Hyphens from IPA dots; ′ = primary stress (German-style). No vowel pills.
-        </p>
-      `;
-
     return '';
   }
 
@@ -1329,7 +1264,6 @@ function updateReferenceGuide() {
     if (region === 'Spanish') return t.esRegion || 'Spanish';
     if (region === 'Cantonese') return t.yueRegion;
     if (region === 'Japanese') return t.jaRegion || 'Japanese';
-    if (region === 'Portuguese') return t.ptRegion || 'Portuguese';
     return t.usRegion;
   }
 
@@ -1346,7 +1280,6 @@ function updateReferenceGuide() {
     else if (currentRegion === 'Spanish') { targetLang = 'es-ES'; preferredKeyword = 'elena'; }
     else if (currentRegion === 'Cantonese') { targetLang = 'zh-HK'; preferredKeyword = 'sinji'; }
     else if (currentRegion === 'Japanese') { targetLang = 'ja-JP'; preferredKeyword = 'kyoko'; }
-    else if (currentRegion === 'Portuguese') { targetLang = 'pt-BR'; preferredKeyword = 'luciana'; }
     const matchingVoices = voices.filter(v => v.lang.toLowerCase().startsWith(targetLang.substring(0, 2)));
     const targetList = matchingVoices.length > 0 ? matchingVoices : voices;
     let selectedVoice = targetList.find(v => v.name.toLowerCase().includes(preferredKeyword));
@@ -1380,8 +1313,6 @@ function updateReferenceGuide() {
     if (btnY) btnY.classList.toggle('active', regionKey === 'Cantonese');
     const btnJA = document.getElementById('btnJA');
     if (btnJA) btnJA.classList.toggle('active', regionKey === 'Japanese');
-    const btnPT = document.getElementById('btnPT');
-    if (btnPT) btnPT.classList.toggle('active', regionKey === 'Portuguese');
 
     const searchInput = document.getElementById('searchInput');
     if (regionKey === 'French') {
@@ -1394,8 +1325,6 @@ function updateReferenceGuide() {
       searchInput.value = '你好';
     } else if (regionKey === 'Japanese') {
       searchInput.value = 'こんにちは';
-    } else if (regionKey === 'Portuguese') {
-      searchInput.value = 'olá';
     } else {
       searchInput.value = 'hello';
     }
@@ -1509,12 +1438,6 @@ function updateReferenceGuide() {
         let tja = await loadTextFile(jaNames[i]) || await loadTextFile('./' + jaNames[i]);
         ingestLines(tja, dictionaries.Japanese);
       }
-      // Portuguese (Brazil)
-      const ptNames = ['all_pt_respellings_001.txt', 'all_pt_respellings_002.txt', 'all_pt_respellings_003.txt'];
-      for (let i = 0; i < ptNames.length; i++) {
-        let tpt = await loadTextFile(ptNames[i]) || await loadTextFile('./' + ptNames[i]);
-        ingestLines(tpt, dictionaries.Portuguese);
-      }
 
       for (let i = 0; i < yueNames.length; i++) {
         let t = await loadTextFile(yueNames[i]) || await loadTextFile('./' + yueNames[i]);
@@ -1526,7 +1449,7 @@ function updateReferenceGuide() {
 
       setTimeout(() => {
         progressContainer.style.display = 'none';
-        fileStatus.textContent = `Loaded (US: ${dictionaries.US.size}, UK: ${dictionaries.UK.size}, FR: ${dictionaries.French.size}, DE: ${dictionaries.German.size}, ES: ${dictionaries.Spanish.size}, Yue: ${dictionaries.Cantonese.size}, JA: ${dictionaries.Japanese.size}, PT: ${dictionaries.Portuguese.size})`;
+        fileStatus.textContent = `Loaded (US: ${dictionaries.US.size}, UK: ${dictionaries.UK.size}, FR: ${dictionaries.French.size}, DE: ${dictionaries.German.size}, ES: ${dictionaries.Spanish.size}, Yue: ${dictionaries.Cantonese.size}, JA: ${dictionaries.Japanese.size})`;
         document.getElementById('searchInput').disabled = false;
         switchRegion('US');
       }, 300);
@@ -1661,8 +1584,7 @@ function updateReferenceGuide() {
 
     /* No vowel pills for any language — plain text + weight for stress */
     if (currentRegion === 'French' || currentRegion === 'Japanese' ||
-        currentRegion === 'German' || currentRegion === 'Spanish' ||
-        currentRegion === 'Portuguese') {
+        currentRegion === 'German' || currentRegion === 'Spanish') {
       appendGermanRespelling(container, primaryRaw, true);
     } else if (currentRegion === 'Cantonese') {
       const syllables = primaryRaw.split(/\s+/).filter(Boolean);
@@ -1712,8 +1634,7 @@ function updateReferenceGuide() {
         const row = document.createElement('div');
         row.style.marginTop = '6px';
         if (currentRegion === 'German' || currentRegion === 'Spanish' ||
-            currentRegion === 'Japanese' || currentRegion === 'French' ||
-            currentRegion === 'Portuguese') {
+            currentRegion === 'Japanese' || currentRegion === 'French') {
           appendGermanRespelling(row, v, false);
         } else if (currentRegion === 'Cantonese') {
           const span = document.createElement('span');
@@ -1813,7 +1734,6 @@ function updateReferenceGuide() {
     else if (currentRegion === 'Spanish') utterance.lang = 'es-ES';
     else if (currentRegion === 'Cantonese') utterance.lang = 'zh-HK';
     else if (currentRegion === 'Japanese') utterance.lang = 'ja-JP';
-    else if (currentRegion === 'Portuguese') utterance.lang = 'pt-BR';
     else if (currentRegion === 'UK') utterance.lang = 'en-GB';
     else utterance.lang = 'en-US';
 
