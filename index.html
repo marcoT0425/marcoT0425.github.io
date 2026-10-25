@@ -42,7 +42,7 @@
     
     /* Header & Controls */
     .top-nav {
-      display: flex; justify-space-between; align-items: center;
+      display: flex; justify-content: space-between; align-items: center;
       flex-wrap: wrap; gap: 12px; background: var(--card-bg);
       border: 1px solid var(--border); border-radius: var(--radius);
       padding: 16px 20px;
@@ -101,7 +101,6 @@
       font-size: 32px; display: flex; align-items: center; flex-wrap: wrap;
       gap: 2px; line-height: 1.5;
     }
-    /* Plain inline text styling */
     .vowel-pill, .vowel-pill-stressed {
       background: transparent; color: inherit;
       padding: 0; border-radius: 0; font-weight: inherit;
@@ -263,7 +262,6 @@
     </div>
     
     <div class="nav-actions">
-      <!-- Language / UI Locale Selector -->
       <label for="uiLangSelect" style="font-size:12px; font-weight:600; color:var(--text-muted);" id="uiLangLabel">Interface:</label>
       <select id="uiLangSelect" class="select-control" onchange="changeUILanguage(this.value)">
         <option value="US">English (US)</option>
@@ -276,7 +274,6 @@
         <option value="JA">日本語</option>
       </select>
 
-      <!-- Bookmark Drawer Toggle Button -->
       <button class="btn-action" onclick="toggleBookmarkDrawer(true)" id="btnOpenBookmarks">
         <svg style="width:16px; height:16px; fill:var(--star-active)" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
         <span id="bookmarksBtnLabel">Bookmarks</span> (<span id="bookmarkCountBadge">0</span>)
@@ -335,6 +332,22 @@
         </label>
         <span id="slowSpeedLabel">Slow speed</span>
       </div>
+    </div>
+  </div>
+
+  <!-- Search Statistics Card (NEW) -->
+  <div class="reference-card" id="statsCard">
+    <h3 id="statsTitle">Search Statistics</h3>
+    <div style="font-size:15px; margin-bottom:12px;">
+      Total queries: <strong id="totalQueriesDisplay">0</strong>
+    </div>
+    <div class="phoneme-section-title">Most searched words (Top 20)</div>
+    <div id="topWordsList" style="font-size:14px; line-height:1.6;"></div>
+    <div style="margin-top:16px; display:flex; gap:8px; flex-wrap:wrap;">
+      <button class="btn-action" onclick="exportSearchStats()">Export Stats JSON</button>
+      <button class="btn-action" onclick="document.getElementById('importStatsInput').click()">Import Stats JSON</button>
+      <button class="btn-action btn-danger" onclick="clearSearchStats()">Clear Stats</button>
+      <input type="file" id="importStatsInput" accept=".json" style="display:none;" onchange="importSearchStats(event)">
     </div>
   </div>
 
@@ -975,6 +988,103 @@
   }
 
   /* ==========================================================================
+     SEARCH STATISTICS (collective / persistent)
+     ========================================================================== */
+  let searchStats = {
+    totalQueries: 0,
+    words: {}   // key = "word|region" → count
+  };
+
+  try {
+    const savedStats = localStorage.getItem('app_phonetic_search_stats');
+    if (savedStats) searchStats = JSON.parse(savedStats);
+  } catch (e) {
+    console.error('Failed to parse search stats', e);
+  }
+
+  function saveSearchStats() {
+    localStorage.setItem('app_phonetic_search_stats', JSON.stringify(searchStats));
+  }
+
+  function renderSearchStats() {
+    const totalEl = document.getElementById('totalQueriesDisplay');
+    const listEl = document.getElementById('topWordsList');
+    if (!totalEl || !listEl) return;
+
+    totalEl.textContent = searchStats.totalQueries;
+
+    const entries = Object.entries(searchStats.words)
+      .map(([key, count]) => {
+        const [word, region] = key.split('|');
+        return { word, region, count };
+      })
+      .sort((a, b) => b.count - a.count)
+      .slice(0, 20);
+
+    listEl.innerHTML = '';
+    if (entries.length === 0) {
+      listEl.innerHTML = '<div style="color:var(--text-muted)">No searches recorded yet.</div>';
+      return;
+    }
+
+    entries.forEach((e, i) => {
+      const row = document.createElement('div');
+      row.style.display = 'flex';
+      row.style.justifyContent = 'space-between';
+      row.style.padding = '4px 0';
+      row.innerHTML = `
+        <span>${i + 1}. <strong>${e.word}</strong> <span style="color:var(--text-muted);font-size:12px;">(${e.region})</span></span>
+        <span style="font-weight:600;">${e.count}</span>
+      `;
+      listEl.appendChild(row);
+    });
+  }
+
+  function exportSearchStats() {
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(searchStats, null, 2));
+    const a = document.createElement('a');
+    a.href = dataStr;
+    a.download = `phonetic_search_stats_${new Date().toISOString().slice(0,10)}.json`;
+    a.click();
+  }
+
+  function importSearchStats(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      try {
+        const imported = JSON.parse(e.target.result);
+        if (imported && typeof imported.totalQueries === 'number' && imported.words) {
+          // Merge – keep the higher counts
+          searchStats.totalQueries = Math.max(searchStats.totalQueries || 0, imported.totalQueries || 0);
+          for (const [key, count] of Object.entries(imported.words)) {
+            searchStats.words[key] = Math.max(searchStats.words[key] || 0, count);
+          }
+          saveSearchStats();
+          renderSearchStats();
+          showToast('Stats imported successfully!');
+        } else {
+          alert('Invalid stats JSON');
+        }
+      } catch (err) {
+        alert('Invalid stats JSON');
+      }
+    };
+    reader.readAsText(file);
+    event.target.value = '';
+  }
+
+  function clearSearchStats() {
+    if (confirm('Clear all search statistics? This cannot be undone unless you have an export.')) {
+      searchStats = { totalQueries: 0, words: {} };
+      saveSearchStats();
+      renderSearchStats();
+      showToast('Search statistics cleared');
+    }
+  }
+
+  /* ==========================================================================
      DICTIONARIES & SPEECH ENGINE
      ========================================================================== */
   const dictionaries = {
@@ -997,7 +1107,6 @@
 
     const t = translations[langKey] || translations.US;
 
-    // Buttons & Header
     document.getElementById('btnUS').textContent = t.usRegion;
     document.getElementById('btnUK').textContent = t.ukRegion;
     document.getElementById('btnFR').textContent = t.frRegion;
@@ -1011,13 +1120,11 @@
     document.getElementById('uiLangLabel').textContent = t.interfaceLang;
     document.getElementById('bookmarksBtnLabel').textContent = t.bookmarks;
 
-    // Search & Cards
     document.getElementById('searchInput').placeholder = t.searchPlaceholder;
     document.getElementById('transcriptionLabel').textContent = t.phoneticTranscription;
     document.getElementById('slowSpeedLabel').textContent = t.slowSpeed;
     document.getElementById('capitalizationNote').textContent = t.capNote;
 
-    // Drawer i18n
     document.getElementById('bookmarkDrawerTitle').textContent = t.savedBookmarks;
     document.getElementById('bookmarkSearchInput').placeholder = t.searchBookmarks;
     document.getElementById('btnExportBookmarks').textContent = t.exportJSON;
@@ -1680,7 +1787,7 @@
       }
       progressBar.style.width = '75%';
 
-      // Portuguese (accepts all_pt_respellings_*.txt or all_pr_respellings_*.txt)
+      // Portuguese
       for (let i = 1; i <= 20; i++) {
         const padded = String(i).padStart(3, '0');
         const namePt = 'all_pt_respellings_' + padded + '.txt';
@@ -1712,6 +1819,7 @@
         fileStatus.textContent = `Loaded (US: ${dictionaries.US.size}, UK: ${dictionaries.UK.size}, FR: ${dictionaries.French.size}, DE: ${dictionaries.German.size}, ES: ${dictionaries.Spanish.size}, PT: ${dictionaries.Portuguese.size}, Yue: ${dictionaries.Cantonese.size}, JA: ${dictionaries.Japanese.size})`;
         document.getElementById('searchInput').disabled = false;
         switchRegion('US');
+        renderSearchStats();   // show stats after load
       }, 300);
     } catch (err) {
       fileStatus.textContent = translations[currentUILang].errorLoading;
@@ -1842,7 +1950,6 @@
     const primaryRaw = variants[chosenVariantIndex].normalize('NFC');
     const alternativeVariants = variants.filter((_, idx) => idx !== chosenVariantIndex);
 
-    /* Plain inline text rendering with hyphens, ′ stress mark & italics for DE / ES / JA / PT */
     if (currentRegion === 'French' || currentRegion === 'Japanese' ||
         currentRegion === 'German' || currentRegion === 'Spanish' || currentRegion === 'Portuguese') {
       appendGermanRespelling(container, primaryRaw, true);
@@ -1966,6 +2073,15 @@
       document.getElementById('displayWord').textContent = match.word;
       renderRespelling(match.respelling);
       playBtn.style.display = 'flex';
+
+      // ===== Record search statistics =====
+      const key = match.word.toLowerCase() + '|' + currentRegion;
+      searchStats.totalQueries = (searchStats.totalQueries || 0) + 1;
+      searchStats.words[key] = (searchStats.words[key] || 0) + 1;
+      saveSearchStats();
+      renderSearchStats();
+      // ====================================
+
       if (!match.exact) {
         didYouMean.style.display = 'block';
         didYouMean.innerHTML = `${t.showingResultsFor} <strong>${match.word}</strong>`;
