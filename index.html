@@ -7,6 +7,11 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Noto+Sans+HK:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-database-compat.js"></script>
+
   <style>
     :root {
       --primary: #1a73e8;
@@ -338,6 +343,18 @@
     </div>
   </div>
 
+
+  <!-- GLOBAL SEARCH STATISTICS -->
+  <div class="reference-card" id="statsCard">
+    <h3>Global Search Statistics</h3>
+    <div style="font-size:15px; margin-bottom:8px;">
+      Total queries worldwide: <strong id="totalQueriesDisplay">0</strong>
+    </div>
+    <div id="langBreakdown" style="font-size:13px; color:var(--text-muted); margin-bottom:12px; line-height:1.5;"></div>
+    <div class="phoneme-section-title">Most searched words (Top 20)</div>
+    <div id="topWordsList" style="font-size:14px; line-height:1.6;"></div>
+  </div>
+
   <!-- Reference Guide Card -->
   <div class="reference-card">
     <h3 id="refTitle">Phoneme Reference Guide</h3>
@@ -374,6 +391,95 @@
 <div id="toast" class="toast">Bookmark updated</div>
 
 <script>
+
+  /* ==========================================================================
+     FIREBASE GLOBAL CLOUD STATS
+     ========================================================================== */
+  const firebaseConfig = {
+    apiKey: "AIzaSyDyeCWhFbSo2tMw0XPQJgvNSy0Go7gg3V8",
+    authDomain: "pronunciation-tts.firebaseapp.com",
+    databaseURL: "https://pronunciation-tts-default-rtdb.firebaseio.com",
+    projectId: "pronunciation-tts",
+    storageBucket: "pronunciation-tts.firebasestorage.app",
+    messagingSenderId: "739234127446",
+    appId: "1:739234127446:web:40d903cd300d6a3c9925f7",
+    measurementId: "G-LY20S1WD12"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.database();
+  const statsRef = db.ref('searchStats');
+
+  let searchStats = { totalQueries: 0, words: {}, byLanguage: {} };
+
+  // Demo words that should NEVER be counted
+  const DEMO_WORDS = new Set([
+    'hello', 'hola', 'bonjour', 'hallo', 'olá', '你好', 'こんにちは'
+  ]);
+
+  statsRef.on('value', (snapshot) => {
+    searchStats = snapshot.val() || { totalQueries: 0, words: {}, byLanguage: {} };
+    renderSearchStats();
+  });
+
+  function recordGlobalSearch(word, region) {
+    const clean = (word || '').trim().toLowerCase();
+    if (!clean || DEMO_WORDS.has(clean)) return;
+
+    const key = clean + '|' + region;
+    statsRef.child('totalQueries').transaction(c => (c || 0) + 1);
+    statsRef.child('words').child(key).transaction(c => (c || 0) + 1);
+    statsRef.child('byLanguage').child(region).transaction(c => (c || 0) + 1);
+  }
+
+  function renderSearchStats() {
+    const totalEl = document.getElementById('totalQueriesDisplay');
+    const listEl = document.getElementById('topWordsList');
+    const langEl = document.getElementById('langBreakdown');
+    if (!totalEl || !listEl || !langEl) return;
+
+    totalEl.textContent = searchStats.totalQueries || 0;
+
+    // Language breakdown
+    const langs = searchStats.byLanguage || {};
+    const order = ['US','UK','French','German','Spanish','Portuguese','Cantonese','Japanese'];
+    let html = '';
+    order.forEach(l => {
+      if (langs[l]) html += `${l}: <strong>${langs[l]}</strong> &nbsp; `;
+    });
+    langEl.innerHTML = html || 'No data yet';
+
+    // Top 20 words
+    const entries = Object.entries(searchStats.words || {})
+      .map(([key, count]) => {
+        const [word, region] = key.split('|');
+        return { word, region, count };
+      })
+      .sort((a, b) => b.count - a.count)
+      .slice(0, 20);
+
+    listEl.innerHTML = '';
+    if (entries.length === 0) {
+      listEl.innerHTML = '<div style="color:var(--text-muted)">No global searches yet.</div>';
+      return;
+    }
+
+    entries.forEach((e, i) => {
+      const row = document.createElement('div');
+      row.style.display = 'flex';
+      row.style.justifyContent = 'space-between';
+      row.style.padding = '4px 0';
+      row.innerHTML = `
+        <span>${i + 1}. <strong>${e.word}</strong>
+          <span style="color:var(--text-muted);font-size:12px;">(${e.region})</span>
+        </span>
+        <span style="font-weight:600;">${e.count}</span>
+      `;
+      listEl.appendChild(row);
+    });
+  }
+
+
   /* ==========================================================================
      LOCALIZATION / I18N DICTIONARY
      ========================================================================== */
@@ -1966,6 +2072,10 @@
       document.getElementById('displayWord').textContent = match.word;
       renderRespelling(match.respelling);
       playBtn.style.display = 'flex';
+
+      // Global cloud stats (skips demo words automatically)
+      recordGlobalSearch(match.word, currentRegion);
+
       if (!match.exact) {
         didYouMean.style.display = 'block';
         didYouMean.innerHTML = `${t.showingResultsFor} <strong>${match.word}</strong>`;
