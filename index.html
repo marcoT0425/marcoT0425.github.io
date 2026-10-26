@@ -2101,7 +2101,7 @@
       progressBar.style.width = '85%';
 
       // Japanese
-      const jaNames = ['all_ja_respellings_001.txt', 'all_ja_respellings_002.txt', 'all_ja_respellings_003.txt'];
+      const jaNames = ['all_ja_respellings_001.txt', 'all_ja_respellings_002.txt', 'all_ja_respellings_003.txt', 'all_ja_respellings_004.txt', 'all_ja_respellings_005.txt'];
       for (let i = 0; i < jaNames.length; i++) {
         let tja = await loadTextFile(jaNames[i]) || await loadTextFile('./' + jaNames[i]);
         ingestLines(tja, dictionaries.Japanese);
