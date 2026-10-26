@@ -462,7 +462,7 @@
 
   // Demo words that should NEVER be counted
   const DEMO_WORDS = new Set([
-    'hello', 'hola', 'bonjour', 'hallo', 'olá', '你好', 'こんにちは'
+    'hello', 'hola', 'bonjour', 'hallo', 'olá', '你好', 'こんにちわ'
   ]);
 
   function getMonthKey(d = new Date()) {
@@ -1984,7 +1984,7 @@
     } else if (regionKey === 'Cantonese') {
       searchInput.value = '你好';
     } else if (regionKey === 'Japanese') {
-      searchInput.value = 'こんにちは';
+      searchInput.value = 'こんにちわ';
     } else {
       searchInput.value = 'hello';
     }
