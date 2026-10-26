@@ -391,23 +391,14 @@
     <div class="phoneme-section-title">Community Polls</div>
     <div id="pollsContainer" style="font-size:13px; line-height:1.5;"></div>
 
-    <!-- Comments -->
-    <div class="phoneme-section-title" style="margin-top:20px;">Comments</div>
-    <div style="font-size:12px; color:var(--text-muted); background:#f8f9fa; border:1px solid var(--border); border-radius:8px; padding:10px; margin-bottom:10px; line-height:1.5;">
-      <strong>Privacy notice:</strong> Do not post phone numbers, email addresses, home addresses, passwords, or any personal identification information.
-      Comments that contain such data will be rejected. For private feedback please use GitHub Issues instead.
+    <!-- Feedback -->
+    <div class="phoneme-section-title" style="margin-top:20px;">Feedback</div>
+    <div style="font-size:13px; color:var(--text-muted); margin-bottom:8px;">
+      Public comments have been disabled for privacy. Please use GitHub Issues for feedback or suggestions.
     </div>
-    <div style="margin-bottom:8px;">
-      <input type="text" id="commentName" class="bookmark-search-input" placeholder="Your name or nickname" style="max-width:220px; margin-bottom:6px;">
-      <textarea id="commentInput" rows="2" placeholder="Share a comment about pronunciation…" style="width:100%; padding:8px 10px; border:1px solid var(--border); border-radius:8px; font-size:13px; resize:vertical;"></textarea>
-      <div style="display:flex; gap:8px; margin-top:6px; flex-wrap:wrap;">
-        <button class="btn-action" onclick="postComment()">Post comment</button>
-        <a class="btn-action" href="https://github.com/issues" target="_blank" rel="noopener" style="text-decoration:none;">
-          Open GitHub Issues (private feedback)
-        </a>
-      </div>
-    </div>
-    <div id="commentsList" style="font-size:13px; max-height:280px; overflow-y:auto;"></div>
+    <a class="btn-action" href="https://github.com/issues" target="_blank" rel="noopener" style="text-decoration:none; display:inline-block;">
+      Open GitHub Issues
+    </a>
   </div>
 
   <!-- Reference Guide Card -->
@@ -465,11 +456,9 @@
   const db = firebase.database();
   const statsRef = db.ref('searchStats');
   const pollsRef = db.ref('polls');
-  const commentsRef = db.ref('comments');
 
   let searchStats = { totalQueries: 0, words: {}, byLanguage: {}, monthly: {} };
   let pollsData = {};
-  let commentsData = [];
 
   // Demo words that should NEVER be counted
   const DEMO_WORDS = new Set([
@@ -491,12 +480,6 @@
     renderPolls();
   });
 
-  commentsRef.limitToLast(40).on('value', (snapshot) => {
-    const val = snapshot.val() || {};
-    commentsData = Object.entries(val).map(([id, c]) => ({ id, ...c }))
-      .sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
-    renderComments();
-  });
 
   function recordGlobalSearch(word, region) {
     const clean = (word || '').trim().toLowerCase();
@@ -714,21 +697,47 @@
     } catch (e) { return {}; }
   }
 
-  function markPollVoted(pollId, optionKey) {
+  function setVotedPoll(pollId, optionKey) {
     const voted = getVotedPolls();
-    voted[pollId] = optionKey;
+    if (optionKey === null) {
+      delete voted[pollId];
+    } else {
+      voted[pollId] = optionKey;
+    }
     localStorage.setItem('app_poll_votes', JSON.stringify(voted));
   }
 
+  // Vote or change vote. If the same option is clicked again → cancel vote.
   function votePoll(pollId, optionKey) {
     const voted = getVotedPolls();
-    if (voted[pollId]) {
-      alert('You have already voted on this poll from this device.');
+    const previous = voted[pollId] || null;
+
+    // Clicking the same option again = cancel
+    if (previous === optionKey) {
+      pollsRef.child(pollId).child(optionKey).transaction(c => Math.max((c || 1) - 1, 0));
+      setVotedPoll(pollId, null);
+      renderPolls();
       return;
     }
+
+    // Changing from one option to another
+    if (previous) {
+      pollsRef.child(pollId).child(previous).transaction(c => Math.max((c || 1) - 1, 0));
+    }
+
+    // Add new vote
     pollsRef.child(pollId).child(optionKey).transaction(c => (c || 0) + 1);
-    markPollVoted(pollId, optionKey);
-    renderPolls(); // refresh to show blue selection + disable
+    setVotedPoll(pollId, optionKey);
+    renderPolls();
+  }
+
+  function clearPollVote(pollId) {
+    const voted = getVotedPolls();
+    const previous = voted[pollId];
+    if (!previous) return;
+    pollsRef.child(pollId).child(previous).transaction(c => Math.max((c || 1) - 1, 0));
+    setVotedPoll(pollId, null);
+    renderPolls();
   }
 
   function renderPolls() {
@@ -751,23 +760,20 @@
         const count = votes[key] || 0;
         const pct = totalVotes > 0 ? ((count / totalVotes) * 100).toFixed(0) : 0;
         const isSelected = myChoice === key;
-        const alreadyVoted = !!myChoice;
 
         const btnStyle = isSelected
           ? 'font-size:12px; padding:4px 10px; background:#1a73e8; color:#fff; border-color:#1a73e8;'
           : 'font-size:12px; padding:4px 10px;';
 
-        const disabledAttr = alreadyVoted ? 'disabled' : '';
-        const onclick = alreadyVoted ? '' : `onclick="votePoll('${id}','${key}')"`;
-
         html += `<div style="display:flex; justify-content:space-between; align-items:center; margin:3px 0; gap:8px;">
-          <button class="btn-action" style="${btnStyle}" ${disabledAttr} ${onclick}>${key}. ${label}</button>
+          <button class="btn-action" style="${btnStyle}" onclick="votePoll('${id}','${key}')">${key}. ${label}</button>
           <span style="font-size:12px; color:var(--text-muted); white-space:nowrap;">${count} (${pct}%)</span>
         </div>`;
       });
 
-      html += `<div style="font-size:11px; color:var(--text-muted); margin-top:6px;">
-        Total votes: ${totalVotes}${myChoice ? ' · You voted: ' + myChoice : ''}
+      html += `<div style="font-size:11px; color:var(--text-muted); margin-top:6px; display:flex; justify-content:space-between; align-items:center;">
+        <span>Total votes: ${totalVotes}${myChoice ? ' · You voted: <strong>' + myChoice + '</strong>' : ''}</span>
+        ${myChoice ? `<button class="btn-action" style="font-size:11px; padding:2px 8px;" onclick="clearPollVote('${id}')">Clear my vote</button>` : ''}
       </div></div>`;
     });
 
@@ -775,76 +781,7 @@
   }
 
   /* ---------- Comments ---------- */
-  // Simple privacy filter – blocks phone numbers, emails, passwords, obvious addresses
-  function containsSensitiveInfo(text) {
-    const t = text.toLowerCase();
-    // phone numbers
-    if (/\b(?:\+?\d{1,3}[-.\s]?)?(?:\(?\d{2,4}\)?[-.\s]?)?\d{3,4}[-.\s]?\d{3,4}\b/.test(text)) return true;
-    // emails
-    if (/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}/i.test(text)) return true;
-    // common password patterns
-    if (/\b(password|passwd|pwd)\s*[:=]\s*\S+/i.test(text)) return true;
-    if (/\b(pass|pw)\s*[:=]\s*\S{4,}/i.test(text)) return true;
-    // credit-card-ish
-    if (/\b(?:\d[ -]*?){13,19}\b/.test(text)) return true;
-    // street address hints
-    if (/\b\d{1,5}\s+\w+\s+(street|st|avenue|ave|road|rd|boulevard|blvd|lane|ln|drive|dr)\b/i.test(text)) return true;
-    return false;
-  }
 
-  function postComment() {
-    const nameInput = document.getElementById('commentName');
-    const input = document.getElementById('commentInput');
-    if (!input) return;
-
-    const name = (nameInput && nameInput.value.trim()) || '';
-    const text = input.value.trim();
-
-    if (!name) {
-      alert('Please enter a name or nickname.');
-      return;
-    }
-    if (!text) {
-      alert('Please write a comment.');
-      return;
-    }
-    if (containsSensitiveInfo(text) || containsSensitiveInfo(name)) {
-      alert('Your comment appears to contain personal information (phone, email, address, password…). For privacy reasons it cannot be posted. Please use GitHub Issues for private feedback.');
-      return;
-    }
-
-    const entry = {
-      name: name.slice(0, 40),
-      text: text.slice(0, 500),
-      region: currentRegion || 'US',
-      timestamp: Date.now()
-    };
-    commentsRef.push(entry);
-    input.value = '';
-    // keep the name for convenience
-  }
-
-  function renderComments() {
-    const list = document.getElementById('commentsList');
-    if (!list) return;
-
-    if (commentsData.length === 0) {
-      list.innerHTML = '<div style="color:var(--text-muted)">No comments yet.</div>';
-      return;
-    }
-
-    list.innerHTML = commentsData.map(c => {
-      const date = new Date(c.timestamp || 0).toLocaleString();
-      const safeName = (c.name || 'Anonymous').replace(/</g,'&lt;');
-      const safeText = (c.text || '').replace(/</g,'&lt;');
-      return `<div style="border-bottom:1px solid var(--border); padding:8px 0;">
-        <div style="font-size:12px; color:var(--text-muted);">
-          <strong>${safeName}</strong> · ${c.region || ''} · ${date}
-        </div>
-        <div>${safeText}</div>
-      </div>`;
-    }).join('');
-  }
 
     /* ==========================================================================
      LOCALIZATION / I18N DICTIONARY
