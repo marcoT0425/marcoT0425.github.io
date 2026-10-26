@@ -9,7 +9,9 @@ German improved loanword support
 
 # Plans (✅ = done)
 
-Create Mandarin Chinese, Japanese. Japanese in progress about the controversy of some transcriptions wip
+Create Mandarin Chinese.
+
+Add two phonemes in French for the x velar fricative and the h for niche loanword usage
 
 "œ̃" vs "ɛ̃" distinctions in French preferences, because many Parisian speakers have merged them, making "brin" and "brun" homophones, but this is retained in Southern France, Canada, Belgium etc. ✅ added note
 
