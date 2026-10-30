@@ -7,6 +7,11 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Noto+Sans+HK:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-database-compat.js"></script>
+
   <style>
     :root {
       --primary: #1a73e8;
@@ -38,11 +43,11 @@
       display: flex; flex-direction: column; align-items: center;
       padding: 24px 16px; min-height: 100vh;
     }
-    .container { width: 100%; max-width: 920px; display: flex; flex-direction: column; gap: 20px; }
+    .container { width: 100%; max-width: 960px; display: flex; flex-direction: column; gap: 20px; }
     
     /* Header & Controls */
     .top-nav {
-      display: flex; justify-content: space-between; align-items: center;
+      display: flex; justify-space-between; align-items: center;
       flex-wrap: wrap; gap: 12px; background: var(--card-bg);
       border: 1px solid var(--border); border-radius: var(--radius);
       padding: 16px 20px;
@@ -101,7 +106,7 @@
       font-size: 32px; display: flex; align-items: center; flex-wrap: wrap;
       gap: 2px; line-height: 1.5;
     }
-    /* Pills removed for every language — plain inline text only */
+    /* Plain inline text styling */
     .vowel-pill, .vowel-pill-stressed {
       background: transparent; color: inherit;
       padding: 0; border-radius: 0; font-weight: inherit;
@@ -153,11 +158,10 @@
     input:checked + .slider { background-color: var(--primary); }
     input:checked + .slider:before { transform: translateX(18px); }
     .progress-bar {
-      height: 100%; min-height: 8px; background: var(--primary); width: 0%;
-      transition: width 0.15s ease; border-radius: 4px;
+      height: 4px; background: var(--primary); width: 0%; transition: width 0.1s; border-radius: 2px;
     }
 
-    /* Bookmarks Drawer / Modal */
+    /* Bookmarks Drawer */
     .drawer-overlay {
       position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 99;
       display: none; opacity: 0; transition: opacity 0.2s ease;
@@ -258,9 +262,9 @@
       <button id="btnFR" class="btn-region" onclick="switchRegion('French')">French</button>
       <button id="btnDE" class="btn-region" onclick="switchRegion('German')">German</button>
       <button id="btnES" class="btn-region" onclick="switchRegion('Spanish')">Spanish</button>
+      <button id="btnPT" class="btn-region" onclick="switchRegion('Portuguese')">Portuguese</button>
       <button id="btnYUE" class="btn-region" onclick="switchRegion('Cantonese')">Cantonese</button>
       <button id="btnJA" class="btn-region" onclick="switchRegion('Japanese')">Japanese</button>
-      <button id="btnPT" class="btn-region" onclick="switchRegion('Portuguese')">Portuguese</button>
     </div>
     
     <div class="nav-actions">
@@ -272,6 +276,7 @@
         <option value="DE">Deutsch</option>
         <option value="FR">Français</option>
         <option value="ES">Español</option>
+        <option value="PT">Português</option>
         <option value="YUE">廣東話 / 繁體中文</option>
         <option value="JA">日本語</option>
       </select>
@@ -290,14 +295,8 @@
   </div>
 
   <!-- Progress Bar -->
-  <div id="progressContainer" style="display:none; width:100%; margin-top:-6px;">
-    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
-      <span id="progressLabel" style="font-size:12px; color:var(--text-muted);">0%</span>
-      <span id="progressDetail" style="font-size:12px; color:var(--text-muted);"></span>
-    </div>
-    <div style="background:#e0e0e0; height:8px; border-radius:4px; overflow:hidden;">
-      <div id="progressBar" class="progress-bar" style="height:100%; width:0%;"></div>
-    </div>
+  <div id="progressContainer" style="display:none; background:#e0e0e0; height:4px; border-radius:2px; margin-top:-10px;">
+    <div id="progressBar" class="progress-bar"></div>
   </div>
 
   <!-- Search Card -->
@@ -344,6 +343,64 @@
     </div>
   </div>
 
+
+  <!-- GLOBAL SEARCH STATISTICS (Expanded) -->
+  <div class="reference-card" id="statsCard">
+    <h3>Global Search Statistics</h3>
+
+    <!-- Summary -->
+    <div style="font-size:15px; margin-bottom:6px;">
+      Total queries worldwide: <strong id="totalQueriesDisplay">0</strong>
+      <span id="monthChangeBadge" style="margin-left:10px; font-size:13px;"></span>
+    </div>
+    <div id="langBreakdown" style="font-size:13px; color:var(--text-muted); margin-bottom:14px; line-height:1.6;"></div>
+
+    <!-- Language filter -->
+    <div style="margin-bottom:14px; display:flex; flex-wrap:wrap; gap:8px; align-items:center;">
+      <span style="font-size:13px; font-weight:600;">Filter by language:</span>
+      <select id="statsLangFilter" class="select-control" onchange="renderSearchStats()" style="min-width:140px;">
+        <option value="ALL">All languages</option>
+        <option value="US">US English</option>
+        <option value="UK">UK English</option>
+        <option value="French">French</option>
+        <option value="German">German</option>
+        <option value="Spanish">Spanish</option>
+        <option value="Portuguese">Portuguese</option>
+        <option value="Cantonese">Cantonese</option>
+        <option value="Japanese">Japanese</option>
+      </select>
+    </div>
+
+    <!-- Top words -->
+    <div class="phoneme-section-title">Most searched words (Top 20)</div>
+    <div id="topWordsList" style="font-size:14px; line-height:1.6; margin-bottom:18px;"></div>
+
+    <!-- Monthly cumulative -->
+    <div class="phoneme-section-title">Monthly totals (last 6 months)</div>
+    <div id="monthlyList" style="font-size:13px; line-height:1.7; margin-bottom:18px;"></div>
+
+    <!-- Manual word lookup + trend -->
+    <div class="phoneme-section-title">Look up a specific word</div>
+    <div style="display:flex; gap:8px; margin-bottom:10px; flex-wrap:wrap;">
+      <input type="text" id="wordLookupInput" class="bookmark-search-input" placeholder="Type a word…" style="max-width:220px;">
+      <button class="btn-action" onclick="lookupWordStats()">Show stats</button>
+    </div>
+    <div id="wordLookupResult" style="font-size:13px; line-height:1.6; margin-bottom:18px;"></div>
+
+    <!-- Polls -->
+    <div class="phoneme-section-title">Community Polls</div>
+    <div id="pollsContainer" style="font-size:13px; line-height:1.5;"></div>
+
+    <!-- Feedback -->
+    <div class="phoneme-section-title" style="margin-top:20px;">Feedback</div>
+    <div style="font-size:13px; color:var(--text-muted); margin-bottom:8px;">
+      Public comments have been disabled for privacy. Please use GitHub Issues for feedback or suggestions.
+    </div>
+    <a class="btn-action" href="https://github.com/issues" target="_blank" rel="noopener" style="text-decoration:none; display:inline-block;">
+      Open GitHub Issues
+    </a>
+  </div>
+
   <!-- Reference Guide Card -->
   <div class="reference-card">
     <h3 id="refTitle">Phoneme Reference Guide</h3>
@@ -380,7 +437,353 @@
 <div id="toast" class="toast">Bookmark updated</div>
 
 <script>
+
   /* ==========================================================================
+     FIREBASE GLOBAL CLOUD STATS (Expanded)
+     ========================================================================== */
+  const firebaseConfig = {
+    apiKey: "AIzaSyDyeCWhFbSo2tMw0XPQJgvNSy0Go7gg3V8",
+    authDomain: "pronunciation-tts.firebaseapp.com",
+    databaseURL: "https://pronunciation-tts-default-rtdb.firebaseio.com",
+    projectId: "pronunciation-tts",
+    storageBucket: "pronunciation-tts.firebasestorage.app",
+    messagingSenderId: "739234127446",
+    appId: "1:739234127446:web:40d903cd300d6a3c9925f7",
+    measurementId: "G-LY20S1WD12"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.database();
+  const statsRef = db.ref('searchStats');
+  const pollsRef = db.ref('polls');
+
+  let searchStats = { totalQueries: 0, words: {}, byLanguage: {}, monthly: {} };
+  let pollsData = {};
+
+  // Demo words that should NEVER be counted
+  const DEMO_WORDS = new Set([
+    'hello', 'hola', 'bonjour', 'hallo', 'olá', '你好', 'こんにちわ'
+  ]);
+
+  function getMonthKey(d = new Date()) {
+    return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0');
+  }
+
+  // Real-time listeners
+  statsRef.on('value', (snapshot) => {
+    searchStats = snapshot.val() || { totalQueries: 0, words: {}, byLanguage: {}, monthly: {} };
+    renderSearchStats();
+  });
+
+  pollsRef.on('value', (snapshot) => {
+    pollsData = snapshot.val() || {};
+    renderPolls();
+  });
+
+
+  function recordGlobalSearch(word, region) {
+    const clean = (word || '').trim().toLowerCase();
+    if (!clean || DEMO_WORDS.has(clean)) return;
+
+    const key = clean + '|' + region;
+    const month = getMonthKey();
+
+    statsRef.child('totalQueries').transaction(c => (c || 0) + 1);
+    statsRef.child('words').child(key).transaction(c => (c || 0) + 1);
+    statsRef.child('byLanguage').child(region).transaction(c => (c || 0) + 1);
+    statsRef.child('monthly').child(month).child('total').transaction(c => (c || 0) + 1);
+    statsRef.child('monthly').child(month).child('byLanguage').child(region).transaction(c => (c || 0) + 1);
+  }
+
+  function renderSearchStats() {
+    const totalEl = document.getElementById('totalQueriesDisplay');
+    const listEl = document.getElementById('topWordsList');
+    const langEl = document.getElementById('langBreakdown');
+    const monthlyEl = document.getElementById('monthlyList');
+    const changeBadge = document.getElementById('monthChangeBadge');
+    const filter = (document.getElementById('statsLangFilter') || {}).value || 'ALL';
+
+    if (!totalEl || !listEl || !langEl) return;
+
+    const total = searchStats.totalQueries || 0;
+    totalEl.textContent = total;
+
+    // Language percentages
+    const langs = searchStats.byLanguage || {};
+    const order = ['US','UK','French','German','Spanish','Portuguese','Cantonese','Japanese'];
+    let langHtml = '';
+    order.forEach(l => {
+      const n = langs[l] || 0;
+      const pct = total > 0 ? ((n / total) * 100).toFixed(1) : '0.0';
+      langHtml += `<span style="margin-right:12px;">${l}: <strong>${n}</strong> (${pct}%)</span>`;
+    });
+    langEl.innerHTML = langHtml || 'No data yet';
+
+    // Monthly change badge
+    const monthly = searchStats.monthly || {};
+    const thisMonth = getMonthKey();
+    const prev = new Date(); prev.setMonth(prev.getMonth() - 1);
+    const lastMonth = getMonthKey(prev);
+    const thisVal = (monthly[thisMonth] && monthly[thisMonth].total) || 0;
+    const lastVal = (monthly[lastMonth] && monthly[lastMonth].total) || 0;
+    if (changeBadge) {
+      if (lastVal === 0) {
+        changeBadge.innerHTML = thisVal > 0 ? '<span style="color:#0b8043;">(+new)</span>' : '';
+      } else {
+        const pct = ((thisVal - lastVal) / lastVal * 100).toFixed(1);
+        const sign = pct >= 0 ? '+' : '';
+        const color = pct >= 0 ? '#0b8043' : '#d93025';
+        changeBadge.innerHTML = `<span style="color:${color};">(${sign}${pct}% vs last month)</span>`;
+      }
+    }
+
+    // Top words (with optional language filter)
+    let entries = Object.entries(searchStats.words || {})
+      .map(([key, count]) => {
+        const [word, region] = key.split('|');
+        return { word, region, count };
+      });
+
+    if (filter !== 'ALL') {
+      entries = entries.filter(e => e.region === filter);
+    }
+
+    entries = entries.sort((a, b) => b.count - a.count).slice(0, 20);
+
+    listEl.innerHTML = '';
+    if (entries.length === 0) {
+      listEl.innerHTML = '<div style="color:var(--text-muted)">No searches recorded yet.</div>';
+    } else {
+      entries.forEach((e, i) => {
+        const row = document.createElement('div');
+        row.style.display = 'flex';
+        row.style.justifyContent = 'space-between';
+        row.style.padding = '3px 0';
+        row.innerHTML = `
+          <span>${i + 1}. <strong>${e.word}</strong>
+            <span style="color:var(--text-muted);font-size:12px;">(${e.region})</span>
+          </span>
+          <span style="font-weight:600;">${e.count}</span>`;
+        listEl.appendChild(row);
+      });
+    }
+
+    // Monthly list (last 6 months)
+    if (monthlyEl) {
+      const months = Object.keys(monthly).sort().reverse().slice(0, 6);
+      if (months.length === 0) {
+        monthlyEl.innerHTML = '<div style="color:var(--text-muted)">No monthly data yet.</div>';
+      } else {
+        monthlyEl.innerHTML = months.map(m => {
+          const t = monthly[m].total || 0;
+          return `<div><strong>${m}</strong>: ${t} queries</div>`;
+        }).join('');
+      }
+    }
+  }
+
+  function lookupWordStats() {
+    const input = document.getElementById('wordLookupInput');
+    const result = document.getElementById('wordLookupResult');
+    if (!input || !result) return;
+
+    const q = input.value.trim().toLowerCase();
+    if (!q) {
+      result.innerHTML = '<span style="color:var(--text-muted)">Type a word first.</span>';
+      return;
+    }
+
+    const matches = Object.entries(searchStats.words || {})
+      .filter(([key]) => key.startsWith(q + '|'))
+      .map(([key, count]) => {
+        const region = key.split('|')[1];
+        return { region, count };
+      })
+      .sort((a, b) => b.count - a.count);
+
+    if (matches.length === 0) {
+      result.innerHTML = `<div>No recorded searches for “<strong>${q}</strong>” yet.</div>`;
+      return;
+    }
+
+    const totalForWord = matches.reduce((s, m) => s + m.count, 0);
+    let html = `<div style="margin-bottom:6px;"><strong>${q}</strong> — total <strong>${totalForWord}</strong> searches</div>`;
+    matches.forEach(m => {
+      html += `<div>${m.region}: <strong>${m.count}</strong></div>`;
+    });
+    result.innerHTML = html;
+  }
+
+  /* ---------- Polls ---------- */
+  const POLL_DEFINITIONS = {
+    en1: {
+      lang: 'English',
+      question: 'How do you pronounce the word "happy"?',
+      options: {
+        a: 'It ends with a long "ee" sound',
+        b: 'It ends with a short "i" sound',
+        c: 'Both',
+        d: "I don't know",
+        e: 'Others (Please mention)'
+      }
+    },
+    en2: {
+      lang: 'English',
+      question: 'Does your vowel in the word "cup" share the same acoustic quality with the unstressed vowel in the word "about"?',
+      options: {
+        a: 'Yes, they are merged to "ə" (London: /ˈlən.dən/)',
+        b: 'Yes, they are merged to "ɐ" like in the German word "Mutter"',
+        c: 'No, they are pronounced differently.',
+        d: 'Mixed',
+        e: "I don't know",
+        f: 'Others (Please mention)'
+      }
+    },
+    fr1: {
+      lang: 'French',
+      question: 'Do you pronounce the word brin /bʁɛ̃/ identical to brun /bʁœ̃/?',
+      options: {
+        a: 'Yes, because of the merger.',
+        b: 'No, they are distinct.',
+        c: 'Mixed',
+        d: "I don't know",
+        e: 'Others (please mention)'
+      }
+    },
+    fr2: {
+      lang: 'French',
+      question: 'How do you pronounce the "guttural r" sound in the word "rouge"?',
+      options: {
+        a: 'Voiced uvular fricative ʁ (like German "rot")',
+        b: 'Voiceless uvular fricative χ',
+        c: 'Voiced velar fricative ɣ',
+        d: 'Voiceless velar fricative x (like "loch")',
+        e: 'Alveolar tap ɾ',
+        f: 'Alveolar trill r',
+        g: 'Mixed',
+        h: "I don't know",
+        i: 'Others (please mention)'
+      }
+    },
+    es1: {
+      lang: 'Spanish',
+      question: 'How do you pronounce the word "perro"?',
+      options: {
+        a: 'Completely merged with "pero"',
+        b: 'Alveolar trill [r]',
+        c: 'Voiced post-alveolar friction [ʒ]',
+        d: 'Approximant [ɹ]',
+        e: 'Mixed',
+        f: "I don't know",
+        g: 'Others (please mention)'
+      }
+    },
+    es2: {
+      lang: 'Spanish',
+      question: 'Do you pronounce the "ll" in "lluvia" the same as the "y" in the word "yo"?',
+      options: {
+        a: 'Yes',
+        b: 'No',
+        c: 'Both',
+        d: "I don't know",
+        e: 'Others'
+      }
+    }
+  };
+
+  function getVotedPolls() {
+    try {
+      return JSON.parse(localStorage.getItem('app_poll_votes') || '{}');
+    } catch (e) { return {}; }
+  }
+
+  function setVotedPoll(pollId, optionKey) {
+    const voted = getVotedPolls();
+    if (optionKey === null) {
+      delete voted[pollId];
+    } else {
+      voted[pollId] = optionKey;
+    }
+    localStorage.setItem('app_poll_votes', JSON.stringify(voted));
+  }
+
+  // Vote or change vote. If the same option is clicked again → cancel vote.
+  function votePoll(pollId, optionKey) {
+    const voted = getVotedPolls();
+    const previous = voted[pollId] || null;
+
+    // Clicking the same option again = cancel
+    if (previous === optionKey) {
+      pollsRef.child(pollId).child(optionKey).transaction(c => Math.max((c || 1) - 1, 0));
+      setVotedPoll(pollId, null);
+      renderPolls();
+      return;
+    }
+
+    // Changing from one option to another
+    if (previous) {
+      pollsRef.child(pollId).child(previous).transaction(c => Math.max((c || 1) - 1, 0));
+    }
+
+    // Add new vote
+    pollsRef.child(pollId).child(optionKey).transaction(c => (c || 0) + 1);
+    setVotedPoll(pollId, optionKey);
+    renderPolls();
+  }
+
+  function clearPollVote(pollId) {
+    const voted = getVotedPolls();
+    const previous = voted[pollId];
+    if (!previous) return;
+    pollsRef.child(pollId).child(previous).transaction(c => Math.max((c || 1) - 1, 0));
+    setVotedPoll(pollId, null);
+    renderPolls();
+  }
+
+  function renderPolls() {
+    const container = document.getElementById('pollsContainer');
+    if (!container) return;
+
+    const voted = getVotedPolls();
+    let html = '';
+
+    Object.entries(POLL_DEFINITIONS).forEach(([id, def]) => {
+      const votes = pollsData[id] || {};
+      const totalVotes = Object.values(votes).reduce((s, n) => s + (n || 0), 0);
+      const myChoice = voted[id] || null;
+
+      html += `<div style="border:1px solid var(--border); border-radius:10px; padding:12px; margin-bottom:12px;">
+        <div style="font-size:11px; color:var(--text-muted); font-weight:600; text-transform:uppercase;">${def.lang}</div>
+        <div style="font-weight:600; margin:4px 0 8px;">${def.question}</div>`;
+
+      Object.entries(def.options).forEach(([key, label]) => {
+        const count = votes[key] || 0;
+        const pct = totalVotes > 0 ? ((count / totalVotes) * 100).toFixed(0) : 0;
+        const isSelected = myChoice === key;
+
+        const btnStyle = isSelected
+          ? 'font-size:12px; padding:4px 10px; background:#1a73e8; color:#fff; border-color:#1a73e8;'
+          : 'font-size:12px; padding:4px 10px;';
+
+        html += `<div style="display:flex; justify-content:space-between; align-items:center; margin:3px 0; gap:8px;">
+          <button class="btn-action" style="${btnStyle}" onclick="votePoll('${id}','${key}')">${key}. ${label}</button>
+          <span style="font-size:12px; color:var(--text-muted); white-space:nowrap;">${count} (${pct}%)</span>
+        </div>`;
+      });
+
+      html += `<div style="font-size:11px; color:var(--text-muted); margin-top:6px; display:flex; justify-content:space-between; align-items:center;">
+        <span>Total votes: ${totalVotes}${myChoice ? ' · You voted: <strong>' + myChoice + '</strong>' : ''}</span>
+        ${myChoice ? `<button class="btn-action" style="font-size:11px; padding:2px 8px;" onclick="clearPollVote('${id}')">Clear my vote</button>` : ''}
+      </div></div>`;
+    });
+
+    container.innerHTML = html || '<div style="color:var(--text-muted)">No polls available.</div>';
+  }
+
+  /* ---------- Comments ---------- */
+
+
+    /* ==========================================================================
      LOCALIZATION / I18N DICTIONARY
      ========================================================================== */
   const translations = {
@@ -392,11 +795,10 @@
       ukRegion: "UK English",
       frRegion: "French",
       deRegion: "German",
+      esRegion: "Spanish",
+      ptRegion: "Portuguese",
       yueRegion: "Cantonese",
       jaRegion: "Japanese",
-      jaAccent: "Japanese Pronunciation",
-      ptRegion: "Portuguese",
-      ptAccent: "Portuguese (Brazil) Pronunciation",
       interfaceLang: "Interface:",
       bookmarks: "Bookmarks",
       savedBookmarks: "Saved Bookmarks",
@@ -409,13 +811,10 @@
       ukAccent: "UK English Pronunciation",
       frAccent: "French Pronunciation",
       deAccent: "German Pronunciation",
-      yueAccent: "Cantonese Pronunciation",
-      jaRegion: "Japanese",
-      jaAccent: "Japanese Pronunciation",
-      ptRegion: "Portuguese",
-      ptAccent: "Portuguese (Brazil) Pronunciation",
       esAccent: "Spanish Pronunciation",
-      esRegion: "Spanish",
+      ptAccent: "Portuguese Pronunciation",
+      yueAccent: "Cantonese Pronunciation",
+      jaAccent: "Japanese Pronunciation",
       phoneticTranscription: "Phonetic Transcription",
       fetchingDicts: "Fetching dictionaries...",
       capNote: "* Capitalized syllables indicate primary stress.",
@@ -447,11 +846,10 @@
       ukRegion: "UK English",
       frRegion: "French",
       deRegion: "German",
+      esRegion: "Spanish",
+      ptRegion: "Portuguese",
       yueRegion: "Cantonese",
       jaRegion: "Japanese",
-      jaAccent: "Japanese Pronunciation",
-      ptRegion: "Portuguese",
-      ptAccent: "Portuguese (Brazil) Pronunciation",
       interfaceLang: "Interface:",
       bookmarks: "Bookmarks",
       savedBookmarks: "Saved Bookmarks",
@@ -464,7 +862,10 @@
       ukAccent: "UK English Pronunciation",
       frAccent: "French Pronunciation",
       deAccent: "German Pronunciation",
+      esAccent: "Spanish Pronunciation",
+      ptAccent: "Portuguese Pronunciation",
       yueAccent: "Cantonese Pronunciation",
+      jaAccent: "Japanese Pronunciation",
       phoneticTranscription: "Phonetic Transcription",
       fetchingDicts: "Fetching dictionaries...",
       capNote: "* Capitalised syllables indicate primary stress.",
@@ -496,7 +897,10 @@
       ukRegion: "UK-Englisch",
       frRegion: "Französisch",
       deRegion: "Deutsch",
+      esRegion: "Spanisch",
+      ptRegion: "Portugiesisch",
       yueRegion: "Kantonales Chinesisch",
+      jaRegion: "Japanisch",
       interfaceLang: "Sprache:",
       bookmarks: "Lesezeichen",
       savedBookmarks: "Gespeicherte Lesezeichen",
@@ -509,7 +913,10 @@
       ukAccent: "UK-englische Aussprache",
       frAccent: "Französische Aussprache",
       deAccent: "Deutsche Aussprache",
+      esAccent: "Spanische Aussprache",
+      ptAccent: "Portugiesische Aussprache",
       yueAccent: "Kantonale Aussprache",
+      jaAccent: "Japanische Aussprache",
       phoneticTranscription: "Phonetische Transkription",
       fetchingDicts: "Wörterbücher werden geladen...",
       capNote: "* Großgeschriebene Silben heben die Hauptbetonung hervor.",
@@ -541,7 +948,10 @@
       ukRegion: "Anglais UK",
       frRegion: "Français",
       deRegion: "Allemand",
+      esRegion: "Espagnol",
+      ptRegion: "Portugais",
       yueRegion: "Cantonais",
+      jaRegion: "Japonais",
       interfaceLang: "Interface :",
       bookmarks: "Signets",
       savedBookmarks: "Signets enregistrés",
@@ -554,7 +964,10 @@
       ukAccent: "Prononciation Anglais UK",
       frAccent: "Prononciation Française",
       deAccent: "Prononciation Allemande",
+      esAccent: "Prononciation Espagnole",
+      ptAccent: "Prononciation Portugaise",
       yueAccent: "Prononciation Cantonaise",
+      jaAccent: "Prononciation Japonaise",
       phoneticTranscription: "Transcription phonétique",
       fetchingDicts: "Chargement des dictionnaires...",
       capNote: "* Les syllabes en majuscules indiquent l'accent tonique principal.",
@@ -578,6 +991,108 @@
       tones: "Tons",
       note: "Note"
     },
+    ES: {
+      searchPlaceholder: "Escribe una palabra y presiona Enter…",
+      loadingDatasets: "Cargando diccionarios...",
+      errorLoading: "Error al cargar los datos.",
+      usRegion: "Inglés EE.UU.",
+      ukRegion: "Inglés R.U.",
+      frRegion: "Francés",
+      deRegion: "Alemán",
+      esRegion: "Español",
+      ptRegion: "Portugués",
+      yueRegion: "Cantonés",
+      jaRegion: "Japonés",
+      interfaceLang: "Interfaz:",
+      bookmarks: "Marcadores",
+      savedBookmarks: "Marcadores guardados",
+      searchBookmarks: "Buscar marcadores...",
+      exportJSON: "Exportar JSON",
+      importJSON: "Importar JSON",
+      clearAll: "Borrar todo",
+      noBookmarks: "Aún no hay marcadores guardados.",
+      usAccent: "Pronunciación en Inglés EE.UU.",
+      ukAccent: "Pronunciación en Inglés R.U.",
+      frAccent: "Pronunciación en Francés",
+      deAccent: "Pronunciación en Alemán",
+      esAccent: "Pronunciación en Español",
+      ptAccent: "Pronunciación en Portugués",
+      yueAccent: "Pronunciación en Cantonés",
+      jaAccent: "Pronunciación en Japonés",
+      phoneticTranscription: "Transcripción fonética",
+      fetchingDicts: "Cargando diccionarios...",
+      capNote: "* Las sílabas en mayúsculas indican el acento principal.",
+      altPron: "Pronunciaciones alternativas",
+      slowSpeed: "Velocidad lenta",
+      wordNotFound: "Palabra no encontrada",
+      showingResultsFor: "Mostrando resultados para",
+      refGuideTitle: "Guía de referencia fonética",
+      confirmClearAll: "¿Estás seguro de que deseas eliminar todos los marcadores?",
+      bookmarkAdded: "Añadido a los marcadores",
+      bookmarkRemoved: "Eliminado de los marcadores",
+      importSuccess: "¡Marcadores importados con éxito!",
+      invalidJSON: "Formato JSON no válido para marcadores.",
+      ipa: "AFI",
+      respelling: "Ortografía fonética",
+      example: "Ejemplo",
+      vowels: "Vocales",
+      consonants: "Consonantes",
+      initials: "Iniciales",
+      finals: "Finales / Vocales",
+      tones: "Tonos",
+      note: "Nota"
+    },
+    PT: {
+      searchPlaceholder: "Digite uma palavra e pressione Enter…",
+      loadingDatasets: "Carregando dicionários...",
+      errorLoading: "Erro ao carregar os dados.",
+      usRegion: "Inglês EUA",
+      ukRegion: "Inglês RU",
+      frRegion: "Francês",
+      deRegion: "Alemão",
+      esRegion: "Espanhol",
+      ptRegion: "Português",
+      yueRegion: "Cantonês",
+      jaRegion: "Japonês",
+      interfaceLang: "Interface:",
+      bookmarks: "Favoritos",
+      savedBookmarks: "Favoritos Salvos",
+      searchBookmarks: "Pesquisar favoritos...",
+      exportJSON: "Exportar JSON",
+      importJSON: "Importar JSON",
+      clearAll: "Limpar Tudo",
+      noBookmarks: "Nenhum favorito salvo ainda.",
+      usAccent: "Pronúncia em Inglês EUA",
+      ukAccent: "Pronúncia em Inglês RU",
+      frAccent: "Pronúncia em Francês",
+      deAccent: "Pronúncia em Alemão",
+      esAccent: "Pronúncia em Espanhol",
+      ptAccent: "Pronúncia em Português",
+      yueAccent: "Pronúncia em Cantonês",
+      jaAccent: "Pronúncia em Japonês",
+      phoneticTranscription: "Transcrição Fonética",
+      fetchingDicts: "Carregando dicionários...",
+      capNote: "* Sílabas em maiúsculas indicam tonicidade principal.",
+      altPron: "Pronúncias Alternativas",
+      slowSpeed: "Velocidade lenta",
+      wordNotFound: "Palavra não encontrada",
+      showingResultsFor: "Exibindo resultados para",
+      refGuideTitle: "Guia de Referência Fonética",
+      confirmClearAll: "Tem certeza de que deseja remover todos os favoritos?",
+      bookmarkAdded: "Adicionado aos favoritos",
+      bookmarkRemoved: "Removido dos favoritos",
+      importSuccess: "Favoritos importados com sucesso!",
+      invalidJSON: "Formato JSON inválido para favoritos.",
+      ipa: "EFI",
+      respelling: "Reescrita",
+      example: "Exemplo",
+      vowels: "Vogais",
+      consonants: "Consoantes",
+      initials: "Iniciais",
+      finals: "Finais / Vogais",
+      tones: "Tons",
+      note: "Nota"
+    },
     YUE: {
       searchPlaceholder: "輸入單詞/字詞，然後按 Enter…",
       loadingDatasets: "正在載入詞典數據...",
@@ -586,7 +1101,10 @@
       ukRegion: "英式英語",
       frRegion: "法語",
       deRegion: "德語",
+      esRegion: "西班牙語",
+      ptRegion: "葡萄牙語",
       yueRegion: "粵語 (廣東話)",
+      jaRegion: "日語",
       interfaceLang: "介面語言：",
       bookmarks: "書籤",
       savedBookmarks: "已儲存的書籤",
@@ -599,7 +1117,10 @@
       ukAccent: "英式英語發音",
       frAccent: "法語發音",
       deAccent: "德語發音",
+      esAccent: "西班牙語發音",
+      ptAccent: "葡萄牙語發音",
       yueAccent: "粵語廣東話發音",
+      jaAccent: "日語發音",
       phoneticTranscription: "語音標記",
       fetchingDicts: "正在讀取發音詞典...",
       capNote: "* 大寫音節表示主重音。",
@@ -622,6 +1143,57 @@
       finals: "韻母 (Finals)",
       tones: "聲調 (Tones)",
       note: "說明"
+    },
+    JA: {
+      searchPlaceholder: "単語を入力してEnterを押してください…",
+      loadingDatasets: "辞書データを読み込み中...",
+      errorLoading: "データの読み込みに失敗しました。",
+      usRegion: "米国英語",
+      ukRegion: "英国英語",
+      frRegion: "フランス語",
+      deRegion: "ドイツ語",
+      esRegion: "スペイン語",
+      ptRegion: "ポルトガル語",
+      yueRegion: "広東語",
+      jaRegion: "日本語",
+      interfaceLang: "言語:",
+      bookmarks: "ブックマーク",
+      savedBookmarks: "保存されたブックマーク",
+      searchBookmarks: "ブックマークを検索...",
+      exportJSON: "JSON出力",
+      importJSON: "JSON入力",
+      clearAll: "すべて削除",
+      noBookmarks: "ブックマークはまだありません。",
+      usAccent: "米国英語の発音",
+      ukAccent: "英国英語の発音",
+      frAccent: "フランス語の発音",
+      deAccent: "ドイツ語の発音",
+      esAccent: "スペイン語の発音",
+      ptAccent: "ポルトガル語の発音",
+      yueAccent: "広東語の発音",
+      jaAccent: "日本語の発音",
+      phoneticTranscription: "発音記号",
+      fetchingDicts: "辞書を取得中...",
+      capNote: "* 大文字の音節は第一アクセントを示します。",
+      altPron: "その他の発音",
+      slowSpeed: "低速再生",
+      wordNotFound: "単語が見つかりません",
+      showingResultsFor: "検索結果を表示中:",
+      refGuideTitle: "音素リファレンスガイド",
+      confirmClearAll: "すべてのブックマークを削除してもよろしいですか？",
+      bookmarkAdded: "ブックマークに追加しました",
+      bookmarkRemoved: "ブックマークから削除しました",
+      importSuccess: "ブックマークを正常に読み込みました！",
+      invalidJSON: "無効なJSONフォーマットです。",
+      ipa: "IPA",
+      respelling: "発音表記",
+      example: "例",
+      vowels: "母音",
+      consonants: "子音",
+      initials: "頭子音",
+      finals: "母音 / 韻尾",
+      tones: "声調",
+      note: "注釈"
     }
   };
 
@@ -791,7 +1363,6 @@
       try {
         const imported = JSON.parse(e.target.result);
         if (Array.isArray(imported)) {
-          // Merge avoiding exact word+region duplicates
           imported.forEach(item => {
             if (item.word && item.region && !bookmarks.some(b => b.word.toLowerCase() === item.word.toLowerCase() && b.region === item.region)) {
               bookmarks.push(item);
@@ -809,13 +1380,22 @@
       }
     };
     reader.readAsText(file);
-    event.target.value = ''; // reset
+    event.target.value = '';
   }
 
   /* ==========================================================================
      DICTIONARIES & SPEECH ENGINE
      ========================================================================== */
-  const dictionaries = { US: new Map(), UK: new Map(), French: new Map(), German: new Map(), Spanish: new Map(), Cantonese: new Map(), Japanese: new Map(), Portuguese: new Map() };
+  const dictionaries = {
+    US: new Map(),
+    UK: new Map(),
+    French: new Map(),
+    German: new Map(),
+    Spanish: new Map(),
+    Portuguese: new Map(),
+    Cantonese: new Map(),
+    Japanese: new Map()
+  };
   let currentRegion = 'US';
   let currentTokens = [];
 
@@ -831,11 +1411,12 @@
     document.getElementById('btnUK').textContent = t.ukRegion;
     document.getElementById('btnFR').textContent = t.frRegion;
     document.getElementById('btnDE').textContent = t.deRegion;
+    document.getElementById('btnES').textContent = t.esRegion || 'Spanish';
+    const btnPT = document.getElementById('btnPT');
+    if (btnPT) btnPT.textContent = t.ptRegion || 'Portuguese';
     document.getElementById('btnYUE').textContent = t.yueRegion;
     const btnJA = document.getElementById('btnJA');
     if (btnJA) btnJA.textContent = t.jaRegion || 'Japanese';
-    const btnPT = document.getElementById('btnPT');
-    if (btnPT) btnPT.textContent = t.ptRegion || 'Portuguese';
     document.getElementById('uiLangLabel').textContent = t.interfaceLang;
     document.getElementById('bookmarksBtnLabel').textContent = t.bookmarks;
 
@@ -852,7 +1433,6 @@
     document.getElementById('btnImportBookmarks').textContent = t.importJSON;
     document.getElementById('btnClearBookmarks').textContent = t.clearAll;
 
-    // Update accent label
     updateAccentDisplayLabel();
     updateReferenceGuide();
     renderBookmarksList();
@@ -864,14 +1444,14 @@
     if (currentRegion === 'French') label.textContent = t.frAccent;
     else if (currentRegion === 'German') label.textContent = t.deAccent;
     else if (currentRegion === 'Spanish') label.textContent = t.esAccent || 'Spanish Pronunciation';
+    else if (currentRegion === 'Portuguese') label.textContent = t.ptAccent || 'Portuguese Pronunciation';
     else if (currentRegion === 'Cantonese') label.textContent = t.yueAccent;
     else if (currentRegion === 'Japanese') label.textContent = t.jaAccent || 'Japanese Pronunciation';
-    else if (currentRegion === 'Portuguese') label.textContent = t.ptAccent || 'Portuguese (Brazil) Pronunciation';
     else if (currentRegion === 'UK') label.textContent = t.ukAccent;
     else label.textContent = t.usAccent;
   }
 
-  /* ========== Phoneme Reference Generator with i18n Headers ========== */
+  /* ========== Phoneme Reference Generator ========== */
   function getPhonemeReferencesHTML(region) {
     const t = translations[currentUILang] || translations.US;
     const th = (a,b,c) => `<tr><th>${a}</th><th>${b}</th><th>${c}</th></tr>`;
@@ -1006,7 +1586,6 @@
         <table class="phoneme-table">
           ${th(t.respelling, t.ipa, t.example)}
           ${row('ee','/i/','si')}
-          ${row('ih','/ɪ/','loans / reduced')}
           ${row('ei','/e/','clé')}
           ${row('e','/ɛ/','baie')}
           ${row('a','/a/','patte')}
@@ -1018,13 +1597,10 @@
           ${row('öh','/ø/','peu')}
           ${row('ö','/œ/','sœur')}
           ${row('ə','/ə/','(e) caduc')}
-          ${row('ah(ng)','/ɑ̃/','blanc / sans')}
+          ${row('ah(ng)','/ɑ̃/','sans')}
           ${row('e(ng)','/ɛ̃/','vin')}
           ${row('o(ng)','/ɔ̃/','bon')}
-          ${row('uh(ng)','/œ̃/','un / brun')}
-          ${row('üee','/ɥi/','huit (one syllable)')}
-          ${row('igh','/aɪ/','loan')}
-          ${row('au','/aʊ/','loan')}
+          ${row('uh(ng)','/œ̃/','brun')}
         </table>
         <div class="phoneme-section-title">${t.consonants}</div>
         <table class="phoneme-table">
@@ -1049,14 +1625,8 @@
           ${row('zh','/ʒ/','jamais')}
           ${row('y','/j/','yeux')}
           ${row('w','/w/','oui')}
-          ${row('ü','/ɥ/','+ vowel → üee (not ẅ)')}
-          ${row('kh','/x/','jota / loch (loan)')}
+          ${row('ẅ','/ɥ/','huit')}
         </table>
-        <p style="font-size:13px;color:var(--text-muted);margin-top:8px;">
-          Hyphens = syllables. Stress and length marks are not written.
-          Glyphs match the Python tool (ee/oo/ei/ü/ah(ng)/…; ü+vowel = üee one syllable).
-          Dataset from export: STD fr_FR.txt first, then dict.txt for missing words only.
-        </p>
       `;
     } else if (region === 'German') {
       return `
@@ -1158,8 +1728,57 @@
           ${row('sh','/ʃ/','show (loan)')}
           ${row('t','/t/','tamiz')}
           ${row('th','/θ/','cera (N. Spain)')}
-          ${row('y','/ʎ/','lluvia')}
+          ${row('<em>ly</em>','/ʎ/','lluvia')}
           ${row('<em>y</em>','/ʝ/','ya')}
+        </table>
+      `;
+    } else if (region === 'Portuguese') {
+      return `
+        <div class="phoneme-section-title">${t.vowels}</div>
+        <table class="phoneme-table">
+          ${th(t.respelling, t.ipa, t.example)}
+          ${row('a','/a/','água')}
+          ${row('ə','/ə/ / /ɐ/','aqui')}
+          ${row('e','/ɛ/','ela')}
+          ${row('ē','/e/','elefante')}
+          ${row('i','/i/ / /ɪ/','ilha')}
+          ${row('o','/ɔ/','ora')}
+          ${row('ō','/o/','ortopedista')}
+          ${row('u','/u/ / /ʊ/','ufanista')}
+          ${row('aⁿ','/ɐ̃/','anta / ã')}
+          ${row('ēⁿ','/ẽ/','endorfina')}
+          ${row('iⁿ','/ĩ/','intacto')}
+          ${row('ōⁿ','/õ/','ontologia')}
+          ${row('uⁿ','/ũ/','uns')}
+          ${row('wⁿ','/ʊ̃/','nasal glide (e.g. ão → awⁿ)')}
+          ${row('yⁿ','/ỹ/','nasal glide')}
+        </table>
+        <div class="phoneme-section-title">${t.consonants}</div>
+        <table class="phoneme-table">
+          ${th(t.respelling, t.ipa, t.example)}
+          ${row('b','/b/','bola')}
+          ${row('d','/d/','dado')}
+          ${row('dʒ / j','/dʒ/','dia')}
+          ${row('f','/f/','fogo')}
+          ${row('g','/ɡ/','gato')}
+          ${row('gn','/ɲ/','ninho (nh)')}
+          ${row('k','/k/','casa')}
+          ${row('l','/l/','lado')}
+          ${row('<em>ly</em>','/ʎ/','filho (lh)')}
+          ${row('m','/m/','mão')}
+          ${row('n','/n/','nada')}
+          ${row('p','/p/','pato')}
+          ${row('r','/ɾ/','para')}
+          ${row('<em>r</em>','/x/ / /ʁ/','rio / carro')}
+          ${row('s','/s/','sol')}
+          ${row('sh / ʃ','/ʃ/','chá / caixas')}
+          ${row('t','/t/','tatu')}
+          ${row('ch','/tʃ/','tchau')}
+          ${row('v','/v/','vida')}
+          ${row('w','/w/ / /aw/','vocalized l (alto / web)')}
+          ${row('y','/j/','palatal glide (abitureiras)')}
+          ${row('z','/z/','zebra')}
+          ${row('zh','/ʒ/','jaca / gente')}
         </table>
       `;
     } else if (region === 'Cantonese') {
@@ -1271,62 +1890,10 @@
         </table>
       `;
     }
-    } else if (region === 'Portuguese') {
-      const th = (a,b,c) => `<tr><th>${a}</th><th>${b}</th><th>${c}</th></tr>`;
-      const row = (a,b,c) => `<tr><td>${a}</td><td>${b}</td><td>${c}</td></tr>`;
-      return `
-        <div class="phoneme-section-title">Portuguese (Brazil) vowels</div>
-        <table class="phoneme-table">
-          ${th('Glyph','IPA','Example')}
-          ${row('i','i ɪ','ilha')}
-          ${row('u','u ʊ','ufanista')}
-          ${row('a','a','água')}
-          ${row('e','ɛ','ela')}
-          ${row('ē','e','elefante')}
-          ${row('o','ɔ','ora')}
-          ${row('ō','o','ortopedista')}
-          ${row('ə','ə','aqui')}
-          ${row('aⁿ','ã','anta')}
-          ${row('ēⁿ','ẽ','endorfina')}
-          ${row('ōⁿ','õ','ontologia')}
-          ${row('iⁿ','ĩ','intacto')}
-          ${row('uⁿ','ũ','uns')}
-          ${row('awⁿ','ãʊ̃','not aⁿwⁿ')}
-          ${row('yⁿ','ỹ','nasal y')}
-        </table>
-        <div class="phoneme-section-title">Portuguese (Brazil) consonants</div>
-        <table class="phoneme-table">
-          ${th('Glyph','IPA','Example')}
-          ${row('t','t','')}
-          ${row('n','n','')}
-          ${row('r','ɾ','para')}
-          ${row('<em>r</em>','x / ʁ','strong R')}
-          ${row('zh','ʒ','jaca')}
-          ${row('l','l','')}
-          ${row('k','k','')}
-          ${row('w','w','')}
-          ${row('d','d','')}
-          ${row('gn','ɲ','')}
-          ${row('s','s','')}
-          ${row('p','p','')}
-          ${row('g','ɡ','')}
-          ${row('f','f','')}
-          ${row('z','z','')}
-          ${row('ch','tʃ','')}
-          ${row('y','j','y not j')}
-          ${row('b','b','')}
-          ${row('m','m','')}
-          ${row('v','v','')}
-          ${row('sh','ʃ','')}
-          ${row('dʒ','dʒ','')}
-          ${row('<em>ly</em>','ʎ','')}
-        </table>
-      `;
-
     return '';
   }
 
-function updateReferenceGuide() {
+  function updateReferenceGuide() {
     const title = document.getElementById('refTitle');
     const content = document.getElementById('refContent');
     const t = translations[currentUILang] || translations.US;
@@ -1341,9 +1908,9 @@ function updateReferenceGuide() {
     if (region === 'French') return t.frRegion;
     if (region === 'German') return t.deRegion;
     if (region === 'Spanish') return t.esRegion || 'Spanish';
+    if (region === 'Portuguese') return t.ptRegion || 'Portuguese';
     if (region === 'Cantonese') return t.yueRegion;
     if (region === 'Japanese') return t.jaRegion || 'Japanese';
-    if (region === 'Portuguese') return t.ptRegion || 'Portuguese';
     return t.usRegion;
   }
 
@@ -1353,18 +1920,25 @@ function updateReferenceGuide() {
     const voices = window.speechSynthesis.getVoices();
     voiceSelect.innerHTML = '';
     let targetLang = 'en-US';
-    let preferredKeyword = 'eddy';
-    if (currentRegion === 'UK') { targetLang = 'en-GB'; preferredKeyword = 'eddy'; }
-    else if (currentRegion === 'French') { targetLang = 'fr-FR'; preferredKeyword = 'amelie'; }
-    else if (currentRegion === 'German') { targetLang = 'de-DE'; preferredKeyword = 'marlene'; }
-    else if (currentRegion === 'Spanish') { targetLang = 'es-ES'; preferredKeyword = 'elena'; }
-    else if (currentRegion === 'Cantonese') { targetLang = 'zh-HK'; preferredKeyword = 'sinji'; }
-    else if (currentRegion === 'Japanese') { targetLang = 'ja-JP'; preferredKeyword = 'kyoko'; }
-    else if (currentRegion === 'Portuguese') { targetLang = 'pt-BR'; preferredKeyword = 'luciana'; }
-    const matchingVoices = voices.filter(v => v.lang.toLowerCase().startsWith(targetLang.substring(0, 2)));
+    let preferredKeywords = ['eddy'];
+    if (currentRegion === 'UK') { targetLang = 'en-GB'; preferredKeywords = ['eddy', 'daniel', 'serena']; }
+    else if (currentRegion === 'French') { targetLang = 'fr-FR'; preferredKeywords = ['amelie', 'thomas', 'audrey']; }
+    else if (currentRegion === 'German') { targetLang = 'de-DE'; preferredKeywords = ['marlene', 'vicki', 'hans']; }
+    else if (currentRegion === 'Spanish') { targetLang = 'es-ES'; preferredKeywords = ['elena', 'jorge', 'monica']; }
+    else if (currentRegion === 'Portuguese') { targetLang = 'pt-BR'; preferredKeywords = ['luciana', 'felipe', 'camilo', 'heloisa', 'fernanda']; }
+    else if (currentRegion === 'Cantonese') { targetLang = 'zh-HK'; preferredKeywords = ['sinji', 'hiuga', 'hiuma']; }
+    else if (currentRegion === 'Japanese') { targetLang = 'ja-JP'; preferredKeywords = ['kyoko', 'otoya', 'takumi']; }
+
+    const matchingVoices = voices.filter(v => v.lang.toLowerCase().replace('_', '-').startsWith(targetLang.toLowerCase().substring(0, 5)) || v.lang.toLowerCase().startsWith(targetLang.substring(0, 2)));
     const targetList = matchingVoices.length > 0 ? matchingVoices : voices;
-    let selectedVoice = targetList.find(v => v.name.toLowerCase().includes(preferredKeyword));
+    
+    let selectedVoice = null;
+    for (const kw of preferredKeywords) {
+      selectedVoice = targetList.find(v => v.name.toLowerCase().includes(kw));
+      if (selectedVoice) break;
+    }
     if (!selectedVoice && targetList.length > 0) selectedVoice = targetList[0];
+
     targetList.forEach((voice) => {
       const option = document.createElement('option');
       option.value = voice.name;
@@ -1384,18 +1958,19 @@ function updateReferenceGuide() {
     document.body.classList.remove('lang-yue', 'lang-ja');
     if (regionKey === 'Cantonese') document.body.classList.add('lang-yue');
     if (regionKey === 'Japanese') document.body.classList.add('lang-ja');
+    
     document.getElementById('btnUS').classList.toggle('active', regionKey === 'US');
     document.getElementById('btnUK').classList.toggle('active', regionKey === 'UK');
     document.getElementById('btnFR').classList.toggle('active', regionKey === 'French');
     document.getElementById('btnDE').classList.toggle('active', regionKey === 'German');
     const btnES = document.getElementById('btnES');
     if (btnES) btnES.classList.toggle('active', regionKey === 'Spanish');
+    const btnPT = document.getElementById('btnPT');
+    if (btnPT) btnPT.classList.toggle('active', regionKey === 'Portuguese');
     const btnY = document.getElementById('btnYUE');
     if (btnY) btnY.classList.toggle('active', regionKey === 'Cantonese');
     const btnJA = document.getElementById('btnJA');
     if (btnJA) btnJA.classList.toggle('active', regionKey === 'Japanese');
-    const btnPT = document.getElementById('btnPT');
-    if (btnPT) btnPT.classList.toggle('active', regionKey === 'Portuguese');
 
     const searchInput = document.getElementById('searchInput');
     if (regionKey === 'French') {
@@ -1404,12 +1979,12 @@ function updateReferenceGuide() {
       searchInput.value = 'hallo';
     } else if (regionKey === 'Spanish') {
       searchInput.value = 'hola';
+    } else if (regionKey === 'Portuguese') {
+      searchInput.value = 'olá';
     } else if (regionKey === 'Cantonese') {
       searchInput.value = '你好';
     } else if (regionKey === 'Japanese') {
-      searchInput.value = 'こんにちは';
-    } else if (regionKey === 'Portuguese') {
-      searchInput.value = 'olá';
+      searchInput.value = 'こんにちわ';
     } else {
       searchInput.value = 'hello';
     }
@@ -1442,15 +2017,11 @@ function updateReferenceGuide() {
   }
 
   async function loadTextFile(url) {
-    const ctrl = new AbortController();
-    const timer = setTimeout(() => ctrl.abort(), 2000);
     try {
-      const res = await fetch(url, { signal: ctrl.signal, cache: 'no-cache' });
-      clearTimeout(timer);
+      const res = await fetch(url);
       if (!res.ok) return null;
       return await res.text();
     } catch (e) {
-      clearTimeout(timer);
       return null;
     }
   }
@@ -1468,118 +2039,93 @@ function updateReferenceGuide() {
     return n;
   }
 
-  async function tryLoad(name) {
-    return (await loadTextFile(name)) || (await loadTextFile('./' + name));
-  }
-
-  function setLoadProgress(pct, detail) {
-    pct = Math.max(0, Math.min(100, Math.round(pct)));
-    const bar = document.getElementById('progressBar');
-    const label = document.getElementById('progressLabel');
-    const det = document.getElementById('progressDetail');
-    const status = document.getElementById('fileStatus');
-    const box = document.getElementById('progressContainer');
-    if (box) box.style.display = 'block';
-    if (bar) bar.style.width = pct + '%';
-    if (label) label.textContent = pct + '%';
-    if (det) det.textContent = detail || '';
-    if (status) status.textContent = detail ? (`Loading datasets… ${pct}% — ${detail}`) : (`Loading datasets… ${pct}%`);
-  }
-
   async function loadAllGitHubFiles() {
     const progressContainer = document.getElementById('progressContainer');
+    const progressBar = document.getElementById('progressBar');
     const fileStatus = document.getElementById('fileStatus');
-    setLoadProgress(2, 'starting');
-
-    const finish = () => {
-      setLoadProgress(100, 'done');
-      const msg = `Loaded (US: ${dictionaries.US.size}, UK: ${dictionaries.UK.size}, FR: ${dictionaries.French.size}, DE: ${dictionaries.German.size}, ES: ${dictionaries.Spanish.size}, Yue: ${dictionaries.Cantonese.size}, JA: ${dictionaries.Japanese.size}, PT: ${dictionaries.Portuguese.size})`;
-      setTimeout(() => {
-        if (progressContainer) progressContainer.style.display = 'none';
-        const total = dictionaries.US.size + dictionaries.UK.size + dictionaries.French.size +
-          dictionaries.German.size + dictionaries.Spanish.size + dictionaries.Cantonese.size +
-          dictionaries.Japanese.size + dictionaries.Portuguese.size;
-        if (total === 0 && (location.protocol || '').toLowerCase() === 'file:') {
-          fileStatus.textContent = 'No data (file://). Serve with: python -m http.server 8000';
-        } else {
-          fileStatus.textContent = msg;
-        }
-        document.getElementById('searchInput').disabled = false;
-        switchRegion('US');
-      }, 250);
-    };
+    progressContainer.style.display = 'block';
+    progressBar.style.width = '5%';
 
     try {
-      setLoadProgress(8, 'US');
-      let text = await tryLoad('all_respellings.txt');
+      // US
+      let text = await loadTextFile('all_respellings.txt') || await loadTextFile('./all_respellings.txt');
       ingestLines(text, dictionaries.US);
+      progressBar.style.width = '15%';
 
-      setLoadProgress(15, 'UK');
-      text = await tryLoad('all_uk_respellings.txt');
+      // UK
+      text = await loadTextFile('all_uk_respellings.txt') || await loadTextFile('./all_uk_respellings.txt');
       ingestLines(text, dictionaries.UK);
+      progressBar.style.width = '30%';
 
-      setLoadProgress(20, 'French');
-      for (let i = 1; i <= 5; i++) {
-        const name = 'all_fr_respellings_' + String(i).padStart(3, '0') + '.txt';
-        const chunk = await tryLoad(name);
-        if (!chunk) break;
-        ingestLines(chunk, dictionaries.French);
-        setLoadProgress(20 + i * 4, 'French ' + name);
+      // French
+      const frNames = [
+        'all_fr_respellings_001.txt',
+        'all_fr_respellings_002.txt',
+        'all_fr_respellings_003.txt',
+        'all_fr_respellings_004.txt',
+        'all_fr_respellings_005.txt',
+        'all_fr_respellings_006.txt',
+      ];
+      for (let i = 0; i < frNames.length; i++) {
+        let t = await loadTextFile(frNames[i]) || await loadTextFile('./' + frNames[i]);
+        ingestLines(t, dictionaries.French);
       }
+      progressBar.style.width = '45%';
 
-      setLoadProgress(40, 'German');
+      // German
       for (let i = 1; i <= 20; i++) {
-        const name = 'all_de_respellings_' + String(i).padStart(3, '0') + '.txt';
-        const chunk = await tryLoad(name);
-        if (!chunk) break;
-        ingestLines(chunk, dictionaries.German);
-        setLoadProgress(40 + i, 'German ' + name);
-        await new Promise(r => setTimeout(r, 0));
+        const padded = String(i).padStart(3, '0');
+        const name = 'all_de_respellings_' + padded + '.txt';
+        let t = await loadTextFile(name) || await loadTextFile('./' + name);
+        ingestLines(t, dictionaries.German);
       }
+      progressBar.style.width = '60%';
 
-      setLoadProgress(62, 'Spanish');
+      // Spanish
       for (let i = 1; i <= 20; i++) {
-        const name = 'all_es_respellings_' + String(i).padStart(3, '0') + '.txt';
-        const chunk = await tryLoad(name);
-        if (!chunk) break;
-        ingestLines(chunk, dictionaries.Spanish);
-        setLoadProgress(62 + Math.round(i * 0.6), 'Spanish ' + name);
-        await new Promise(r => setTimeout(r, 0));
+        const padded = String(i).padStart(3, '0');
+        const name = 'all_es_respellings_' + padded + '.txt';
+        let txt = await loadTextFile(name) || await loadTextFile('./' + name);
+        ingestLines(txt, dictionaries.Spanish);
+      }
+      progressBar.style.width = '75%';
+
+      // Portuguese (accepts all_pt_respellings_*.txt or all_pr_respellings_*.txt)
+      for (let i = 1; i <= 20; i++) {
+        const padded = String(i).padStart(3, '0');
+        const namePt = 'all_pt_respellings_' + padded + '.txt';
+        const namePr = 'all_pr_respellings_' + padded + '.txt';
+        let txtPt = await loadTextFile(namePt) || await loadTextFile('./' + namePt) ||
+                    await loadTextFile(namePr) || await loadTextFile('./' + namePr);
+        ingestLines(txtPt, dictionaries.Portuguese);
+      }
+      progressBar.style.width = '85%';
+
+      // Japanese
+      const jaNames = ['all_ja_respellings_001.txt', 'all_ja_respellings_002.txt', 'all_ja_respellings_003.txt', 'all_ja_respellings_004.txt', 'all_ja_respellings_005.txt'];
+      for (let i = 0; i < jaNames.length; i++) {
+        let tja = await loadTextFile(jaNames[i]) || await loadTextFile('./' + jaNames[i]);
+        ingestLines(tja, dictionaries.Japanese);
       }
 
-      setLoadProgress(78, 'Cantonese');
-      for (let i = 1; i <= 5; i++) {
-        const name = 'all_yue_respellings_' + String(i).padStart(3, '0') + '.txt';
-        const chunk = await tryLoad(name);
-        if (!chunk) break;
-        ingestLines(chunk, dictionaries.Cantonese);
-        setLoadProgress(78 + i, 'Cantonese ' + name);
+      // Cantonese
+      const yueNames = ['all_yue_respellings_001.txt', 'all_yue_respellings_002.txt'];
+      for (let i = 0; i < yueNames.length; i++) {
+        let t = await loadTextFile(yueNames[i]) || await loadTextFile('./' + yueNames[i]);
+        ingestLines(t, dictionaries.Cantonese);
       }
 
-      setLoadProgress(85, 'Japanese');
-      for (let i = 1; i <= 5; i++) {
-        const name = 'all_ja_respellings_' + String(i).padStart(3, '0') + '.txt';
-        const chunk = await tryLoad(name);
-        if (!chunk) break;
-        ingestLines(chunk, dictionaries.Japanese);
-        setLoadProgress(85 + i, 'Japanese ' + name);
-      }
+      progressBar.style.width = '100%';
 
-      setLoadProgress(92, 'Portuguese');
-      for (let i = 1; i <= 5; i++) {
-        const name = 'all_pt_respellings_' + String(i).padStart(3, '0') + '.txt';
-        const chunk = await tryLoad(name);
-        if (!chunk) break;
-        ingestLines(chunk, dictionaries.Portuguese);
-        setLoadProgress(92 + i, 'Portuguese ' + name);
-      }
-
-      finish();
+      setTimeout(() => {
+        progressContainer.style.display = 'none';
+        fileStatus.textContent = `Loaded (US: ${dictionaries.US.size}, UK: ${dictionaries.UK.size}, FR: ${dictionaries.French.size}, DE: ${dictionaries.German.size}, ES: ${dictionaries.Spanish.size}, PT: ${dictionaries.Portuguese.size}, Yue: ${dictionaries.Cantonese.size}, JA: ${dictionaries.Japanese.size})`;
+        document.getElementById('searchInput').disabled = false;
+        switchRegion('US');
+      }, 300);
     } catch (err) {
+      fileStatus.textContent = translations[currentUILang].errorLoading;
       console.error(err);
-      fileStatus.textContent = (translations[currentUILang] && translations[currentUILang].errorLoading) || 'Error loading';
-      if (progressContainer) progressContainer.style.display = 'none';
-      document.getElementById('searchInput').disabled = false;
     }
   }
 
@@ -1685,7 +2231,7 @@ function updateReferenceGuide() {
       return;
     }
     let chosenVariantIndex = 0;
-    if (currentRegion === 'German' && variants.length > 1) {
+    if ((currentRegion === 'German' || currentRegion === 'Portuguese') && variants.length > 1) {
       const hasConsonants = (str) => {
         const stripped = str
           .replace(/\[[^\]]+\]/g, '')
@@ -1706,10 +2252,9 @@ function updateReferenceGuide() {
     const primaryRaw = variants[chosenVariantIndex].normalize('NFC');
     const alternativeVariants = variants.filter((_, idx) => idx !== chosenVariantIndex);
 
-    /* No vowel pills for any language — plain text + weight for stress */
+    /* Plain inline text rendering with hyphens, ′ stress mark & italics for DE / ES / JA / PT */
     if (currentRegion === 'French' || currentRegion === 'Japanese' ||
-        currentRegion === 'German' || currentRegion === 'Spanish' ||
-        currentRegion === 'Portuguese') {
+        currentRegion === 'German' || currentRegion === 'Spanish' || currentRegion === 'Portuguese') {
       appendGermanRespelling(container, primaryRaw, true);
     } else if (currentRegion === 'Cantonese') {
       const syllables = primaryRaw.split(/\s+/).filter(Boolean);
@@ -1728,7 +2273,7 @@ function updateReferenceGuide() {
         currentTokens.push({ id: 'token-' + index, isVowel: true, content: syl });
       });
     } else {
-      /* US / UK English: CAPS = stress → font-weight 700, never pills */
+      /* US / UK English */
       const syllables = primaryRaw.split('-');
       syllables.forEach((syl, index) => {
         if (index > 0) {
@@ -1753,14 +2298,13 @@ function updateReferenceGuide() {
       alternativesBox.style.display = 'block';
       const title = document.createElement('div');
       title.className = 'alt-title';
-      title.textContent = t.alternatives || 'Alternatives';
+      title.textContent = t.altPron || 'Alternative Pronunciations';
       alternativesBox.appendChild(title);
       alternativeVariants.forEach((v) => {
         const row = document.createElement('div');
         row.style.marginTop = '6px';
         if (currentRegion === 'German' || currentRegion === 'Spanish' ||
-            currentRegion === 'Japanese' || currentRegion === 'French' ||
-            currentRegion === 'Portuguese') {
+            currentRegion === 'Japanese' || currentRegion === 'French' || currentRegion === 'Portuguese') {
           appendGermanRespelling(row, v, false);
         } else if (currentRegion === 'Cantonese') {
           const span = document.createElement('span');
@@ -1832,6 +2376,10 @@ function updateReferenceGuide() {
       document.getElementById('displayWord').textContent = match.word;
       renderRespelling(match.respelling);
       playBtn.style.display = 'flex';
+
+      // Global cloud stats (skips demo words automatically)
+      recordGlobalSearch(match.word, currentRegion);
+
       if (!match.exact) {
         didYouMean.style.display = 'block';
         didYouMean.innerHTML = `${t.showingResultsFor} <strong>${match.word}</strong>`;
@@ -1858,9 +2406,9 @@ function updateReferenceGuide() {
     if (currentRegion === 'French') utterance.lang = 'fr-FR';
     else if (currentRegion === 'German') utterance.lang = 'de-DE';
     else if (currentRegion === 'Spanish') utterance.lang = 'es-ES';
+    else if (currentRegion === 'Portuguese') utterance.lang = 'pt-BR';
     else if (currentRegion === 'Cantonese') utterance.lang = 'zh-HK';
     else if (currentRegion === 'Japanese') utterance.lang = 'ja-JP';
-    else if (currentRegion === 'Portuguese') utterance.lang = 'pt-BR';
     else if (currentRegion === 'UK') utterance.lang = 'en-GB';
     else utterance.lang = 'en-US';
 
@@ -1909,11 +2457,10 @@ function updateReferenceGuide() {
       .forEach(el => el.classList.remove('active'));
   }
 
-  // Initialize
+  // Initialize application
   changeUILanguage(currentUILang);
   saveBookmarksToStorage();
   loadAllGitHubFiles();
 </script>
 </body>
 </html>
- 
